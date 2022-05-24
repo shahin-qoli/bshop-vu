@@ -1,12 +1,12 @@
 <template>
   <div class="sf-header__navigation desktop" v-if="!isMobile">
     <SfHeaderNavigationItem
-      v-for="(category, index) in categories"
+      v-for="(category, index) in lights"
       :key="index"
       class="nav-item"
       v-e2e="`app-header-url_${category}`"
       :label="category"
-      :link="localePath(`/c/categories/${category}`)"
+      :link="localePath(`/c/lights/${category}`)"
     />
   </div>
   <SfModal v-else-if="isCategoryTreeOrMenuAvailable" :visible="isMobileMenuOpen">
@@ -42,7 +42,7 @@
   </SfModal>
   <SfModal v-else :visible="isMobileMenuOpen">
     <SfHeaderNavigationItem
-      v-for="(category, index) in categories"
+      v-for="(category, index) in lights"
       :key="index"
       class="nav-item"
       v-e2e="`app-header-url_${category}`"
@@ -51,7 +51,7 @@
         <SfMenuItem
           :label="category"
           class="sf-header-navigation-item__menu-item"
-          :link="localePath(`/c/categories/${category}`)"
+          :link="localePath(`/c/lights/${category}`)"
           @click.native="toggleMobileMenu"
         />
       </template>
@@ -85,7 +85,7 @@ export default {
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
     const { menu, loadMenu } = useMenus('header');
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
-    const categories = ['women', 'men'];
+    const lights = ['bulb', 'projector'];
     const isCategoryTreeOrMenuAvailable = computed(() => categoryTree.value?.items?.length > 0 || !menu.value.isDisabled);
     const { locale } = context.root.$i18n;
 
@@ -104,7 +104,7 @@ export default {
     return {
       isCategoryTreeOrMenuAvailable,
       categoryTree,
-      categories,
+      lights,
       isMobileMenuOpen,
       toggleMobileMenu,
       menu,
