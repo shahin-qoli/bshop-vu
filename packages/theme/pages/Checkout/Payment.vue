@@ -82,7 +82,7 @@
             {{ $t('Go back') }}
           </SfButton>
           <SfButton
-            :disabled="loading || !isPaymentReady || !terms"
+            :disabled="loading  || !terms"
             class="summary__action-button"
             @click="processOrder"
           >
@@ -111,6 +111,7 @@ import {
 import { onSSR, Logger } from '@vue-storefront/core';
 import { ref, computed, useRouter } from '@nuxtjs/composition-api';
 import { useMakeOrder, useCart, cartGetters, orderGetters } from '@vue-storefront/spree';
+import axios from 'axios';
 
 export default {
   name: 'ReviewOrder',
@@ -149,7 +150,17 @@ export default {
     const processOrder = async () => {
       const orderId = orderGetters.getId(cart.value);
       try {
-        await savePayment.value();
+             const cartId = cart.value._id;
+     const cartamount = cart.value.totalAmount;
+     debugger
+
+    const res2= await axios.get("http://bshop.burux.com/paymenturl/"+cartId+"/"+cartamount+"");
+    
+
+    window.open(res2.data.payment_url,"_self");
+    const CartNumber = cart.value.number
+
+        //await savePayment.value();
       } catch (e) {
         Logger.error(e);
         return;
@@ -160,7 +171,7 @@ export default {
         Logger.error(makeError.value.make);
         return;
       }
-      router.push(root.localePath(`/checkout/thank-you?order=${orderId}`));
+      //router.push(root.localePath(`/checkout/thank-you?order=${orderId}`));
     };
 
     return {

@@ -158,7 +158,7 @@
         </ValidationProvider>
         <ValidationProvider
           name="phone"
-          rules="required|digits:9"
+          rules="required|digits:11"
           v-slot="{ errors }"
           slim
         >
