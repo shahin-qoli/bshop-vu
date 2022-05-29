@@ -6,22 +6,17 @@
           <div class="product-nav-container">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb px-0">
-                <li class="breadcrumb-item">
-                  <a href="#">فروشگاه اینترنتی بروکس</a>
-                </li>
-                <li class="breadcrumb-item"><a href="#">کالای دیجیتال</a></li>
-                <li class="breadcrumb-item"><a href="#">موبایل</a></li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  گوشی موبایل
-                </li>
+                <SfBreadcrumbs
+                :breadcrumbs="breadcrumbs"
+                />
               </ol>
             </nav>
-            <div class="product-ext-links">
+            <!-- <div class="product-ext-links">
               <a href="#" class="product-ext-link"
                 >کالای خود را در دیجی‌استور بفروشید
                 <i class="mdi mdi-storefront"></i
               ></a>
-            </div>
+            </div> -->
           </div>
           <div class="col-lg-4 col-md-12 col-xs-12 pull-right">
             <Product-Gallery />
@@ -334,24 +329,28 @@
                           <li class="title-product-features">
                             ویژگی‌های محصول
                           </li>
-                          <li >
-                            <SfProperty
+                          <li v-for="(property, i) in properties"
+                                :key="i"
+                                :name="property.name"
+                                :value="property.value"
+                                class="sf-property--full-width product__property">
+                            <!-- <SfProperty
                                 v-for="(property, i) in properties"
                                 :key="i"
                                 :name="property.name"
                                 :value="property.value"
                                 class="sf-property--full-width product__property"
-                              >
+                              > -->
                                 <!-- <template v-if="property.name === 'Category'" #value>
                                     <SfButton class="product__property__button sf-button--text">
                                           {{ property.value }}
                                     </SfButton>
                                     </template> -->
-                            </SfProperty>
+                            <!-- </SfProperty> -->
                             
                               
-                            <!-- <span>{{properties.name}}: </span>
-                            <span>128 گیگابایت</span> -->
+                            <span>{{property.name}}: </span>
+                            <span>{{property.value}}</span>
                           </li>
                           <!-- <li>
                             <span>شبکه های ارتباطی: </span>
@@ -399,7 +398,7 @@
                             </a>
                           </li> -->
                         </ul>
-                        <div class="product-additional-info">
+                        <!-- <div class="product-additional-info">
                           <div class="product-additional-item">
                             <p>
                               هشدار سامانه همتا: حتما در زمان تحویل دستگاه، به
@@ -409,7 +408,7 @@
                               hmti.ir/05
                             </p>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -787,7 +786,7 @@
             <div class="box-tabs-main">
               <ul class="box-tabs">
                 <li class="box-tabs-tab active-tabs">
-                  <a href="#"> نقد و بررسی</a>
+                  <a href="#"> درباره محصول</a>
                 </li>
                 <li class="box-tabs-tab">
                   <a href="#"> مشخصات</a>
@@ -805,55 +804,25 @@
                 <div class="tab content-expert" style="display: block">
                   <article>
                     <h2 class="params-headline">
-                      نقد و بررسی اجمالی
+                      
                       <span
-                        >Xiaomi Redmi Note 10 M2101K7AG Dual SIM 128GB And 6GB
-                        RAM Mobile Phone</span
+                        >{{ productGetters.getName(product) }}</span
                       >
                     </h2>
                     <section class="content-expert-summary">
                       <div class="is-masked">
-                        <div class="mask-text-product-summary">
-                          <p>
-                            گوشی موبایل شیائومی مدل Redmi Note 10 دو سیم‌ کارت
-                            ظرفیت 128 گیگابایت با بدون فناوری NFC وارد بازار شده
-                            است. شیائومی در مارس 2021، نسل دهم از گوشی‌های Redmi
-                            Note خود را معرفی کرده است. گوشی « Redmi Note 10»
-                            مانند نسخه‌های قبلی این سری از گوشی‌های شیائومی از
-                            صفحه‌نمایش بزرگ، باتری پرقدرت، طراحی جذاب دوربین و
-                            سخت‌افزار مناسب برای اجرای بازی برخوردار است. هم با
-                            پنل IPS LCD ساخته‌شده و فاصله لبه صفحه‌نمایش در آن
-                            بسیار کم است. این نمایشگر 4.43 اینچی حدود 409 پیکسل
-                            را در هر اینچ جا داده است. بدنه و نمایشگر این محصول
-                            با استفاده از Corning Gorilla Glass 3 محافظت می‌شود
-                            تا گوشی در برابر خط ‌وخش ایمن باشد. ویژگی دیگر Redmi
-                            Note 10 مجهز شدن به حسگر اثرانگشت بر روی لبه کناری
-                            آن است. شیائومی برای این محصول خود از یک دوربین
-                            چهارگانه استفاده کرده است. لنزعریض 48 مگاپیکسلی، لنز
-                            فوق عریض 8 مگاپیکسلی، لنز ماکرو با کیفیت 2 مگاپیکسل
-                            و سنسور عمق 2 مگاپیکسلی مجموعه دوربین Redmi Note 10
-                            را تشکیل می‌دهد. یک دوربین سلفی 13 مگاپیکسلی هم در
-                            مرکز بالای نمایشگر این گوشی به کار گرفته شده است.
-                            ازنظر سخت‌افزاری هم این گوشی از تراشه Snapdragon 678
-                            بهره می‌برد که در آن پردازنده‌ای هشت‌هسته‌ا‌ی و
-                            قدرتمند قرارگرفته است. حافظه رم با ظرفیت 6 گیگابایت
-                            هم در کنار این مجموعه قرار گرفته است تا بتواند
-                            علاوه‌بر کارهای معمول، از قابلیت‌های جدید گوشی‌های
-                            امروزی پشتیبانی کند. باتری 5000 میلی‌آمپرساعتی با
-                            پشتیبانی از شارژ سریع 33 وات، درگاه ارتباطی USB
-                            Type-C 2.0 و جک 3.5 میلی‌متری صدا هم از دیگر مشخصات
-                            این محصول جدید است.
-                          </p>
+                        <div class="mask-text-product-summary active">
+                          <p v-html="productGetters.getDescription(product)" ></p>
                         </div>
-                        <a href="#" class="mask-handler">
+<!--                         <a href="#" class="mask-handler">
                           <span class="show-more">ادامه مطلب</span>
                           <span class="show-less">بستن</span>
-                        </a>
-                        <div class="shadow-box"></div>
+                        </a> -->
+                        <div class="shadow-box" style="display: none;"></div>
                       </div>
                     </section>
                   </article>
-                  <section class="content-expert-stats row">
+                  <!-- <section class="content-expert-stats row">
                     <div class="col-8 pull-right">
                       <div class="content-expert-stats-left">
                         <div class="content-expert-evaluation">
@@ -886,7 +855,7 @@
                         </div>
                       </div>
                     </div>
-                  </section>
+                  </section> -->
                 </div>
 
                 <div class="tab params" style="display: none">
@@ -894,20 +863,24 @@
                     <h2 class="params-headline">
                       مشخصات فنی
                       <span
-                        >Xiaomi Redmi Note 10 M2101K7AG Dual SIM 128GB And 6GB
-                        RAM Mobile Phone</span
+                        >{{ productGetters.getName(product) }}</span
                       >
                     </h2>
                     <section>
                       <h3 class="params-title">مشخصات کلی</h3>
                       <ul class="params-list">
-                        <li>
+                        <li  v-for="(property, i) in properties"
+                                :key="i"
+                                :name="property.name"
+                                :value="property.value"
+                                class="sf-property--full-width product__property">
+                          
                           <div
                             class="col-lg-3 col-md-3 col-xs-12 pull-right"
                             style="padding: 0"
                           >
                             <div class="params-list-key">
-                              <span class="block">ابعاد</span>
+                              <span class="block">{{property.name}}</span>
                             </div>
                           </div>
 
@@ -917,12 +890,12 @@
                           >
                             <div class="params-list-value">
                               <span class="block"
-                                >7.7 × 74.7 × 158.5 میلی‌متر</span
+                                >{{property.value}}</span
                               >
                             </div>
                           </div>
-                        </li>
-                        <li>
+                         </li>
+                        <!-- <li>
                           <div
                             class="col-lg-3 col-md-3 col-xs-12 pull-right"
                             style="padding: 0"
@@ -1048,10 +1021,10 @@
                               <span class="block">دو سیم کارت </span>
                             </div>
                           </div>
-                        </li>
+                        </li> -->
                       </ul>
                     </section>
-                    <section>
+                    <!-- <section>
                       <h3 class="params-title">پردازنده</h3>
                       <ul class="params-list">
                         <li>
@@ -1202,8 +1175,8 @@
                           </div>
                         </li>
                       </ul>
-                    </section>
-                    <section>
+                    </section> -->
+                    <!-- <section>
                       <h3 class="params-title">حافظه</h3>
                       <ul class="params-list">
                         <li>
@@ -1288,7 +1261,7 @@
                           </div>
                         </li>
                       </ul>
-                    </section>
+                    </section> -->
                   </article>
                 </div>
                 <div class="tab comments" style="display: none">
@@ -2765,7 +2738,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-xs-12 pull-left sticky-sidebar">
+          <!-- <div class="col-lg-3 col-md-3 col-xs-12 pull-left sticky-sidebar">
             <div class="mini-buy-box-fixed">
               <div class="mini-buy-box js-mini-buy-box">
                 <div class="mini-buy-box-product-info">
@@ -2842,7 +2815,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -3049,13 +3022,18 @@ export default {
     const properties = computed(() =>
       productGetters.getProperties(product.value)
     );
-    const valueproperties=properties.value;
-    debugger
+    const Description = computed (() =>
+      productGetters.getDescription(product)
+    );
+
+    
+    
     const breadcrumbs = computed(() =>
       productGetters
         .getBreadcrumbs(product.value)
         .map((e) => ({ ...e, link: context.localePath(e.link) }))
     );
+    
     const isInStock = computed(() => productGetters.getInStock(product.value));
     const productGallery = computed(() =>
       productGetters.getGallery(product.value)
