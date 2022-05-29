@@ -36,10 +36,27 @@ export default {
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700|Roboto:300,300i,400,400i,500,700&display=swap',
-        media: 'print',
-        onload: 'this.media=\'all\'',
-        once: true
+        href: '/css/font-awesome.min.css'
+      },
+      {
+        rel: 'stylesheet',
+        href: '/css/materialdesignicons.css'
+      },
+      {
+        rel: 'stylesheet',
+        href: '/css/materialdesignicons.css.map'
+      },
+      {
+        rel: 'stylesheet',
+        href: '/css/bootstrap.css'
+      },
+      {
+        rel: 'stylesheet',
+        href: '/css/owl.carousel.min.css'
+      },
+      {
+        rel: 'stylesheet',
+        href: '/css/style.css'
       }
     ]
   },
