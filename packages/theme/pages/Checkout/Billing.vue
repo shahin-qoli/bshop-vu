@@ -141,7 +141,7 @@
         </ValidationProvider>
         <ValidationProvider
           name="zipCode"
-          rules="required|min:2"
+          rules="required|digits:10"
           v-slot="{ errors }"
           slim
         >
