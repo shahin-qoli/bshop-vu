@@ -100,46 +100,32 @@ export default {
   ],
   i18n: {
     detectBrowserLanguage: false,
-    currency: 'USD',
-    country: 'US',
+    currency: 'IRR',
+    country: 'IR',
     strategy: 'prefix_except_default',
     langDir: 'lang/',
-    defaultLocale: 'en',
+    defaultLocale: 'fa',
     locales: [
+
       {
-        code: 'de',
-        iso: 'de-DE',
-        label: 'German',
-        file: 'de.js'
-      },
-      {
-        code: 'en',
-        iso: 'en-US',
-        label: 'English',
-        file: 'en.js'
+        code: 'fa',
+        label: 'farsi',
+        file: 'fa.js'
       }
     ],
     currencies: [
-      { name: 'USD', label: 'Dollar' }
+      { name: 'IRR', label: 'Rial' }
     ],
     vueI18n: {
       silentTranslationWarn: false,
-      fallbackLocale: 'en',
+      fallbackLocale: 'fa',
       numberFormats: {
-        de: {
+        fa: {
           currency: {
             style: 'currency',
-            currency: 'EUR',
+            currency: 'IRR',
             currencyDisplay: 'symbol',
-            currencyDefault: 'EUR'
-          }
-        },
-        en: {
-          currency: {
-            style: 'currency',
-            currency: 'USD',
-            currencyDisplay: 'symbol',
-            currencyDefault: 'USD'
+            currencyDefault: 'IRR'
           }
         }
       }

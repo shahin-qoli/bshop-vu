@@ -5,13 +5,7 @@
       class="sf-button sf-button--pure locale-selector__opener locale-selector__opener--locale locale-selector__opener--selected"
       @click="openLocaleSelector()"
     >
-      <img
-        :src="
-          `https://cdn.shopify.com/s/files/1/0407/1902/4288/files/${locale}_20x20.jpg`
-        "
-        width="20"
-        height="20"
-      />
+<img :src="`/icons/langs/${locale}.webp`" width="20" height="20"/>
     </SfButton>
     <SfBottomModal
       :is-open="isLocaleModalOpen"
@@ -31,14 +25,7 @@
                 <span class="container__label">{{ locale.label }}</span>
               </template>
               <template #icon>
-                <img
-                  :src="
-                    `https://cdn.shopify.com/s/files/1/0407/1902/4288/files/${locale.code}_20x20.jpg`
-                  "
-                  class="container__icon"
-                  width="20"
-                  height="20"
-                />
+                  <img :src="`/icons/langs/${lang.code}.webp`" width="20" height="20"/>
               </template>
             </SfCharacteristic>
           </nuxt-link>

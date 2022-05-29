@@ -1,5 +1,8 @@
+
+//import { VSF_SPREE_CURRENCY_COOKIE } from '@vue-storefront/spree-api';
 import { VSF_LOCALE_COOKIE } from '@vue-storefront/core';
-import { VSF_SPREE_CURRENCY_COOKIE } from '@vue-storefront/spree-api';
+const VSF_SPREE_CURRENCY_COOKIE = 'vsf-spree-currency';
+
 
 export default ({ app, $config }) => {
   const defaultCurrency = $config.theme.defaultCurrency || 'USD';
@@ -11,8 +14,9 @@ export default ({ app, $config }) => {
     app.$cookies.set(VSF_SPREE_CURRENCY_COOKIE, defaultCurrency);
   }
 
-  const currency = currencyCookie || defaultCurrency;
-  const locale = localeCookie || app.i18n.defaultLocale;
+  const currency = 'IRR' // currencyCookie || defaultCurrency;
+  const locale = 'fa' // localeCookie || app.i18n.defaultLocale;
+
 
   app.i18n.setNumberFormat(locale, {
     currency: {
@@ -26,4 +30,6 @@ export default ({ app, $config }) => {
   if (!localeCookie) {
     app.$cookies.set(VSF_LOCALE_COOKIE, locale);
   }
+  app.i18n.setLocale(locale);
+
 };
