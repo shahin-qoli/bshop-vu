@@ -42,10 +42,10 @@
                     </h2>
                     <div class="price">
                       <del
-                        ><span>{{ product.price.original }}<span>تومان</span></span></del
+                        ><span>{{ product.price.original }}<span>ریال</span></span></del
                       >
                       <ins
-                        ><span>{{ product.price.current }}<span>تومان</span></span></ins
+                        ><span>{{ product.price.current }}<span>ریال</span></span></ins
                       >
                     </div>
                   </div>

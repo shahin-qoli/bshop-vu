@@ -7,7 +7,7 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb px-0">
                 <li class="breadcrumb-item">
-                  <a href="#">فروشگاه اینترنتی دیجی استور</a>
+                  <a href="#">فروشگاه اینترنتی بروکس</a>
                 </li>
                 <li class="breadcrumb-item"><a href="#">کالای دیجیتال</a></li>
                 <li class="breadcrumb-item"><a href="#">موبایل</a></li>
@@ -334,11 +334,26 @@
                           <li class="title-product-features">
                             ویژگی‌های محصول
                           </li>
-                          <li>
-                            <span>حافظه داخلی: </span>
-                            <span>128 گیگابایت</span>
+                          <li >
+                            <SfProperty
+                                v-for="(property, i) in properties"
+                                :key="i"
+                                :name="property.name"
+                                :value="property.value"
+                                class="sf-property--full-width product__property"
+                              >
+                                <!-- <template v-if="property.name === 'Category'" #value>
+                                    <SfButton class="product__property__button sf-button--text">
+                                          {{ property.value }}
+                                    </SfButton>
+                                    </template> -->
+                            </SfProperty>
+                            
+                              
+                            <!-- <span>{{properties.name}}: </span>
+                            <span>128 گیگابایت</span> -->
                           </li>
-                          <li>
+                          <!-- <li>
                             <span>شبکه های ارتباطی: </span>
                             <span>2G،3G،4G</span>
                           </li>
@@ -382,7 +397,7 @@
                               <span class="show-more">موارد بیشتر</span>
                               <span class="show-less">بستن</span>
                             </a>
-                          </li>
+                          </li> -->
                         </ul>
                         <div class="product-additional-info">
                           <div class="product-additional-item">
@@ -451,9 +466,9 @@
                           </div>
                           <div class="product-seller-price-real">
                             <div class="product-seller-price-prev">
-                              ۶,۲۸۹,۰۰۰
+                              {{ $n(productGetters.getPrice(product).regular) }}
                             </div>
-                            تومان
+                            ریال
                           </div>
                         </div>
                         <div class="product-remaining-in-stock-parent">
@@ -3034,6 +3049,8 @@ export default {
     const properties = computed(() =>
       productGetters.getProperties(product.value)
     );
+    const valueproperties=properties.value;
+    debugger
     const breadcrumbs = computed(() =>
       productGetters
         .getBreadcrumbs(product.value)
