@@ -7,6 +7,7 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb px-0">
                 <SfBreadcrumbs
+                class="breadcrumb-item"
                 :breadcrumbs="breadcrumbs"
                 />
               </ol>
@@ -220,15 +221,22 @@
                 <div class="product-title-container">
                   <div class="product-directory">
                     <ul class="mb-0">
-                      <li>
-                        <a href="#" class="link-border">شیائومی</a>
-                      </li>
+                      <li v-for="(breadcrumb, i) in breadcrumbs"
+                                :key="i"
+                                :text="breadcrumb.text"
+                                :link="breadcrumb.link"
+                                
+                    >
+                        <a href="#" class="link-border">{{breadcrumb.text}}</a>
+                      
                       <li>
                         <span>/</span>
                       </li>
-                      <li>
-                        <a href="#" class="link-border">گوشی موبایل شیائومی</a>
                       </li>
+                      <!-- <li>
+                        <a href="#" class="link-border">گوشی موبایل شیائومی</a>
+                      </li> -->
+                      
                     </ul>
                     <h1 class="product-title">
                       {{ productGetters.getName(product) }}
@@ -347,8 +355,6 @@
                                     </SfButton>
                                     </template> -->
                             <!-- </SfProperty> -->
-                            
-                              
                             <span>{{property.name}}: </span>
                             <span>{{property.value}}</span>
                           </li>
@@ -471,10 +477,10 @@
                           </div>
                         </div>
                         <div class="product-remaining-in-stock-parent">
-                          <div class="cart-view-count">
+                          <!-- <div class="cart-view-count">
                             <i class="mdi mdi-eye-outline"></i>
                             ۱۰+ نفر در حال بازدید این کالا می‌باشند.
-                          </div>
+                          </div> -->
                         </div>
                         <button @click="addItem({ product, quantity: 1 })" class="btn-add-to-cart">
                           <span class="btn-add-to-cart-txt"
@@ -492,7 +498,7 @@
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
                         <img
-                          src="assets/images/footer-svg/delivery.svg"
+                          src="/footer-svg/delivery.svg"
                           alt="delivery"
                         />
                         <span
@@ -506,7 +512,7 @@
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
                         <img
-                          src="assets/images/footer-svg/contact-us.svg"
+                          src="/footer-svg/contact-us.svg"
                           alt="contact-us"
                           style="width: 35px"
                         />
@@ -521,7 +527,7 @@
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
                         <img
-                          src="assets/images/footer-svg/payment-terms.svg"
+                          src="/footer-svg/payment-terms.svg"
                           alt="payment-terms"
                           style="width: 35px"
                         />
@@ -536,7 +542,7 @@
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
                         <img
-                          src="assets/images/footer-svg/origin-guarantee.svg"
+                          src="/footer-svg/origin-guarantee.svg"
                           alt="origin-guarantee"
                           style="width: 35px"
                         />
@@ -812,7 +818,7 @@
                     <section class="content-expert-summary">
                       <div class="is-masked">
                         <div class="mask-text-product-summary active">
-                          <p v-html="productGetters.getDescription(product)" ></p>
+                          <p {{productGetters.getDescription(product)}} ></p>
                         </div>
 <!--                         <a href="#" class="mask-handler">
                           <span class="show-more">ادامه مطلب</span>
@@ -2987,6 +2993,7 @@ export default {
     'stale-when-revalidate': 5,
   }),
   setup() {
+
     const qty = ref(1);
     const route = useRoute();
     const router = useRouter();
@@ -3038,6 +3045,7 @@ export default {
     const productGallery = computed(() =>
       productGetters.getGallery(product.value)
     );
+    
 
     onSSR(async () => {
       await search({ slug });
@@ -3056,6 +3064,13 @@ export default {
         },
       });
     };
+    console.log("Product is:",product);
+    console.log("optionTypes is:",optionTypes);
+    console.log("options is:",options);
+    console.log("configuration is:",configuration);
+    console.log("Description is:",Description);
+    console.log("breadcrumbs is:",breadcrumbs);
+    console.log("Property is:",properties);
 
     return {
       updateFilter,

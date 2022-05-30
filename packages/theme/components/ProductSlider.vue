@@ -84,6 +84,7 @@ export default {
     const getProductLink = (product) => {
       return `/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`
     }
+    
     onSSR(async () => {
       await search({
         categorySlug: props.slug,
