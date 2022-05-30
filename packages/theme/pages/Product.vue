@@ -224,14 +224,13 @@
                       <li v-for="(breadcrumb, i) in breadcrumbs"
                                 :key="i"
                                 :text="breadcrumb.text"
-                                :link="breadcrumb.link"
-                                
+                                :link="breadcrumb.link"      
                     >
-                        <a href="#" class="link-border">{{breadcrumb.text}}</a>
-                      
-                      <li>
+                        <a href='#' class="link-border">{{breadcrumb.text}}
+                        <li>
                         <span>/</span>
-                      </li>
+                      </li></a>
+                      
                       </li>
                       <!-- <li>
                         <a href="#" class="link-border">گوشی موبایل شیائومی</a>
@@ -818,7 +817,7 @@
                     <section class="content-expert-summary">
                       <div class="is-masked">
                         <div class="mask-text-product-summary active">
-                          <p {{productGetters.getDescription(product)}} ></p>
+                          <p {{ productGetters.getDescription(product) }} ></p>
                         </div>
 <!--                         <a href="#" class="mask-handler">
                           <span class="show-more">ادامه مطلب</span>
@@ -2898,13 +2897,13 @@
                 @click="updateFilter({ color: color.value })"
               />
             </div>
-            <SfAddToCart
+            <!-- <SfAddToCart
               v-e2e="'product_add-to-cart'"
               v-model="qty"
               :disabled="loading || !isInStock"
               class="product__add-to-cart"
               @click="addItem({ product, quantity: parseInt(qty) })"
-            />
+            /> -->
           </div>
 
           <LazyHydrate when-idle>
@@ -2980,8 +2979,10 @@ import {
   useRouter,
   useContext,
 } from '@nuxtjs/composition-api';
-import { useProduct, useCart, productGetters } from '@vue-storefront/spree';
+import { useProduct, useCart, productGetters, cartGetters } from '@vue-storefront/spree';
+
 import { onSSR } from '@vue-storefront/core';
+
 import LazyHydrate from 'vue-lazy-hydration';
 import cacheControl from './../helpers/cacheControl';
 
@@ -3007,8 +3008,7 @@ export default {
     const { addItem, loading } = useCart();
     const { slug } = route.value.params;
 
-    const product = computed(
-      () =>
+    const product = computed(() =>
         productGetters.getFiltered(products.value, {
           master: true,
           attributes: route.value.query,
@@ -3034,7 +3034,11 @@ export default {
     );
 
     
-    
+    const { cart, removeItem, updateItemQty } = useCart();
+    const cartproducts = computed(() => cartGetters.getItems(cart.value));
+    const totals = computed(() => cartGetters.getTotals(cart.value));
+    const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
+
     const breadcrumbs = computed(() =>
       productGetters
         .getBreadcrumbs(product.value)
@@ -3068,9 +3072,12 @@ export default {
     console.log("optionTypes is:",optionTypes);
     console.log("options is:",options);
     console.log("configuration is:",configuration);
-    console.log("Description is:",Description);
     console.log("breadcrumbs is:",breadcrumbs);
     console.log("Property is:",properties);
+    console.log("cartproducts is :",cartproducts);
+    console.log("carttotals is :",totals);
+    console.log("carttotalItems is :",totalItems);
+
 
     return {
       updateFilter,
@@ -3089,7 +3096,11 @@ export default {
       productGallery,
       optionTypes,
       properties,
+      Description,
       breadcrumbs,
+      cartproducts,
+      totals,
+      totalItems
     };
   },
   components: {

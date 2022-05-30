@@ -23,33 +23,68 @@
                         <span class="checkout-header-delivery-cost">هزینه ارسال:رایگان</span>
                     </div>
 
-                    <div class="checkout-body">
-                        <a href="#" class="remove-from-cart"><i class="mdi mdi-close"></i></a>
-                        <a href="#" class="col-thumb"><img src="assets/images/product-slider-2/111460776.jpg"
+                    <div v-for="(product, i) in products"
+                                :key="i"
+                                :name="product.name"
+                                :qty="cartGetters.getItemQty(product)"
+                                :displayTotal="product.displayTotal"
+                                :image="cartGetters.getItemImage(product)"
+                                :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
+                                class="checkout-body">
+                        <a  class="remove-from-cart"><i class="mdi mdi-close"></i></a>
+                        <a href="#" class="col-thumb"><img :src= "cartGetters.getItemImage(product)"
                                 alt="img-slider"></a>
 
                         <div class="checkout-col-desc">
                             <a href="#">
-                                <h3>گوشی موبایل سامسونگ مدل Galaxy A50 SM-A505F/DS دو سیم کارت ظرفیت 128گیگابایت
+                                <h3>{{productGetters.getName(product)}}
                                 </h3>
                             </a>
                             <div class="checkout-variant-color">
                                 <span class="checkout-variant-title">سفید</span>
                                 <div class="checkout-variant-shape"></div>
-                                <div class="checkout-guarantee"><i class="fa fa-check"></i>گارانتی ۱۸ ماهه
-                                    انفورماتیک گستر</div>
-                                <div class="checkout-dealer"><i class="fa fa-check"></i>کالا پلاس</div>
+                                <!-- <div class="checkout-guarantee"><i class="fa fa-check"></i>گارانتی ۱۸ ماهه
+                                    انفورماتیک گستر</div> -->
+                                <div class="checkout-dealer"><i class="fa fa-check"></i>بروکس</div>
                             </div>
 
                             <div class="quantity">
-                                <input type="number" min="1" max="10" step="1" value="1">
+                                <!-- <input type="number" min="1" max="10" step="1" value="1" > -->
+                                
                             </div>
+                            <!-- <SfCollectedProduct
+                                    v-e2e="'collected-product'"
+                                    :key="cartGetters.getItemSku(product)"
+                                    :image="cartGetters.getItemImage(product)"
+                                    :title="cartGetters.getItemName(product)"
+                                    :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
+                                    :special-price="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
+                                    :stock="99999"
+                                    :link="localePath(`/p/${cartGetters.getItemVariantId(product)}/${cartGetters.getItemSlug(product)}`)"
+                                    @click:remove="removeItem({ product: { id: product.id } })"
+                                     class="collected-product"
+                            >
+                                <template #input>
+                                <div class="sf-collected-product__quantity-wrapper">
+                                    <SfQuantitySelector
+                                    :disabled="loading"
+                                    :qty="cartGetters.getItemQty(product)"
+                                    :min="1"
+                                    class="sf-collected-product__quantity-selector"
+                                    @input="updateQuantity({ product: { id: product.id }, quantity: Number($event) })"
+                                    />
+                                </div>
+                                </template>
+                            </SfCollectedProduct> -->
+
+
+
                             <a href="#" class="add-to-sfl">
                                 ذخیره در لیست خرید بعدی
                                 <div class="cart-item-product-price">
-                                    ۳,۴۲۰,۰۰۰
+                                    {{$n(cartGetters.getItemPrice(product).regular)}}
                                     <span>
-                                        تومان
+                                        ریال
                                     </span>
                                 </div>
 
@@ -57,40 +92,7 @@
 
                         </div>
                     </div>
-                    <div class="checkout-body">
-                        <a href="#" class="remove-from-cart"><i class="mdi mdi-close"></i></a>
-                        <a href="#" class="col-thumb"><img src="assets/images/product-slider-2/111460776.jpg"
-                                alt="img-slider"></a>
-
-                        <div class="checkout-col-desc">
-                            <a href="#">
-                                <h3>گوشی موبایل سامسونگ مدل Galaxy A50 SM-A505F/DS دو سیم کارت ظرفیت 128گیگابایت
-                                </h3>
-                            </a>
-                            <div class="checkout-variant-color">
-                                <span class="checkout-variant-title">سفید</span>
-                                <div class="checkout-variant-shape"></div>
-                                <div class="checkout-guarantee"><i class="fa fa-check"></i>گارانتی ۱۸ ماهه
-                                    انفورماتیک گستر</div>
-                                <div class="checkout-dealer"><i class="fa fa-check"></i>کالا پلاس</div>
-                            </div>
-
-                            <div class="quantity">
-                                <input type="number" min="1" max="10" step="1" value="1">
-                            </div>
-                            <a href="#" class="add-to-sfl">
-                                ذخیره در لیست خرید بعدی
-                                <div class="cart-item-product-price">
-                                    ۳,۴۲۰,۰۰۰
-                                    <span>
-                                        تومان
-                                    </span>
-                                </div>
-
-                            </a>
-
-                        </div>
-                    </div>
+                    
                 </form>
             </div>
 
@@ -99,9 +101,9 @@
                 <div class="checkout-to-shipping-price-report">
                     <p>مبلغ قابل پرداخت</p>
                     <div class="cart-item-product-price">
-                        ۳,۴۲۰,۰۰۰
+                        {{$n(totals.subtotal)}}
                         <span>
-                            تومان
+                            ریال
                         </span>
                     </div>
                 </div>
@@ -117,7 +119,7 @@
                         </li>
                         <li>
                             <span>جمع</span>
-                            <span>۳,۴۲۰,۰۰۰ تومان</span>
+                            <span>{{$n(totals.subtotal)}} ریال</span>
                         </li>
                         <li>
                             <span style="color: #424750; font-size:14px;">هزینه ارسال</span>
@@ -129,7 +131,7 @@
                         </li>
                         <li>
                             <span>مبلغ قابل پرداخت</span>
-                            <span>۳,۴۲۰,۰۰۰ تومان</span>
+                            <span>{{$n(totals.subtotal)}} ریال</span>
                         </li>
                         <li class="checkout-digiclub-container">
                             <span class="checkout-digiclub-row">
@@ -183,7 +185,180 @@
   </div>
 </template>
 <script>
+import {
+  SfSidebar,
+  SfHeading,
+  SfButton,
+  SfIcon,
+  SfProperty,
+  SfPrice,
+  SfCollectedProduct,
+  SfImage,
+  SfQuantitySelector
+} from '@storefront-ui/vue';
+import { computed } from '@nuxtjs/composition-api';
+import { useProduct, useCart, cartGetters, useWishlist, productGetters } from '@vue-storefront/spree';
+import { useUiState } from '~/composables';
+import debounce from 'lodash.debounce';
+import {wishlistGetters} from '@vue-storefront/spree';
 export default {
+    name: 'Cart',
+    components: {
+    SfSidebar,
+    SfButton,
+    SfHeading,
+    SfIcon,
+    SfProperty,
+    SfPrice,
+    SfCollectedProduct,
+    SfImage,
+    SfQuantitySelector
+  },
+  setup() {
+    const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
+    const { cart, removeItem, updateItemQty, loading } = useCart();
+    const products = computed(() => cartGetters.getItems(cart.value));
+    const totals = computed(() => cartGetters.getTotals(cart.value));
+    const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
+    const { wishlist, addItem: addItemToWishlist, isInWishlist } = useWishlist();
+    const isWishlistDisabled = computed(() => wishlistGetters.isWishlistDisabled(wishlist.value));
+    const updateQuantity = debounce(async ({ product, quantity }) => {
+      await updateItemQty({ product, quantity });
+    }, 500);
+
+    const handleSaveForLaterClick = async(product) => {
+      if (!isInWishlist({product})) {
+        await Promise.all([addItemToWishlist({product}), removeItem({product})]);
+      }
+    };
+    debugger
+
+    return {
+      updateQuantity,
+      loading,
+      products,
+      removeItem,
+      isCartSidebarOpen,
+      toggleCartSidebar,
+      totals,
+      totalItems,
+      cartGetters,
+      handleSaveForLaterClick,
+      isWishlistDisabled,
+      isInWishlist,
+      useProduct,
+      productGetters
+    };
+  }
   
 }
+
+
 </script>
+<style lang="scss" scoped>
+#cart {
+  --sidebar-z-index: 3;
+  --overlay-z-index: 3;
+  @include for-desktop {
+    & > * {
+      --sidebar-bottom-padding: var(--spacer-base);
+      --sidebar-content-padding: var(--spacer-base);
+    }
+  }
+}
+.cart-summary {
+  margin-top: var(--spacer-xl);
+}
+.my-cart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  &__total-items {
+    margin: 0;
+  }
+  &__total-price {
+    --price-font-size: var(--font-size--xl);
+    --price-font-weight: var(--font-weight--medium);
+    margin: 0 0 var(--spacer-base) 0;
+  }
+}
+.empty-cart {
+  --heading-description-margin: 0 0 var(--spacer-xl) 0;
+  --heading-title-margin: 0 0 var(--spacer-xl) 0;
+  --heading-title-color: var(--c-primary);
+  --heading-title-font-weight: var(--font-weight--semibold);
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: column;
+  &__banner {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  &__heading {
+    padding: 0 var(--spacer-base);
+  }
+  &__image {
+    --image-width: 16rem;
+    margin: 0 0 var(--spacer-2xl) 7.5rem;
+  }
+  @include for-desktop {
+    --heading-title-font-size: var(--font-size--xl);
+    --heading-title-margin: 0 0 var(--spacer-sm) 0;
+  }
+}
+.collected-product-list {
+  flex: 1;
+}
+.collected-product {
+  margin: 0 0 var(--spacer-sm) 0;
+  &__properties {
+    margin: var(--spacer-xs) 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex: 2;
+    &:first-child {
+      margin-bottom: 8px;
+    }
+  }
+  &__actions {
+    transition: opacity 150ms ease-in-out;
+  }
+  &__save,
+  &__compare {
+    --button-padding: 0;
+    &:focus {
+      --cp-save-opacity: 1;
+      --cp-compare-opacity: 1;
+    }
+  }
+  &__save {
+    opacity: var(--cp-save-opacity, 0);
+  }
+  &__compare {
+    opacity: var(--cp-compare-opacity, 0);
+  }
+  &:hover {
+    --cp-save-opacity: 1;
+    --cp-compare-opacity: 1;
+    @include for-desktop {
+      .collected-product__properties {
+        display: none;
+      }
+    }
+  }
+}
+
+.wishlist__text {
+  text-decoration: underline;
+  color: gray;
+  font-family: var(--font-family--secondary);
+  font-size: var(--font-size--sm);
+}
+
+</style>
