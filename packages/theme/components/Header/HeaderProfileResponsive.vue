@@ -5,3 +5,11 @@
     <ProfileDropdown />
   </div>
 </template>
+<script>
+import ProfileDropdown from './ProfileDropdown.vue'
+export default {
+  components: {
+    ProfileDropdown
+  }
+}
+</script>
