@@ -10,7 +10,7 @@
         </div>
         <div class="header-profile-dropdown-user-info">
           <p class="header-profile-dropdown-user-name">
-            حسن شجاعی
+            {{userGetters.getEmailAddress(user)}}
             <span
               class="header-profile-dropdown-user-profile-link"
               >مشاهده حساب کاربری</span
@@ -78,3 +78,48 @@
     </div>
   </div>
 </template>
+<script>
+import { userGetters, useUser, useUserShipping, userShippingGetters } from '@vue-storefront/spree';
+import { SfProperty, SfHeading, SfTable, SfLink, SfButton, SfInput } from '@storefront-ui/vue';
+import { onMounted } from '@nuxtjs/composition-api';
+import {computed} from '@nuxtjs/composition-api';
+export default {
+  name: 'ProfileUpdateForm',
+  components: {
+    SfProperty,
+    SfHeading,
+    SfTable,
+    SfLink,
+    SfButton,
+    SfInput
+  },
+  setup() {
+    const {
+      isAuthenticated,
+      user,
+      load: loadUser
+    } = useUser();
+    onMounted(async () => {
+      await loadUser();
+    });
+    return {
+      userGetters,
+      user,
+      isAuthenticated
+    };
+
+  }
+};
+</script>
+<style lang="scss" scoped>
+.redirect-button {
+  width: 75%;
+}
+.right-column {
+  display: flex;
+  justify-content: flex-end;
+}
+</style>
+
+
+
