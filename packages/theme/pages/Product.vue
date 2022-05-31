@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-12 col-xs-12 pull-right">
-            <Product-Gallery />
+            <Product-Gallery :images="productGallery"/>
           </div>
 
           <!-- Modal social-->
