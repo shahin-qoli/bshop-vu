@@ -11,7 +11,7 @@
           <a href="#">
             <img src="images/home/amazing.png" alt="amazing" />
           </a>
-          <a href="#" class="view-all-amazing-btn">
+          <a href="/c/lights" class="view-all-amazing-btn">
             تخفیف ویژه
             <i class="uil uil-angle-left"></i>
           </a>
@@ -47,50 +47,31 @@
                       style="width: 309.083px; margin-left: 10px"
                     >   
                       <div class="item">
-                        <NuxtLink :to="localePath(getProductLink(product))">
+                        <a :href="localePath(getProductLink(product))">
                         <img
                           :src="productGetters.getCoverImage(product)"
                           class="img-fluid"
                           alt="img-slider"
                         />
-                        </NuxtLink>
-                        <!-- <a href="#">
-                          <img
-                            src="assets/images/product-slider-2/Knife.jpg"
-                            class="img-fluid"
-                            alt="img-slider"
-                          />
-                        </a> -->
+                        </a>
+
                         <h2 class="post-title">
-                          <NuxtLink :to="localePath(getProductLink(product))">
+                          <a :href="localePath(getProductLink(product))">
                             {{product.name}}                                
-                          </NuxtLink>
-                          <!-- <a href="#">
-                            تلویزیون ال ای دی هوشمند سامسونگ مدل 82NU8900
-                            سایز 82 اینچ
-                          </a> -->
+                          </a>
                         </h2>
                         <div class="price">
-                          <NuxtLink :to="localePath(getProductLink(product))">
+                          <a :href="localePath(getProductLink(product))">
                           <div class="discount-item">
-                            <span>5%</span>
+                            <span>0%</span>
                           </div>
                           <del
-                            ><span>{{$n(product.price.original)}}<span>ریال</span></span></del
+                            ><span>{{$n(product.price.current)}}<span>ریال</span></span></del
                           >
                           <ins
-                            ><span>{{$n(product.price.original)}}<span>ریال</span></span></ins
+                            ><span>{{$n(product.price.current)}}<span>ریال</span></span></ins
                           >                              
-                          </NuxtLink>
-
-                        </div>
-                        <div class="product-box-timer">
-                          <span class="fa fa-clock-o"></span>
-                          <div
-                            class="countdown countdown-style-3 h4"
-                            data-date-time="10/10/2025 24:00"
-                            data-labels='{"label-second": "", "label-minute": "", "label-hour": ""}'
-                          ></div>
+                          </a>
                         </div>
                       </div>
                     </div>
