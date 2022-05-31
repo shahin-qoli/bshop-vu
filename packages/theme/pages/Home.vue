@@ -32,7 +32,7 @@
     <Product-Slider title="حبابی" slug="lights/bulb" class="mt-4" />
     <!--slider-amazing----------------------------->
     
-    <amazing-sections title="حبابی" slug="lights/bulb" class="mt-4" />
+    <amazing-section title="حبابی" slug="lights/bulb" class="mt-4" />
     <!--slider-amazing----------------------------->
 
     <!--   adplacement -------------------->
