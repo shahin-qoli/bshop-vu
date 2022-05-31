@@ -76,10 +76,10 @@
                             <span>5%</span>
                           </div>
                           <del
-                            ><span>{{product.price.original}}<span>تومان</span></span></del
+                            ><span>{{product.price.original}}<span>ریال</span></span></del
                           >
                           <ins
-                            ><span>{{product.price.original}}<span>تومان</span></span></ins
+                            ><span>{{product.price.original}}<span>ریال</span></span></ins
                           >                              
                           </NuxtLink>
 

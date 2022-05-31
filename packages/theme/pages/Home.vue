@@ -32,7 +32,7 @@
     <Product-Slider title="حبابی" slug="lights/bulb" class="mt-4" />
     <!--slider-amazing----------------------------->
     
-    <section-amazing title="حبابی" slug="lights/bulb" class="mt-4" />
+    <amazing-sections title="حبابی" slug="lights/bulb" class="mt-4" />
     <!--slider-amazing----------------------------->
 
     <!--   adplacement -------------------->
@@ -1498,14 +1498,14 @@ import AppHeader from '~/components/AppHeader.vue';
 import AppFooter from '~/components/AppFooter.vue';
 import ProductSlider from '~/components/ProductSlider.vue'
 import MainSlider from '~/components/Home/MainSlider.vue'
-import SectionAmazing from '../components/SectionAmazing.vue';
+import AmazingSection from '../components/AmazingSection.vue';
 export default {
   components: {
     AppHeader,
     AppFooter,
     ProductSlider,
     MainSlider,
-    SectionAmazing
+    AmazingSection
   },
   setup() {
     
