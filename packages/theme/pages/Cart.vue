@@ -5,9 +5,9 @@
             <div class="checkout-tab">
                 <div class="checkout-tab-pill listing-active-cart">
                     سبد خرید
-                    <span class="checkout-tab-counter">1</span>
+                    <span class="checkout-tab-counter">{{$n(totalItems)}}</span>
                 </div>
-                <div class="checkout-tab-pill">لیست خرید بعدی</div>
+                
             </div>
 
         </div>
@@ -18,21 +18,20 @@
                 <form action="#">
                     <div class="header-express">
                         <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
-                        <span class="header-extra-info">(۱
+                        <span class="header-extra-info">({{$n(totalItems)}}
                             کالا)</span>
-                        <span class="checkout-header-delivery-cost">هزینه ارسال:رایگان</span>
+                        <span class="checkout-header-delivery-cost">هزینه ارسال بر اساس شهر و استان محاسبه خواهد شد</span>
                     </div>
-
                     <div v-for="(product, i) in products"
-                                :key="i"
+                                :key="cartGetters.getItemSku(product)"
                                 :name="product.name"
                                 :qty="cartGetters.getItemQty(product)"
                                 :displayTotal="product.displayTotal"
                                 :image="cartGetters.getItemImage(product)"
                                 :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
                                 class="checkout-body">
-                        <a  class="remove-from-cart"><i class="mdi mdi-close"></i></a>
-                        <a href="#" class="col-thumb"><img :src= "cartGetters.getItemImage(product)"
+                        <a  class="remove-from-cart" @click="removeItem({ product: { id: product.id } })"><i class="mdi mdi-close"></i></a>
+                        <a :href="localePath(`/p/${cartGetters.getItemVariantId(product)}/${cartGetters.getItemSlug(product)}`)" class="col-thumb"><img :src= "cartGetters.getItemImage(product)"
                                 alt="img-slider"></a>
 
                         <div class="checkout-col-desc">
@@ -42,57 +41,31 @@
                             </a>
                             <div class="checkout-variant-color">
                                 <span class="checkout-variant-title">سفید</span>
+
                                 <div class="checkout-variant-shape"></div>
                                 <!-- <div class="checkout-guarantee"><i class="fa fa-check"></i>گارانتی ۱۸ ماهه
                                     انفورماتیک گستر</div> -->
                                 <div class="checkout-dealer"><i class="fa fa-check"></i>بروکس</div>
+   
                             </div>
-
                             <div class="quantity">
-                                <!-- <input type="number" min="1" max="10" step="1" value="1" > -->
-                                
+                                <input
+                                  @change="updateQuantity({ product: { id: product.id }, quantity: Number($event.currentTarget.value) })"
+                                  type="number" min="1" max="10" step="1" :value="cartGetters.getItemQty(product)" >
                             </div>
-                            <!-- <SfCollectedProduct
-                                    v-e2e="'collected-product'"
-                                    :key="cartGetters.getItemSku(product)"
-                                    :image="cartGetters.getItemImage(product)"
-                                    :title="cartGetters.getItemName(product)"
-                                    :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-                                    :special-price="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
-                                    :stock="99999"
-                                    :link="localePath(`/p/${cartGetters.getItemVariantId(product)}/${cartGetters.getItemSlug(product)}`)"
-                                    @click:remove="removeItem({ product: { id: product.id } })"
-                                     class="collected-product"
-                            >
-                                <template #input>
-                                <div class="sf-collected-product__quantity-wrapper">
-                                    <SfQuantitySelector
-                                    :disabled="loading"
-                                    :qty="cartGetters.getItemQty(product)"
-                                    :min="1"
-                                    class="sf-collected-product__quantity-selector"
-                                    @input="updateQuantity({ product: { id: product.id }, quantity: Number($event) })"
-                                    />
-                                </div>
-                                </template>
-                            </SfCollectedProduct> -->
-
-
-
+                            
                             <a href="#" class="add-to-sfl">
-                                ذخیره در لیست خرید بعدی
+                                
                                 <div class="cart-item-product-price">
+                                  <span>قیمت واحد:</span>
                                     {{$n(cartGetters.getItemPrice(product).regular)}}
                                     <span>
                                         ریال
                                     </span>
                                 </div>
-
                             </a>
-
                         </div>
                     </div>
-                    
                 </form>
             </div>
 
@@ -114,8 +87,8 @@
                 <div class="checkout-summary">
                     <ul class="checkout-summary-summary">
                         <li>
-                            <span>مبلغ کل (۱ کالا)</span>
-                            <span>۳,۴۲۰,۰۰۰ تومان</span>
+                            <span>مبلغ کل ({{$n(totalItems)}} کالا)</span>
+                            <span>{{$n(totals.subtotal)}} تومان</span>
                         </li>
                         <li>
                             <span>جمع</span>
@@ -133,20 +106,7 @@
                             <span>مبلغ قابل پرداخت</span>
                             <span>{{$n(totals.subtotal)}} ریال</span>
                         </li>
-                        <li class="checkout-digiclub-container">
-                            <span class="checkout-digiclub-row">
-                                <img src="assets/images/digiclub.png" alt="digiclub">
-                                <span class="checkout-digiclub-points">
-                                    امتیاز دیجی‌کلاب
-                                </span>
-                            </span>
-                            <span class="checkout-digiclub-row">150
-                                <span class="checkout-bill-currency">
-                                    امتیاز
-                                </span>
-                            </span>
 
-                        </li>
                     </ul>
                 </div>
                 <div class="checkout-summary-content">
@@ -223,6 +183,7 @@ export default {
     const { wishlist, addItem: addItemToWishlist, isInWishlist } = useWishlist();
     const isWishlistDisabled = computed(() => wishlistGetters.isWishlistDisabled(wishlist.value));
     const updateQuantity = debounce(async ({ product, quantity }) => {
+      console.log({ product, quantity })
       await updateItemQty({ product, quantity });
     }, 500);
 
@@ -231,7 +192,7 @@ export default {
         await Promise.all([addItemToWishlist({product}), removeItem({product})]);
       }
     };
-    debugger
+    
 
     return {
       updateQuantity,
@@ -243,6 +204,7 @@ export default {
       totals,
       totalItems,
       cartGetters,
+      cart,
       handleSaveForLaterClick,
       isWishlistDisabled,
       isInWishlist,
@@ -252,8 +214,6 @@ export default {
   }
   
 }
-
-
 </script>
 <style lang="scss" scoped>
 #cart {

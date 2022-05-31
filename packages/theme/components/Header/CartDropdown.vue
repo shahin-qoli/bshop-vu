@@ -1,14 +1,14 @@
 <template>
   <div class="mini-cart-dropdown">
     <div class="header-cart-info-header">
-      <div class="header-cart-info-count">2 کالا</div>
+      <div class="header-cart-info-count">{{totalItems}} کالا</div>
       <a href="/cart" class="header-cart-info-link">
         <span>مشاهده سبد خرید</span>
       </a>
     </div>
     <div class="wrapper">
       <div class="scrollbar" id="style-1">
-        <div class="force-overflow">
+        <div>
           <ul class="header-basket-list">
             <li v-for="(product, i) in products"
                                 :key="i"
@@ -21,7 +21,7 @@
               <a href="#" class="header-basket-list-item">
                 <div class="header-basket-list-item-image">
                   <img
-                    src="assets/images/product-slider-2/GalaxyS20Ultra.jpg"
+                    :src="cartGetters.getItemImage(product)"
                     alt="img-slider"
                   />
                 </div>
@@ -31,16 +31,16 @@
                   </h1>
                   <span
                     class="header-basket-list-item-shipping-type"
-                    >موجود در انبار دیجی‌کلا</span
+                    >موجود در انبار </span
                   >
                   <div class="header-basket-list-item-footer">
                     <div class="header-basket-list-item-props">
                       <span
                         class="header-basket-list-item-props-item"
+                        >
+                        {{$n(cartGetters.getItemQty(product))}} عدد</span
                       >
-                        {{cartGetters.getItemQty(product)}} عدد</span
-                      >
-                      <span
+                      <!-- <span
                         class="header-basket-list-item-props-item"
                       >
                         <span
@@ -51,7 +51,7 @@
                         >
                         </span>
                         خاکستری
-                      </span>
+                      </span> -->
                       <span
                         class="header-basket-list-item-remove"
                       >
@@ -103,9 +103,9 @@ import { computed } from '@nuxtjs/composition-api';
 import { useProduct, useCart, cartGetters, useWishlist, productGetters } from '@vue-storefront/spree';
 import { useUiState } from '~/composables';
 import debounce from 'lodash.debounce';
+import { onSSR } from '@vue-storefront/core';
 import {wishlistGetters} from '@vue-storefront/spree';
 export default {
-    name: 'Cart',
     components: {
     SfSidebar,
     SfButton,
@@ -119,7 +119,7 @@ export default {
   },
   setup() {
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
-    const { cart, removeItem, updateItemQty, loading } = useCart();
+    const { cart, removeItem, updateItemQty, loading, load } = useCart();
     const products = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
@@ -134,8 +134,15 @@ export default {
         await Promise.all([addItemToWishlist({product}), removeItem({product})]);
       }
     };
-    debugger
 
+    onSSR(async () => {
+      load()
+    });
+    
+    // setTimeout(() => {
+    //   isCartSidebarOpen.value = false
+    // }, 1000)
+    
     return {
       updateQuantity,
       loading,
