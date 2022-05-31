@@ -3,9 +3,9 @@
     <img
       class="zoom-img"
       id="img-product-zoom"
-      src="/images/product-slider-2/114393183.jpg"
-      data-zoom-image="/images/product-slider-2/114393183.jpg"
-      width="411"
+      :src="images[0].desktop.url"
+      :data-zoom-image="images[0].big.url"
+      width="350"
       alt="img-slider"
     />
     <div id="gallery_01f" style="width: 420px; float: right">
@@ -13,76 +13,25 @@
         class="gallery-items owl-carousel owl-theme"
         id="gallery-slider"
       >
-        <li class="item">
+        <li v-for="image in images" 
+        :key="image"
+        :value="image"
+        class="item"
+        >
           <a
             href="#"
             class="elevatezoom-gallery active"
             data-update=""
-            data-image="/images/product-slider-2/114393183.jpg"
-            data-zoom-image="/images/product-slider-2/114393183.jpg"
+            :data-image="image.desktop.url"
+            :data-zoom-image="image.big.url"
           >
             <img
-              src="/images/product-slider-2/111460798.jpg"
+              :src="image.mobile.url" 
               width="100"
               alt="img-slider"
           /></a>
         </li>
-        <li class="item">
-          <a
-            href="#"
-            class="elevatezoom-gallery active"
-            data-update=""
-            data-image="/images/product-slider-2/113345411(1).jpg"
-            data-zoom-image="/images/product-slider-2/113345411(1).jpg"
-          >
-            <img
-              src="/images/product-slider-2/113345411.jpg"
-              width="100"
-              alt="img-slider"
-          /></a>
-        </li>
-        <li class="item">
-          <a
-            href="#"
-            class="elevatezoom-gallery"
-            data-image="/images/product-slider-2/113345412(1).jpg"
-            data-zoom-image="/images/product-slider-2/113345412(1).jpg"
-          >
-            <img
-              src="/images/product-slider-2/113345412.jpg"
-              width="100"
-              alt="img-slider"
-            />
-          </a>
-        </li>
-        <li class="item">
-          <a
-            href="#"
-            class="elevatezoom-gallery"
-            data-image="/images/product-slider-2/111460791(1).jpg"
-            data-zoom-image="/images/product-slider-2/111460791(1).jpg"
-          >
-            <img
-              src="/images/product-slider-2/111460791.jpg"
-              width="100"
-              alt="img-slider"
-          /></a>
-        </li>
-        <li class="item">
-          <a
-            href="#"
-            class="elevatezoom-gallery"
-            data-image="/images/product-slider-2/111460801(1).jpg"
-            data-zoom-image="/images/product-slider-2/111460801(1).jpg"
-          >
-            <img
-              src="/images/product-slider-2/111460800.jpg"
-              width="100"
-              alt="img-slider"
-            />
-          </a>
-        </li>
-      </ul>
+      </ul> 
     </div>
     <div class="gallery-item">
       <ul class="gallery-options">
@@ -125,3 +74,18 @@
     </div>
   </div>
 </template>
+<script>
+
+export default {
+  props: {
+    images: {
+      images: String,
+      required: true
+    }
+  },
+  data () {
+    return {}
+  },
+
+}
+</script>
