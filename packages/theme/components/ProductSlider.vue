@@ -28,17 +28,17 @@
                   style="width: 309.083px; margin-left: 10px"
                 >
                   <div class="item">
-                    <NuxtLink :to="localePath(getProductLink(product))">
+                    <a :href="localePath(getProductLink(product))">
                       <img
                         :src="productGetters.getCoverImage(product)"
                         class="img-fluid"
                         alt="img-slider"
                       />
-                    </NuxtLink>
+                    </a>
                     <h2 class="post-title">
-                      <NuxtLink :to="localePath(getProductLink(product))">
+                      <a :href="localePath(getProductLink(product))">
                         {{ product.name }}
-                      </NuxtLink>
+                      </a>
                     </h2>
                     <div class="price">
                       <del

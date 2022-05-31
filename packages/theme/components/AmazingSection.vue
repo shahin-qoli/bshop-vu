@@ -66,7 +66,7 @@
                             <span>0%</span>
                           </div>
                           <del
-                            ><span>{{$n(product.price.current)}}<span>ریال</span></span></del
+                            ><span>{{$n(product.price.original)}}<span>ریال</span></span></del
                           >
                           <ins
                             ><span>{{$n(product.price.current)}}<span>ریال</span></span></ins
