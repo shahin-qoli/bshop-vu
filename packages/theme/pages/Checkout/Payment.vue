@@ -25,8 +25,8 @@
                                         </div>
                                     </div>
                                     <div class="wallet-extra-info">نیازمند
-                                        <span class="wallet-needed-money">۷۷,۵۰۰ </span>
-                                        تومان افزایش اعتبار
+                                        <span class="wallet-needed-money">{{$n(totals.subtotal)}} </span>
+                                        ریال افزایش اعتبار
                                     </div>
                                     <div class="checkout-paymethod-by-digipay">
                                         <img src="assets/images/af737e9d.png" alt="digipay">
@@ -42,7 +42,7 @@
                                     </label>
                                     <div class="checkout-paymethod-title">
                                         <div class="paymethod-wallet-amount">
-                                            <p class="checkout-paymethod-title-label">پرداخت اینترنتی هوشمند دیجی‌استور</p>
+                                            <p class="checkout-paymethod-title-label">پرداخت اینترنتی بروکس</p>
                                             <span>آنلاین با تمامی کارت‌های بانکی</span>
                                         </div>
                                     </div>
@@ -66,11 +66,11 @@
                                             <span>(۱ کالا)</span>
                                         </div>
                                         <div class="checkout-order-summary-col-post-time">زمان ارسال
-                                            <span>بازه جمعه ۸ آذر - سه‌شنبه ۱۲ آذر</span>
+                                            <span>بازه جمعه ۸ تیر - سه‌شنبه ۱۲ تیر</span>
                                         </div>
                                         <div class="checkout-order-summary-col-shipping-cost">
                                             مبلغ مرسوله
-                                            <span>423,000,0 تومان</span>
+                                            <span>{{$n(300000)}} ریال</span>
                                         </div>
                                     </div>
                                 </header>
@@ -100,12 +100,12 @@
                             </div>
                         </div>
                         <div class="checkout-to-shipping-sticky">
-                            <a href="#" class="selenium-next-step-shipping">ادامه فرآیند خرید</a>
+                            <a @click="processOrder" class="selenium-next-step-shipping">پرداخت</a>
                             <div class="checkout-to-shipping-price-report">
                                 <p>مبلغ قابل پرداخت</p>
                                 <div class="cart-item-product-price">
-                                    ۳,۴۲۰,۰۰۰
-                                    <span>تومان</span>
+                                    {{$n(totals.subtotal+300000)}}
+                                    <span>ریال</span>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                     <div class="checkout-price-options">
                         <section class="checkout-price-options-container">
                             <div class="checkout-price-options-header">
-                                <span>استفاده از کارت هدیه دیجی‌استور</span>
+                                <span>استفاده از کارت هدیه بروکس</span>
                             </div>
                             <div class="checkout-price-options-content">
                                 <p>با ثبت کد کارت هدیه، مبلغ کارت هدیه از “مبلغ قابل پرداخت” کسر می‌شود.</p>
@@ -136,7 +136,7 @@
                     <div class="checkout-price-options">
                         <section class="checkout-price-options-container">
                             <div class="checkout-price-options-header">
-                                <span>استفاده از کد تخفیف دیجی‌استور</span>
+                                <span>استفاده از کد تخفیف بروکس</span>
                             </div>
                             <div class="checkout-price-options-content">
                                 <p>با ثبت کد تخفیف، مبلغ کد تخفیف از “مبلغ قابل پرداخت” کسر می‌شود.</p>
@@ -171,12 +171,12 @@
                     <div class="checkout-summary">
                         <ul class="checkout-summary-summary">
                             <li>
-                                <span>مبلغ کل (۱ کالا)</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
+                                <span>مبلغ کل ({{$n(totalItems)}} کالا)</span>
+                                <span>{{$n(totals.subtotal)}} ریال</span>
                             </li>
                             <li>
                                 <span>جمع</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
+                                <span>{{$n(totals.subtotal)}} ریال</span>
                             </li>
                             <li>
                                 <span style="color: #424750; font-size:14px;">هزینه ارسال</span>
@@ -184,26 +184,13 @@
                             </li>
                             <li>
                                 <span><i class="fa fa-truck"></i>ارسال عادی</span>
-                                <span>رایگان</span>
+                                <span>{{$n(300000)}} ریال</span>
                             </li>
                             <li>
                                 <span>مبلغ قابل پرداخت</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
+                                <span>{{$n(totals.subtotal+300000)}} ریال</span>
                             </li>
-                            <li class="checkout-digiclub-container">
-                                <span class="checkout-digiclub-row">
-                                    <img src="assets/images/digiclub.png" alt="digiclub">
-                                    <span class="checkout-digiclub-points">
-                                        امتیاز دیجی‌کلاب
-                                    </span>
-                                </span>
-                                <span class="checkout-digiclub-row">150
-                                    <span class="checkout-bill-currency">
-                                        امتیاز
-                                    </span>
-                                </span>
-
-                            </li>
+                            
                         </ul>
                     </div>
                     <div class="checkout-summary-content">
@@ -390,8 +377,8 @@ export default {
       const orderId = orderGetters.getId(cart.value);
       try {
              const cartId = cart.value._id;
-     const cartamount = cart.value.totalAmount;
-     debugger
+     const cartamount = cart.value.totalAmount+300000;
+     
 
     const res2= await axios.get("http://bshop.burux.com/paymenturl/"+cartId+"/"+cartamount+"");
     

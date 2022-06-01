@@ -127,7 +127,8 @@
           <div class="checkout-to-shipping-sticky">
             <a
               @click.prevent="handleFormSubmit"
-              href="#"
+              @click="router.push(localePath({ name: 'payment' }))"
+              href="checkout/payment"
               class="selenium-next-step-shipping"
               :class="{ dispabled: loading }"
             >
@@ -135,6 +136,7 @@
                 ادامه فرآیند خرید
               </span>
               <div v-else class="spinner-border spinner-border-sm" role="status"></div>
+              
             </a>
             <div class="checkout-to-shipping-price-report">
               <p>مبلغ قابل پرداخت</p>
