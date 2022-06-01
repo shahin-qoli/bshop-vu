@@ -94,6 +94,8 @@ html {
   }
 }
 body {
+  --c-primary: #00c8f0;
+  --c-primary-variant:var(--c-primary);
   overflow-x: hidden;
   color: var(--c-text);
   font-size: var(--font-size--base);

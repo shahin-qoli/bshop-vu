@@ -3709,6 +3709,7 @@ button, input, optgroup, select, textarea {
     text-align: center;
     line-height: 28px;
     float: right;
+    cursor: pointer;
 }
 
 .cart-tab-main .page-content-cart .checkout-body .col-thumb {
