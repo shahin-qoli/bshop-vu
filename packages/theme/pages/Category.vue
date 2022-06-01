@@ -1,195 +1,696 @@
 <template>
   <div id="category">
-    <SfBreadcrumbs
-      class="breadcrumbs desktop-only"
-      :breadcrumbs="breadcrumbs"
-    />
-    <div class="navbar section">
-      <div class="navbar__aside desktop-only">
-        <LazyHydrate never>
-          <SfHeading
-            :level="3"
-            :title="$t('Lights')"
-            class="navbar__title" />
-        </LazyHydrate>
-      </div>
-      <CategoryPageHeader :pagination="pagination"/>
-    </div>
+        <div class="col-12">
+        <div class="header-filters">
+            <button class="btn-filter btn-filter-advanced"
+                onclick="document.getElementById('modal-search').style.display='block'">جستجوی پیشرفته</button>
+            <button class="btn-filter btn-filter-direction" data-toggle="modal"
+                data-target="#exampleModalCenter">پربازدیدترین</button>
+            <div class="remodal-search-advanced" id="modal-search">
+                <nav class="remodal-page-layout">
+                    <button class="search-filter-remodal-close"
+                        onclick="document.getElementById('modal-search').style.display='none'">
+                        <i class="fa fa-close"></i>
+                    </button>
+                    <div class="remodal-page-header">لوازم جانبی گوشی موبایل</div>
+                    <div class="remodal-page-main">
+                        <div class="filter-bar">
+                            <button class="js-listing-options-clear">پاک کردن همه</button>
+                            <div class="js-box-content-items">
+                                <a href="#">
+                                    <label for="switch3">
+                                        <input type="checkbox" id="switch3" />
+                                        <span class="switch">
+                                            <h1 class="switch-title">کالاهای موجود </h1>
+                                        </span>
+                                        <span class="toggle"></span>
+                                    </label>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="remodal-page-content">
+                            <div class="filter">
+                                <label for="search" class="profile-edit-label">
+                                    <span>جستجو در نتایج</span>
+                                    <input type="text" value="" name="searchInput" id="search"
+                                        placeholder="نام محصول مورد نظر را بنویسید ...">
+                                </label>
+                            </div>
 
-    <div class="main section">
-      <div class="sidebar desktop-only">
-        <LazyHydrate when-idle>
-          <SfLoader
-          :class="{ 'loading--categories': loading }"
-          :loading="loading">
-            <SfAccordion
-              v-e2e="'categories-accordion'"
-              :open="activeCategory"
-              :show-chevron="true"
-            >
-              <SfAccordionItem
-                v-for="(cat, i) in ((menu && menu.items) || (categoryTree && categoryTree.items))"
-                :key="i"
-                :header="cat.name || cat.label"
-              >
-                <template>
-                  <SfList class="list">
-                    <SfListItem class="list__item">
-                      <SfMenuItem
-                        :count="cat.count || ''"
-                        :label="cat.name || cat.label"
-                      >
-                        <template #label>
-                          <nuxt-link
-                            :to="localePath(getRoute(cat))"
-                            :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
-                          >
-                            All
-                          </nuxt-link>
-                        </template>
-                      </SfMenuItem>
-                    </SfListItem>
-                    <SfListItem
-                      class="list__item"
-                      v-for="(subCat, j) in cat.items"
-                      :key="j"
-                    >
-                      <SfMenuItem
-                        :count="subCat.count || ''"
-                        :label="subCat.name || subCat.label"
-                      >
-                        <template #label="{ label }">
-                          <nuxt-link
-                            :to="localePath(getRoute(subCat))"
-                            :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
-                          >
-                            {{ label }}
-                          </nuxt-link>
-                        </template>
-                      </SfMenuItem>
-                    </SfListItem>
-                  </SfList>
-                </template>
-              </SfAccordionItem>
-            </SfAccordion>
-          </SfLoader>
-        </LazyHydrate>
-      </div>
-      <SfLoader :class="{ loading }" :loading="loading">
-        <div class="products" v-if="!loading">
-          <transition-group
-            v-if="isCategoryGridView"
-            appear
-            name="products__slide"
-            tag="div"
-            class="products__grid"
-          >
-            <SfProductCard
-              v-e2e="'category-product-card'"
-              v-for="(product, i) in products"
-              :key="productGetters.getSlug(product)"
-              :style="{ '--index': i }"
-              :title="productGetters.getName(product)"
-              :image="productGetters.getCoverImage(product)"
-              :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
-              :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
-              :show-add-to-cart-button="true"
-              :add-to-cart-disabled="!productGetters.getInStock(product)"
-              :is-in-wishlist="isInWishlist({ product })"
-              :is-added-to-cart="isInCart({ product })"
-              :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
-              :wishlist-icon="isWishlistDisabled ? false : undefined"
-              class="products__product-card"
-              @click:wishlist="handleWishlistClick(product)"
-              @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-            />
-          </transition-group>
-          <transition-group
-            v-else
-            appear
-            name="products__slide"
-            tag="div"
-            class="products__list"
-          >
-            <SfProductCardHorizontal
-              v-e2e="'category-product-card'"
-              v-for="(product, i) in products"
-              class="products__product-card-horizontal"
-              :key="productGetters.getSlug(product)"
-              :style="{ '--index': i }"
-              :title="productGetters.getName(product)"
-              :description="productGetters.getDescription(product)"
-              :image="productGetters.getCoverImage(product)"
-              :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
-              :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
-              :is-in-wishlist="isInWishlist({ product })"
-              :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
-              @click:wishlist="handleWishlistClick(product)"
-              @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-            >
-              <template #configuration>
-                <SfProperty
-                  class="desktop-only"
-                  name="Size"
-                  value="XS"
-                  style="margin: 0 0 1rem 0;"
-                />
-                <SfProperty class="desktop-only" name="Color" value="white" />
-              </template>
-              <template #actions>
-                <SfButton
-                  v-if="!isInWishlist({ product })"
-                  class="sf-button--text wishlist__button desktop-only"
-                  @click="handleWishlistClick(product)"
-                >
-                  {{ $t('Save for later') }}
-                </SfButton>
-                <SfButton
-                  v-else
-                  class="sf-button--text wishlist__button desktop-only"
-                  @click="handleWishlistClick(product)"
-                >
-                  {{ $t('Remove from wishlist') }}
-                </SfButton>
-              </template>
-            </SfProductCardHorizontal>
-          </transition-group>
+                            <div class="filter">
+                                <a href="#">
+                                    <label for="switch4">
+                                        <input type="checkbox" id="switch4" />
+                                        <span class="switch"></span>
+                                            <h1 class="switch-title">فقط کالاهای اصل </h1>
+                                        <span class="toggle"></span>
+                                    </label>
+                                </a>
+                            </div>
 
-          <LazyHydrate on-interaction>
-            <SfPagination
-              v-if="!loading"
-              class="products__pagination desktop-only"
-              v-show="pagination.totalPages > 1"
-              :current="pagination.currentPage"
-              :total="pagination.totalPages"
-              :visible="5"
-            />
-          </LazyHydrate>
+                            <div class="filter">
+                                <a href="#">
+                                    <label for="switch5">
+                                        <input type="checkbox" id="switch5" /><span class="switch"></span>
+                                        <h1 class="switch-title">فقط کالاهای آماده ارسال</h1>
+                                        <span class="toggle"></span>
+                                    </label>
+                                </a>
+                            </div>
 
-          <div
-            v-show="pagination.totalPages > 1"
-            class="products__show-on-page"
-          >
-            <span class="products__show-on-page__label">{{ $t('Show on page') }}</span>
-            <LazyHydrate on-interaction>
-              <SfSelect
-                :value="pagination && pagination.itemsPerPage ? pagination.itemsPerPage.toString() : ''"
-                class="products__items-per-page"
-                @input="th.changeItemsPerPage"
-              >
-                <SfSelectOption
-                  v-for="option in pagination.pageOptions"
-                  :key="option"
-                  :value="option"
-                  class="products__items-per-page__option"
-                >
-                  {{ option }}
-                </SfSelectOption>
-              </SfSelect>
-            </LazyHydrate>
-          </div>
+                            <div class="filter">
+                                <div class="toggle-box">
+                                    <div class="toggle-box-active">
+                                        <ul>
+                                            <li class="has-sub">
+                                                <a href="#">دسته بندی</a>
+                                                <ul class="catalog-list">
+                                                    <li><a href="#" class="catalog-link"><i
+                                                                class="fa fa-angle-left"></i>کالای دیجیتال</a>
+                                                        <div class="show-more">
+                                                            <span class="catalog-cat-item"><i
+                                                                    class="fa fa-angle-down"></i>لوازم جانبی گوشی</span>
+                                                            <span class="catalog-cat-item"><i
+                                                                    class="fa fa-angle-down"></i>لوازم جانبی گوشی
+                                                                موبایل</span>
+                                                            <ul class="catalog-list">
+                                                                <li><a href="#" class="catalog-link"> کیف و کاور
+                                                                        </a></li>
+                                                                <li><a href="#" class="catalog-link">محافظ صفحه نمایش
+                                                                        گوشی</a></li>
+                                                                <li><a href="#" class="catalog-link">هندزفری</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter">
+                                <div class="toggle-box">
+                                    <div class="toggle-box-active">
+                                        <ul>
+                                            <li class="has-sub">
+                                                <a href="#">برند</a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="/c/lights" class="filter-label">
+                                                            <div class="form-auth-row">
+                                                                <label for="remember" class="ui-checkbox">
+                                                                    <input type="checkbox" value="1" name="login"
+                                                                        id="remember">
+                                                                    <span class="ui-checkbox-check"></span>
+                                                                </label>
+                                                                <label for="remember" href="/c/lights"
+                                                                    class="remember-me">بروکس</label>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+
+                                                    
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter">
+                                <div class="toggle-box">
+                                    <div class="toggle-box-active">
+                                        <ul>
+                                            <li class="has-sub">
+                                                <a href="#">فروشنده</a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" class="filter-label">
+                                                            <div class="form-auth-row">
+                                                                <label for="remember" class="ui-checkbox">
+                                                                    <input type="checkbox" value="1" name="login"
+                                                                        id="remember">
+                                                                    <span class="ui-checkbox-check"></span>
+                                                                </label>
+                                                                <label for="remember"
+                                                                    class="remember-me">دیجی‌استور</label>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#" class="filter-label">
+                                                            <div class="form-auth-row">
+                                                                <label for="remember" class="ui-checkbox">
+                                                                    <input type="checkbox" value="1" name="login"
+                                                                        id="remember">
+                                                                    <span class="ui-checkbox-check"></span>
+                                                                </label>
+                                                                <label for="remember"
+                                                                    class="remember-me">دیجی‌استور</label>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="filter-label">
+                                                            <div class="form-auth-row">
+                                                                <label for="remember" class="ui-checkbox">
+                                                                    <input type="checkbox" value="1" name="login"
+                                                                        id="remember">
+                                                                    <span class="ui-checkbox-check"></span>
+                                                                </label>
+                                                                <label for="remember"
+                                                                    class="remember-me">دیجی‌استور</label>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </div>
-      </SfLoader>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 305px; margin:20px auto;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="remodal-header">مرتب‌سازی بر اساس</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="remodal-list-sort">
+                    <ul class="listing-sort nav nav-tabs" id="myTab" role="tablist" data-label="مرتب‌سازی بر اساس :">
+                        <li class="listing-active nav-item"><a class="nav-link active" id="mostvisited-tab"
+                                data-toggle="tab" href="#mostvisited" role="tab" aria-controls="mostvisited"
+                                aria-selected="true">پربازدید ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="bestselling-tab" data-toggle="tab"
+                                href="#bestselling" role="tab" aria-controls="bestselling" aria-selected="false">پرفروش
+                                ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="mostpopular-tab" data-toggle="tab"
+                                href="#mostpopular" role="tab" aria-controls="mostpopular" aria-selected="false">محبوب
+                                ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab"
+                                aria-controls="news" aria-selected="false">جدید ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="cheapest-tab" data-toggle="tab" href="#cheapest"
+                                role="tab" aria-controls="cheapest" aria-selected="false">ارزان ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="mostexpensive-tab" data-toggle="tab"
+                                href="#mostexpensive" role="tab" aria-controls="mostexpensive"
+                                aria-selected="false">گران ترین</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--        responsive-sidebar----------------------->
+    <div class="col-lg-3 col-md-4 col-xs-12 float-right sticky-sidebar">
+        <div class="sidebar-wrapper search-sidebar">
+            <div class="box-sidebar">
+                <button class="btn btn-light btn-box-sidebar" type="button">دسته‌بندی </button>
+                <div class="catalog" :class="{ 'loading--categories': loading }"
+                    :loading="loading">
+                    <ul class="catalog-list" v-e2e="'categories-accordion'"
+                        :open="activeCategory"
+                        :show-chevron="true">
+                        <li v-for="(cat, i) in ((menu && menu.items) || (categoryTree && categoryTree.items))"
+                            :key="i"
+                            :header="cat.name || cat.label"><a :href="localePath(getRoute(cat))" class="catalog-link"><i class="fa fa-angle-left"></i>{{cat.name || cat.label}}</a>
+                            <div class="show-more" v-for="(subCat, j) in cat.items"
+                            :key="j" >
+                                <span class="catalog-cat-item" :count="subCat.count || ''"
+                                :label="subCat.name || subCat.label" :href="localePath(getRoute(subCat))"><i class="fa fa-angle-down" ></i>{{subCat.name || subCat.label}}</span>
+                                
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="box-sidebar">
+                <button class="btn btn-light btn-box-sidebar" type="button">
+                    جستجو در نتایج:
+                </button>
+                <form action="#">
+                    <input type="text" class="input-sidebar" placeholder="نام محصول یا برند مورد نظر را بنویسید…">
+
+                    <button class="btn-search-sidebar"><img src="assets/images/search.png" alt="search"></button>
+                </form>
+            </div>
+
+            <div class="box-sidebar">
+                <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
+                    data-target="#collapseExamplebrand" aria-expanded="false" aria-controls="collapseExamplebrand">
+                    <i class="fa fa-chevron-down arrow"></i>برند
+                </button>
+                <div class="collapse" id="collapseExamplebrand">
+                    <div class="catalog">
+                        <form action="#">
+                            <input type="text" class="input-sidebar"
+                                placeholder="نام محصول یا برند مورد نظر را بنویسید…">
+
+                            <button class="btn-search-sidebar"><img
+                                        src="assets/images/search.png" alt="search"></button>
+                        </form>
+                        <ul>
+                            <li>
+                                <a href="/c/lights" class="filter-label">
+                                    <div class="form-auth-row">
+                                        <label for="remembersumsung" class="ui-checkbox">
+                                            <input type="checkbox" value="1" name="login" id="remembersumsung">
+                                            <span class="ui-checkbox-check"></span>
+                                        </label>
+                                        <label for="rememberBurux" class="remember-me">بروکس</label>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="box-sidebar">
+                <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
+                data-target="#collapseExampleSeller" aria-expanded="false" aria-controls="collapseExampleSeller">
+                <i class="fa fa-chevron-down arrow"></i>فروشنده
+                </button>
+                <div class="collapse show" id="collapseExampleSeller">
+                    <div class="catalog">
+                        <ul>
+                            <li>
+                                <a href="#" class="filter-label">
+                                    <div class="form-auth-row">
+                                        <label for="rememberseller1" class="ui-checkbox">
+                                            <input type="checkbox" value="1" name="login" id="rememberseller1">
+                                            <span class="ui-checkbox-check"></span>
+                                        </label>
+                                        <label for="rememberseller1" class="remember-me">بروکس</label>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-sidebar">
+                <div class="filter-switch">
+                    <div class="switch-box">
+                        <div class="centered hidden-xs">
+                            <div class="card">
+                                <a href="#">
+                                    <label for="switch1">
+                                        <input type="checkbox" id="switch1"><span class="switch">
+                                            <h1 class="switch-title">فقط کالای موجود</h1>
+                                        </span>
+                                        <span class="toggle"></span>
+                                    </label>
+                                </a>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-sidebar">
+                <div class="filter-switch">
+                    <div class="switch-box">
+                        <div class="centered hidden-xs">
+                            <div class="card">
+                                <a href="#">
+                                    <label for="switch2">
+                                        <input type="checkbox" id="switch2"><span class="switch">
+                                            <h1 class="switch-title">فقط کالای آماده ارسال</h1>
+                                        </span>
+                                        <span class="toggle"></span>
+                                    </label>
+                                </a>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--   adplacement -------------------->
+            <div class="adplacement">
+                <div class="col-12 col-lg-12 pull-right" style="padding:0;">
+                    <a href="#" class="item-adplacement">
+                        <img src="assets/images/post-adplacement/1000012860.jpg" title="صوتی و تصویری" alt="صوتی و تصویری">
+                    </a>
+                </div>
+            </div>
+            <!--   adplacement -------------------->
+
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-8 col-xs-12 pull-left">
+        <div class="js-products">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <SfBreadcrumbs
+                      class="breadcrumb-item"
+                      :breadcrumbs="breadcrumbs"
+                      />
+                    
+                </ol>
+            </nav>
+
+            <div class="listing-listing">
+                <div class="listing-counter">۱۹۲,۷۳۲ کالا</div>
+                <div class="listing-header">
+                    <span class="mdi mdi-sort-variant"></span>
+                    <ul class="listing-sort nav nav-tabs" id="myTab2" role="tablist" data-label="مرتب‌سازی بر اساس :">
+                        <li class="listing-active nav-item"><a class="nav-link active" id="mostvisited-tab"
+                                data-toggle="tab" href="#mostvisited" role="tab" aria-controls="mostvisited"
+                                aria-selected="true">پربازدید ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="bestselling-tab" data-toggle="tab"
+                                href="#bestselling" role="tab" aria-controls="bestselling" aria-selected="false">پرفروش
+                                ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="mostpopular-tab" data-toggle="tab"
+                                href="#mostpopular" role="tab" aria-controls="mostpopular" aria-selected="false">محبوب
+                                ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab"
+                                aria-controls="news" aria-selected="false">جدید ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="cheapest-tab" data-toggle="tab" href="#cheapest"
+                                role="tab" aria-controls="cheapest" aria-selected="false">ارزان ترین</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="mostexpensive-tab" data-toggle="tab"
+                                href="#mostexpensive" role="tab" aria-controls="mostexpensive"
+                                aria-selected="false">گران ترین</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- <ul class="listing-item"> -->
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="mostvisited" role="tabpanel"
+                            aria-labelledby="mostvisited-tab">
+                            <ul class="listing-item">
+                                <li
+                                > 
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
+                                             v-for="(product, i) in products"
+                                            :key="productGetters.getSlug(product)"
+                                            :style="{ '--index': i }"
+                                            :title="productGetters.getName(product)"
+                                            
+                                            :image="productGetters.getCoverImage(product)"
+                                            :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                                            :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                                            :is-in-wishlist="isInWishlist({ product })"
+                                            :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
+                                    >
+                                        <div 
+                                            class="promotion-box">
+                                            <div class="product-seller-details">
+                                                <span class="product-main-seller">فروشنده : بروکس</span>
+                                            </div>
+    
+                                            <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
+                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                            </a>
+    
+                                            <div class="product-box-content">
+                                                <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="product-box-title"> {{productGetters.getName(product)}}</a>
+                                            </div>
+    
+                                            <div class="product-box-rate">
+                                                
+    
+                                                <div class="product-star mb-3">
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                </div>
+                                            </div>
+    
+                                            <div class="product-box-row">
+                                                <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}} </span>
+                                                <span class="price-currency">ریال </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="bestselling" role="tabpanel" aria-labelledby="bestselling-tab">
+                            <ul class="listing-item">
+                                <li>
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
+                                            v-for="(product, i) in products"
+                                            :key="productGetters.getSlug(product)"
+                                            :style="{ '--index': i }"
+                                            :title="productGetters.getName(product)"
+                                            
+                                            :image="productGetters.getCoverImage(product)"
+                                            :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                                            :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                                            :is-in-wishlist="isInWishlist({ product })"
+                                            :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
+                                    >
+                                        <div class="promotion-box">
+                                            <div class="product-seller-details">
+                                                <span class="product-main-seller">فروشنده : بروکس</span>
+                                            </div>
+    
+                                           <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
+                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                            </a>
+    
+                                            <div class="product-box-content">
+                                                <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="product-box-title"> {{productGetters.getName(product)}}</a>
+                                            </div>
+    
+                                            <div class="product-box-rate">
+                                               
+    
+                                                <div class="product-star mb-3">
+                                                     <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                </div>
+                                            </div>
+    
+                                            <div class="product-box-row">
+                                                <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}} </span>
+                                                <span class="price-currency">ریال </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="mostpopular" role="tabpanel" aria-labelledby="mostpopular-tab">
+                            <ul class="listing-item">
+                                <li>
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0" v-for="(product, i) in products"
+                                            :key="productGetters.getSlug(product)"
+                                            :style="{ '--index': i }"
+                                            :title="productGetters.getName(product)"
+                                            
+                                            :image="productGetters.getCoverImage(product)"
+                                            :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                                            :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                                            :is-in-wishlist="isInWishlist({ product })"
+                                            :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
+                                    >
+                                        <div class="promotion-box">
+                                            <div class="product-seller-details">
+                                                <span class="product-main-seller">فروشنده : بروکس</span>
+                                            </div>
+    
+                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
+                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                            </a>
+    
+                                            <div class="product-box-content">
+                                                <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="product-box-title"> {{productGetters.getName(product)}}</a>
+                                            </div>
+    
+                                            <div class="product-box-rate">
+                                               
+    
+                                                <div class="product-star mb-3">
+                                                     <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                </div>
+                                            </div>
+    
+                                            <div class="product-box-row">
+                                                <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}} </span>
+                                                <span class="price-currency">ریال </span>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">
+                            <ul class="listing-item">
+                                <li>
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0">
+                                        <div class="promotion-box">
+                                            <div class="product-seller-details">
+                                                <span class="product-main-seller">فروشنده : ای جی</span>
+                                            </div>
+    
+                                            <a href="#" class="promotion-box-image">
+                                                <img src="assets/images/search/product-2.jpg" alt="product">
+                                            </a>
+    
+                                            <div class="product-box-content">
+                                                <a href="#" class="product-box-title">شارژر همراه شیاومی مدل PLM09ZM ظرفیت
+                                                    10000
+                                                    میلی آمپر ساعت</a>
+                                            </div>
+    
+                                            <div class="product-box-rate">
+                                                <span>۲,۶۵۰ نفر</span>
+    
+                                                <div class="product-star mb-3">
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+    
+                                            <div class="product-box-row">
+                                                <span class="price-value-wrapper">۱۸۹,۷۰۰ </span>
+                                                <span class="price-currency">تومان </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="cheapest" role="tabpanel" aria-labelledby="cheapest-tab">
+                            <ul class="listing-item">
+                                <li>
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0">
+                                        <div class="promotion-box">
+                                            <div class="product-seller-details">
+                                                <span class="product-main-seller">فروشنده : ای جی</span>
+                                            </div>
+    
+                                            <a href="#" class="promotion-box-image">
+                                                <img src="assets/images/search/product-1.jpg" alt="product">
+                                            </a>
+    
+                                            <div class="product-box-content">
+                                                <a href="#" class="product-box-title">شارژر همراه شیاومی مدل PLM09ZM ظرفیت
+                                                    10000
+                                                    میلی آمپر ساعت</a>
+                                            </div>
+    
+                                            <div class="product-box-rate">
+                                                <span>۲,۶۵۰ نفر</span>
+    
+                                                <div class="product-star mb-3">
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+    
+                                            <div class="product-box-row">
+                                                <span class="price-value-wrapper">۱۸۹,۷۰۰ </span>
+                                                <span class="price-currency">تومان </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="mostexpensive" role="tabpanel"
+                            aria-labelledby="mostexpensive-tab">
+                            <ul class="listing-item">
+                                <li>
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0">
+                                        <div class="promotion-box">
+                                            <div class="product-seller-details">
+                                                <span class="product-main-seller">فروشنده : ای جی</span>
+                                            </div>
+    
+                                            <a href="#" class="promotion-box-image">
+                                                <img src="assets/images/search/product-2.jpg" alt="product">
+                                            </a>
+    
+                                            <div class="product-box-content">
+                                                <a href="#" class="product-box-title">شارژر همراه شیاومی مدل PLM09ZM ظرفیت
+                                                    10000
+                                                    میلی آمپر ساعت</a>
+                                            </div>
+    
+                                            <div class="product-box-rate">
+                                                <span>۲,۶۵۰ نفر</span>
+    
+                                                <div class="product-star mb-3">
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star active"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+    
+                                            <div class="product-box-row">
+                                                <span class="price-value-wrapper">۱۸۹,۷۰۰ </span>
+                                                <span class="price-currency">تومان </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <!-- </ul> -->
+                <div class="pager">
+                    <ul class="page-item">
+                        <li class="pagination-item"><a href="#" class="pager-item-active">1</a></li>
+                        <li class="pagination-item"><a href="#">2</a></li>
+                        <li class="pagination-item"><a href="#">3</a></li>
+                        <li class="pagination-item"><a href="#">4</a></li>
+                        <li class="pagination-item"><a href="#">5</a></li>
+                        <li class="pagination-item">
+                            <div class="pager-items-partition"></div>
+                        </li>
+                        <li class="pagination-item"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 </template>
@@ -244,10 +745,10 @@ export default {
     const { locale } = context.app.i18n;
 
     const getRoute = (category) => {
-      if (menu.value.isDisabled) {
-        return '/c/' + category.slug;
-      }
-      return category.link;
+      // if (menu.value.isDisabled) {
+         return '/c/' + category.slug;
+      // }
+      //return "";
     };
 
     const activeCategory = computed(() => {
