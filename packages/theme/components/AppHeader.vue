@@ -6,7 +6,7 @@
           <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
             <div class="header-right">
               <div class="logo">
-                <a href="/"><img src="/images/logo.png" alt="logo" /></a>
+                <a href="/"><img src="/images/home/BURUX.svg" alt="logo" /></a>
               </div>
 
               <div class="col-lg-8 col-md-12 col-xs-12 pull-right">
@@ -44,21 +44,21 @@
                 style="font-weight: bold"
               >
                 <i class="mdi mdi-menu"></i>
-                دسته بندی کالاها
+                دسته بندی محصولات
               </a>
               <Categories />
             </li>
             <li class="item-list-menu megamenu-1">
               <a href="#" class="list-category first after">
                 <i class="mdi mdi-plus-outline text-primary"></i>
-                دیجی پلاس
+                ویزیتور هستید
               </a>
             </li>
             <li class="item-list-menu megamenu-1 item-set">
-              <a href="#" class="list-category first after">سوالی دارید؟</a>
+              <a href="#" class="list-category first after">فروشگاه الکتریکی دارید؟</a>
             </li>
             <li class="item-list-menu megamenu-1 item-set">
-              <a href="#" class="list-category first after">فروشنده شوید</a>
+              <a href="#" class="list-category first after">فروش سازمانی</a>
             </li>
             <li class="map-city-item">
               <a href="#" class="map-city"

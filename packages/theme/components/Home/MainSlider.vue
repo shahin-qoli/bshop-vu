@@ -1,6 +1,6 @@
 <template>
   <div class="d-block">
-    <div class="col-lg-12 col-md-12 col-xs-12 pull-right mt-5">
+    <div class="col-lg-8 col-md-8 col-xs-12 pull-right mt-5">
       <div class="main-slider">
         <div class="main-slider-container">
           <div
@@ -32,11 +32,12 @@
               ></li>
             </ol>
             <div class="carousel-inner">
-              <div class="carousel-item active">
+              <div class="carousel-item active" >
                 <img
                   class="d-block w-100"
-                  src="/images/slider/2.jpg"
+                  src="/images/home/Tile_Shop.jpg"
                   alt="Second slide"
+                  
                 />
               </div>
               <div class="carousel-item">
@@ -89,6 +90,20 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-xs-12 pull-left mt-5">
+    <aside class="adplacement-container-column">
+        <a href="#" class="adplacement-item adplacement-item-column">
+            <div class="adplacement-sponsored-box">
+                <img src="/images/home/burux-1.jpg" alt="adplacement">
+            </div>
+        </a>
+        <a href="#" class="adplacement-item adplacement-item-column">
+            <div class="adplacement-sponsored-box">
+                <img height="100%" src="images/home/burux-1.jpg" alt="adplacement">
+            </div>
+        </a>
+    </aside>
     </div>
   </div>
 </template>

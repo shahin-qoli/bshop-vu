@@ -4,7 +4,9 @@
       <div class="col-12">
         <div class="widget widget-product card">
           <header class="card-header">
+            <a :href="showcat">
             <span class="title-one">{{ title }}</span>
+            </a>
           </header>
           <div
             class="
@@ -84,6 +86,7 @@ export default {
     const getProductLink = (product) => {
       return `/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`
     }
+    const showcat="c/"+props.slug
     
     onSSR(async () => {
       await search({
@@ -101,7 +104,8 @@ export default {
       result,
       products,
       productGetters,
-      getProductLink
+      getProductLink,
+      showcat
     }
   },
 }
