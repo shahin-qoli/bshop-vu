@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown-menu-login">
+  <div v-if="isAuthenticated" class="dropdown-menu-login">
     <div class="header-profile-dropdown-account">
       <div class="header-profile-dropdown-user">
         <div class="header-profile-dropdown-user-img">
@@ -70,7 +70,7 @@
           >جوایز دیجی‌کلاب</span
         >
       </div>
-      <div class="header-profile-dropdown-action-container">
+      <div @click="handleLogout('Log Out')" class="header-profile-dropdown-action-container">
         <span class="header-profile-dropdown-action-link"
           >خروج از حساب کاربری</span
         >
@@ -82,7 +82,7 @@
 import { userGetters, useUser, useUserShipping, userShippingGetters } from '@vue-storefront/spree';
 import { SfProperty, SfHeading, SfTable, SfLink, SfButton, SfInput } from '@storefront-ui/vue';
 import { onMounted } from '@nuxtjs/composition-api';
-import {computed} from '@nuxtjs/composition-api';
+import { computed,useRouter } from '@nuxtjs/composition-api';
 export default {
   name: 'ProfileUpdateForm',
   components: {
@@ -93,21 +93,39 @@ export default {
     SfButton,
     SfInput
   },
-  setup() {
+  setup(props,context) {
     const {
       isAuthenticated,
       user,
-      load: loadUser
+      load: loadUser,
+      logout
     } = useUser();
+    const router = useRouter();
+      
     onMounted(async () => {
       await loadUser();
     });
+    const handleLogout = async (title) => {
+      if (title === 'Log Out') {
+        await logout();
+        console.log(isAuthenticated)
+        router.push(context.root.localePath({ name: 'home' }));
+        return;
+      }
+
+      const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
+      const transformedPath = `/my-account/${slugifiedTitle}`;
+      const localeTransformedPath = context.root.localePath(transformedPath);
+      router.push(localeTransformedPath);
+    };
     return {
       userGetters,
       user,
-      isAuthenticated
+      isAuthenticated,
+      handleLogout
     };
-
+    
+    
   }
 };
 </script>
