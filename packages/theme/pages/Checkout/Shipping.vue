@@ -91,12 +91,12 @@
                           class="checkout-additional-options-action-container"
                         >
                           <div class="action-title">
-                            زمان تقریبی تحویل از ۸ آذر تا ۱۲ آذر
+                            زمان تقریبی تحویل از ۸ تیر تا ۱۲ تیر
                           </div>
                           <ul class="action-description">
-                            <li>پست پیشتاز با ظرفیت اختصاصی برای دیجی استور</li>
+                            <li>پست پیشتاز با ظرفیت اختصاصی برای بروکس</li>
                             <li class="package-shipping-cost">
-                              هزینه ارسال : ۸,۰۰۰ تومان
+                              هزینه ارسال : {{$n(300000)}} ریال
                             </li>
                           </ul>
                         </div>
@@ -139,8 +139,8 @@
             <div class="checkout-to-shipping-price-report">
               <p>مبلغ قابل پرداخت</p>
               <div class="cart-item-product-price">
-                ۳,۴۲۰,۰۰۰
-                <span>تومان</span>
+                {{ $n(cartGetters.getTotals(cart).total +300000) }}
+                <span>ریال</span>
               </div>
             </div>
           </div>
@@ -163,16 +163,16 @@
                   <span>مبلغ کل (۱ کالا)</span>
                   <span>
                     <span>
-                      {{ cartGetters.getTotals(cart).total }}
+                      {{$n(cartGetters.getTotals(cart).total) }}
                     </span>
                     <span>
-                      تومان
+                      ریال
                     </span>
                   </span>
                 </li>
                 <li>
                   <span>جمع</span>
-                  <span>۳,۴۲۰,۰۰۰ تومان</span>
+                  <span>{{$n(cartGetters.getTotals(cart).total) }} ریال</span>
                 </li>
                 <li>
                   <span style="color: #424750; font-size: 14px"
@@ -182,24 +182,13 @@
                 </li>
                 <li>
                   <span><i class="fa fa-truck"></i>ارسال عادی</span>
-                  <span>رایگان</span>
+                  <span>{{$n(300000)}}ریال</span>
                 </li>
                 <li>
                   <span>مبلغ قابل پرداخت</span>
-                  <span>۳,۴۲۰,۰۰۰ تومان</span>
+                  <span>{{$n(cartGetters.getTotals(cart).total+300000) }} ریال</span>
                 </li>
-                <li class="checkout-digiclub-container">
-                  <span class="checkout-digiclub-row">
-                    <img src="assets/images/digiclub.png" alt="digiclub" />
-                    <span class="checkout-digiclub-points">
-                      امتیاز دیجی‌کلاب
-                    </span>
-                  </span>
-                  <span class="checkout-digiclub-row"
-                    >150
-                    <span class="checkout-bill-currency"> امتیاز </span>
-                  </span>
-                </li>
+                
               </ul>
             </div>
             <div class="checkout-summary-content">
