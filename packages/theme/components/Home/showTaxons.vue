@@ -13,7 +13,7 @@
 
     <div class="col-6 col-lg-3 pull-right">
 
-    <a :href="showSlug2" class="item-adplacement">
+    <a :href="showSlug2" class="item-adplacement" >
         <img
         src="images/home/panel.svg"
         title="پنل های سقفی"

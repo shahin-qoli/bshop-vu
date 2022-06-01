@@ -14,7 +14,7 @@
                 data-slide-to="0"
                 class="active"
               ></li>
-              <li
+              <!-- <li
                 data-target="#carouselExampleIndicators"
                 data-slide-to="1"
               ></li>
@@ -29,7 +29,7 @@
               <li
                 data-target="#carouselExampleIndicators"
                 data-slide-to="4"
-              ></li>
+              ></li> -->
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active" >
@@ -40,7 +40,7 @@
                   
                 />
               </div>
-              <div class="carousel-item">
+              <!-- <div class="carousel-item">
                 <img
                   class="d-block w-100"
                   src="/images/slider/1.jpg"
@@ -67,7 +67,7 @@
                   src="/images/slider/5.jpg"
                   alt="Third slide"
                 />
-              </div>
+              </div> -->
             </div>
             <a
               class="carousel-control-prev"

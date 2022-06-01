@@ -2,7 +2,7 @@
   <div>
     <Main-Slider />
     <!--    Start Main Slider -------------------->
-    <div class="col-12">
+    <!-- <div class="col-12">
       <aside class="adplacement-header">
         <a
           href="index.html"
@@ -10,7 +10,7 @@
           title="برای دربی آماده شو"
         ></a>
       </aside>
-    </div>
+    </div> -->
 
     <!--adplacement-------------------------------->
 <!--     <div class="col-lg-4 col-md-4 col-xs-12 pull-left">
@@ -30,7 +30,6 @@
     <!-- show taxons --------------------------------->
     <show-taxons title="حبابی" slug1="lights/bulb" slug2="lights/panel" slug3="lights/candle" slug4="lights/panel " />
     <!-- show taxons --------------------------------->
-
 
 
     <!--slider-amazing----------------------------->
@@ -1112,7 +1111,7 @@
       </div>
     </div> -->
 
-    <Product-Slider title="حبابی" slug="lights/candle" class="mt-4" />
+    <Product-Slider title="شمعی" slug="lights/candle" class="mt-4" />
     <!--   slider-product-------------------->
 
     <!--banner----------------------------->
