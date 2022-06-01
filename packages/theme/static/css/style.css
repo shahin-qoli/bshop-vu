@@ -6679,15 +6679,14 @@ a.add-address:hover {
     padding: 30px 30px 30px 140px;
 }
 
-.remodal-overlay .remodal .middle-container .form-checkout {
+.form-checkout {
     width: 100%;
     height: auto;
     padding: 20px;
-    float: right;
     text-align: right;
 }
 
-.remodal-overlay .remodal .middle-container .form-checkout .form-checkout-headline {
+.form-checkout .form-checkout-headline {
     font: 20px iranyekan;
     width: 100%;
     height: 40px;
@@ -6697,20 +6696,20 @@ a.add-address:hover {
     color: #858585;
 }
 
-.remodal-overlay .remodal .middle-container .form-checkout .form-checkout-row {
+.form-checkout .form-checkout-row {
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
     height: auto;
 }
 
-.remodal-overlay .remodal .middle-container .form-checkout .form-checkout-row label {
+.form-checkout .form-checkout-row label {
     font: 14px iranyekan;
     color: #858585;
     width: 100%;
 }
 
-.remodal-overlay .remodal .middle-container .form-checkout .form-checkout-row .input-name-checkout {
+.form-checkout .form-checkout-row .input-name-checkout {
     display: block;
     font: 12px iranyekan;
     width: 100%;
@@ -6722,19 +6721,19 @@ a.add-address:hover {
     margin-bottom: 25px;
 }
 
-.remodal-overlay .remodal .middle-container .form-checkout .form-checkout-valid-row {
+.form-checkout .form-checkout-valid-row {
     width: 48%;
     float: right;
     margin-left: 12px;
     margin-bottom: 15px;
 }
 
-.remodal-overlay .remodal .middle-container .form-checkout .form-checkout-row .input-name-checkout::placeholder {
+.form-checkout .form-checkout-row .input-name-checkout::placeholder {
     text-indent: 0;
     color: #858585;
 }
 
-.remodal-overlay .remodal .middle-container .form-checkout select {
+.form-checkout select {
     font: 14px iranyekan;
     width: 100%;
     outline: none;
@@ -11668,7 +11667,7 @@ ul.faq-list li .footer em {
     .headline-profile-favorites {
         margin-top: 10px;
     }
-    .remodal-overlay .remodal .middle-container .form-checkout .form-checkout-valid-row {
+    .form-checkout .form-checkout-valid-row {
         width: 100%;
     }
     .header-filters .remodal-search-advanced .remodal-page-main .remodal-page-content .filter .toggle-box {
