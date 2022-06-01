@@ -1,6 +1,8 @@
 <template>
   <div>
-
+    <modal v-model="showEditAddr">
+      <Address-Form v-model="form" />
+    </modal>
     <div class="main-shopping">
       <div class="content-shopping">
         <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
@@ -8,7 +10,11 @@
             <div class="headline-checkout-shopping">
               <span>انتخاب آدرس تحویل سفارش</span>
             </div>
-            <div id="address-section">
+            <Address-Form
+              v-model="form"
+              :states="states"
+            />
+            <div id="address-section" class="d-none">
               <div class="checkout-contact">
                 <div class="checkout-contact-content">
                   <ul class="checkout-contact-items">
@@ -18,13 +24,13 @@
                       <a
                         href="#"
                         class="edit-address-btn"
-                        onclick="document.getElementById('modal').style.display='block'"
+                        @click="showEditAddr = true"
                         >اصلاح این آدرس</a
                       >
                       <a
                         href="#"
                         class="checkout-contact-location"
-                        onclick="document.getElementById('modal').style.display='block'"
+                        @click="showEditAddr = true"
                         >تغییر آدرس ارسال</a
                       >
                     </li>
@@ -60,23 +66,15 @@
                     <i class="fa fa-truck"></i>ارسال عادی
                   </div>
                   <div class="checkout-pack-row">
-                    <div class="swiper-products-compact">
-                      <div class="box">
-                        <div class="col-lg-3 col-md-4 col-xs-12">
-                          <div class="product-box-container">
-                            <div class="product-box-compact">
-                              <a href="#">
-                                <img
-                                  src="assets/images/product-slider-2/111460776.jpg"
-                                  alt="img-slider"
-                                />
-                              </a>
-                              <div class="product-box-title">
-                                گوشی موبایل سامسونگ مدل Galaxy A50 SM-A505F/DS
-                                دو ...
-                              </div>
-                            </div>
-                          </div>
+                    <div v-if="cart" class="swiper-products-compact">
+                      <div
+                        v-for="item in cart.lineItems"
+                        :key="item._id"
+                        class="box">
+                        <div
+                          class="col-lg-3 col-md-4 col-xs-12"
+                        >
+                          <CartItem :item="item" />
                         </div>
                       </div>
                     </div>
@@ -109,10 +107,10 @@
               </div>
             </form>
           </div>
-          <div class="headline-checkout-shopping">
+          <div class="headline-checkout-shopping d-none">
             <span>صدور فاکتور</span>
           </div>
-          <div class="checkout-invoice">
+          <div class="checkout-invoice d-none">
             <div class="checkout-invoice-headline">
               <div class="form-auth-row">
                 <label class="ui-checkbox">
@@ -127,9 +125,17 @@
           </div>
 
           <div class="checkout-to-shipping-sticky">
-            <a href="#" class="selenium-next-step-shipping"
-              >ادامه فرآیند خرید</a
+            <a
+              @click.prevent="handleFormSubmit"
+              href="#"
+              class="selenium-next-step-shipping"
+              :class="{ dispabled: loading }"
             >
+              <span v-if="!loading">
+                ادامه فرآیند خرید
+              </span>
+              <div v-else class="spinner-border spinner-border-sm" role="status"></div>
+            </a>
             <div class="checkout-to-shipping-price-report">
               <p>مبلغ قابل پرداخت</p>
               <div class="cart-item-product-price">
@@ -140,10 +146,10 @@
           </div>
 
           <div class="checkout-actions">
-            <a href="cart.html" class="btn-link-spoiler">
+            <a href="/cart" class="btn-link-spoiler">
               « بازگشت به سبد خرید
             </a>
-            <a href="shopping-payment.html" class="save-shipping-data">
+            <a @click.prevent="handleFormSubmit" href="javascript(void)" class="save-shipping-data">
               تایید و ادامه ثبت سفارش »
             </a>
           </div>
@@ -155,7 +161,14 @@
               <ul class="checkout-summary-summary">
                 <li>
                   <span>مبلغ کل (۱ کالا)</span>
-                  <span>۳,۴۲۰,۰۰۰ تومان</span>
+                  <span>
+                    <span>
+                      {{ cartGetters.getTotals(cart).total }}
+                    </span>
+                    <span>
+                      تومان
+                    </span>
+                  </span>
                 </li>
                 <li>
                   <span>جمع</span>
@@ -225,264 +238,13 @@
         </footer>
       </div>
     </div>
-    <ValidationObserver v-if="false" v-slot="{ handleSubmit }">
-      <SfHeading
-        v-e2e="'shipping-heading'"
-        :level="3"
-        :title="$t('Shipping')"
-        class="sf-heading--left sf-heading--no-underline title"
-      />
-      <AddressPicker
-        v-if="isAuthenticated && savedAddresses"
-        v-model="selectedSavedAddressId"
-        :key="isFormSubmitted"
-        :addresses="savedAddresses.addresses"
-        :saved-address="checkoutShippingAddress"
-        :isFormSubmitted="isFormSubmitted"
-        @input="getBackToShippingDetails()"
-
-      />
-      <form @submit.prevent="handleSubmit(handleFormSubmit)">
-        <div v-if="!selectedSavedAddressId" class="form">
-          <ValidationProvider
-            v-if="!isAuthenticated"
-            name="email"
-            rules="required|email"
-            v-slot="{ errors }"
-            slim
-          >
-            <SfInput
-              v-on:click="getBackToShippingDetails()"
-              :class="{'disable-input': isFormSubmitted}"
-              v-model="form.email"
-              label="Email"
-              name="email"
-              class="form__element"
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-            />
-          </ValidationProvider>
-          <ValidationProvider
-            name="firstName"
-            rules="required|min:2"
-            v-slot="{ errors }"
-            slim
-          >
-            <SfInput
-              v-on:click="getBackToShippingDetails()"
-              :class="{'disable-input': isFormSubmitted}"
-              v-e2e="'shipping-firstName'"
-              v-model="form.firstName"
-              label="First name"
-              name="firstName"
-              class="form__element form__element--half"
-              required
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-            />
-          </ValidationProvider>
-          <ValidationProvider
-            name="lastName"
-            rules="required|min:2"
-            v-slot="{ errors }"
-            slim
-          >
-            <SfInput
-              v-on:click="getBackToShippingDetails()"
-              :class="{'disable-input': isFormSubmitted}"
-              v-e2e="'shipping-lastName'"
-              v-model="form.lastName"
-              label="Last name"
-              name="lastName"
-              class="form__element form__element--half form__element--half-even"
-              required
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-            />
-          </ValidationProvider>
-          <ValidationProvider
-            name="streetName"
-            rules="required|min:2"
-            v-slot="{ errors }"
-            slim
-          >
-            <SfInput
-              v-on:click="getBackToShippingDetails()"
-              :class="{'disable-input': isFormSubmitted}"
-              v-e2e="'shipping-streetName'"
-              v-model="form.addressLine1"
-              label="Street name"
-              name="streetName"
-              class="form__element"
-              required
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-            />
-          </ValidationProvider>
-          <SfInput
-            v-on:click="getBackToShippingDetails()"
-            :class="{'disable-input': isFormSubmitted}"
-            v-e2e="'shipping-apartment'"
-            v-model="form.addressLine2"
-            label="House/Apartment number"
-            name="apartment"
-            class="form__element"
-          />
-          <ValidationProvider
-            name="city"
-            rules="required|min:2"
-            v-slot="{ errors }"
-            slim
-          >
-            <SfInput
-              v-on:click="getBackToShippingDetails()"
-              :class="{'disable-input': isFormSubmitted}"
-              v-e2e="'shipping-city'"
-              v-model="form.city"
-              label="City"
-              name="city"
-              class="form__element"
-              required
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-            />
-          </ValidationProvider>
-          <ValidationProvider
-            v-if="states && states.length > 0"
-            v-slot="{ errors }"
-            name="state"
-            rules="required"
-            slim
-          >
-            <SfSelect
-              :class="{'disable-dropdown': isFormSubmitted}"
-              data-cy="shipping-details-input_state"
-              class="form__element form form__select sf-select--underlined"
-              v-model="form.state"
-              name="state"
-              label="State/Province"
-              :required="isStateRequired"
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-              @input="getBackToShippingDetails()"
-            >
-              <SfSelectOption
-                v-for="{ code, name } in states"
-                :key="code"
-                :value="name"
-              >
-                {{ name }}
-              </SfSelectOption>
-            </SfSelect>
-          </ValidationProvider>
-          <ValidationProvider
-            name="country"
-            rules="required|min:2"
-            v-slot="{ errors }"
-            slim
-          >
-            <SfSelect
-              :class="{'disable-dropdown': isFormSubmitted}"
-              v-e2e="'shipping-country'"
-              v-model="form.country"
-              label="Country"
-              name="country"
-              class="form__element form__element--half form__select sf-select--underlined"
-              required
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-              @input="getBackToShippingDetails()"
-            >
-              <SfSelectOption
-                v-for="countryOption in countries"
-                :key="countryOption.key"
-                :value="countryOption.key"
-              >
-                {{ countryOption.label }}
-              </SfSelectOption>
-            </SfSelect>
-          </ValidationProvider>
-          <ValidationProvider
-            name="zipCode"
-            rules="required|min:2"
-            v-slot="{ errors }"
-            slim
-          >
-            <SfInput
-              v-on:click="getBackToShippingDetails()"
-              :class="{'disable-input': isFormSubmitted}"
-              v-e2e="'shipping-zipcode'"
-              v-model="form.postalCode"
-              label="Zip-code"
-              name="zipCode"
-              class="form__element form__element--half form__element--half-even"
-              required
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-            />
-          </ValidationProvider>
-          <ValidationProvider
-            name="phone"
-            rules="required|digits:11"
-            v-slot="{ errors }"
-            slim
-          >
-            <SfInput
-              v-on:click="getBackToShippingDetails()"
-              :class="{'disable-input': isFormSubmitted}"
-              v-e2e="'shipping-phone'"
-              v-model="form.phone"
-              label="Phone number"
-              name="phone"
-              class="form__element"
-              required
-              :valid="!errors[0]"
-              :errorMessage="errors[0]"
-            />
-          </ValidationProvider>
-          <SfCheckbox
-            class="form__save-address"
-            v-if="isAuthenticated && !isFormSubmitted"
-            v-model="isSaveAddressSelected"
-            label="Save address"
-          />
-        </div>
-        <div class="form">
-          <div class="form__action">
-            <SfCheckbox
-              name="shippingToBilling"
-              label="Use the same details for billing"
-              hintMessage=""
-              :required="false"
-              infoMessage=""
-              errorMessage=""
-              valid
-              :disabled="false"
-              v-model="isCopyToBillingSelected"
-            />
-          </div>
-          <div class="form__action">
-            <SfButton
-              v-if="!isFormSubmitted"
-              :disabled="loading"
-              class="form__action-button"
-              type="submit"
-            >
-              {{ $t('Select shipping method') }}
-            </SfButton>
-          </div>
-        </div>
-        <VsfShippingProvider
-          v-if="isFormSubmitted"
-          @submit="router.push(localePath({ name: 'billing' }))"
-          @back="() => isFormSubmitted = !isFormSubmitted"
-        />
-      </form>
-    </ValidationObserver>
   </div>
 </template>
 
 <script>
+import Modal from '~/components/Modal.vue'
+import CartItem from '~/components/Shopping/CartItem.vue'
+import AddressForm from '~/components/Shopping/AddressForm.vue'
 import {
   SfHeading,
   SfInput,
@@ -497,6 +259,7 @@ import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import AddressPicker from '~/components/Checkout/AddressPicker';
 import _ from 'lodash';
+import { useCart, cartGetters } from '@vue-storefront/spree';
 
 extend('required', {
   ...required,
@@ -515,6 +278,9 @@ export default {
   name: 'Shipping',
   layout: 'shopping',
   components: {
+    Modal,
+    CartItem,
+    AddressForm,
     SfHeading,
     SfInput,
     SfButton,
@@ -525,19 +291,27 @@ export default {
     ValidationObserver,
     VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider')
   },
+  data () {
+    return {
+      showEditAddr: false
+    }
+  },
   setup () {
     const router = useRouter();
     const isFormSubmitted = ref(false);
     const isSaveAddressSelected = ref(false);
     const isCopyToBillingSelected = ref(true);
     const { countries, states, load: loadCountries, loadStates } = useCountry();
-    const { shipping: checkoutShippingAddress, load, save, loading } = useShipping();
-    const { shipping: savedAddresses, load: loadSavedAddresses, addAddress } = useUserShipping();
+    const { shipping: checkoutShippingAddress, load, save, loading: shippingLoading } = useShipping();
+    const { shipping: savedAddresses, load: loadSavedAddresses, addAddress, loading: userShippingLoading } = useUserShipping();
     const { isAuthenticated } = useUser();
-    const { $spree } = useVSFContext();
+    const { cart } = useCart();
     const billing = useBilling();
 
     const selectedSavedAddressId = ref(undefined);
+    const loading = computed(() => {
+      return shippingLoading.value || userShippingLoading.value
+    })
     const form = ref({
       email: '',
       firstName: '',
@@ -546,7 +320,7 @@ export default {
       addressLine2: '',
       city: '',
       state: '',
-      country: '',
+      country: 'IR',
       postalCode: '',
       phone: null
     });
@@ -568,16 +342,13 @@ export default {
     const isStateRequired = computed(() => form.value.country && countries.value.find(e => e.key === form.value.country).stateRequired);
 
     const handleFormSubmit = async () => {
-      if (!isAuthenticated.value) {
-        await $spree.api.saveGuestCheckoutEmail(form.value.email);
-      }
 
       const shippingAddress = isAuthenticated.value && selectedSavedAddress.value
         ? selectedSavedAddress.value
         : form.value;
 
       await save({ shippingDetails: shippingAddress });
-      if (isCopyToBillingSelected.value) {
+      if (isCopyToBillingSelected.value || true) {
         await billing.save({ billingDetails: shippingAddress });
       }
 
@@ -603,20 +374,23 @@ export default {
     onMounted(async () => {
       await load();
       await loadSavedAddresses();
-      await loadCountries();
+      // await loadCountries();
 
       if (form.value.country) {
         await loadStates(form.value.country);
       }
 
-      if (checkoutShippingAddress.value) {
-        form.value = _.omit(checkoutShippingAddress.value, ['_id']);
-      }
+      // if (checkoutShippingAddress.value) {
+        // form.value = _.omit(checkoutShippingAddress.value, ['_id']);
+      // }
 
       populateSelectedAddressId();
     });
 
     onSSR(async () => {
+      if (isAuthenticated.value === false) {
+        router.push('/login?returnUrl=/checkout/shipping')
+      }
       await load();
       await loadSavedAddresses();
       await loadCountries();
@@ -635,12 +409,14 @@ export default {
     watch(() => form.value.country, async (newValue, oldValue) => {
       if (newValue !== oldValue) {
         form.value.state = null;
-        await loadStates(newValue);
+        await loadStates(newValue)
       }
     });
 
     return {
       router,
+      cart,
+      cartGetters,
       loading,
       isFormSubmitted,
       isSaveAddressSelected,
