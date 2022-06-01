@@ -82,7 +82,6 @@
 import { userGetters, useUser, useUserShipping, userShippingGetters } from '@vue-storefront/spree';
 import { SfProperty, SfHeading, SfTable, SfLink, SfButton, SfInput } from '@storefront-ui/vue';
 import { onMounted } from '@nuxtjs/composition-api';
-import {computed} from '@nuxtjs/composition-api';
 export default {
   name: 'ProfileUpdateForm',
   components: {

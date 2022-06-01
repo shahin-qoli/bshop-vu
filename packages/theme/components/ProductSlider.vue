@@ -42,10 +42,10 @@
                     </h2>
                     <div class="price">
                       <del
-                        ><span>{{ product.price.original }}<span>تومان</span></span></del
+                        ><span>{{ $n(product.price.original) }}<span>ریال</span></span></del
                       >
                       <ins
-                        ><span>{{ product.price.current }}<span>تومان</span></span></ins
+                        ><span>{{ $n(product.price.current) }}<span>ریال</span></span></ins
                       >
                     </div>
                   </div>
@@ -84,6 +84,7 @@ export default {
     const getProductLink = (product) => {
       return `/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`
     }
+    
     onSSR(async () => {
       await search({
         categorySlug: props.slug,
