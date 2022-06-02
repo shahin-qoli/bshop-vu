@@ -819,7 +819,7 @@
     <!--        category--------------------------->
 
     <!--   slider-product-------------------->
-    <Product-Slider title="پروژکتور" slug="lights/projector" class="mt-4" />
+    <Product-Slider title="پنل" slug="lights/panel" class="mt-4" />
 
     <!--   adplacement -------------------->
     <!-- <div class="adplacement">
