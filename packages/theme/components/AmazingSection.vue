@@ -63,10 +63,10 @@
                         <div class="price">
                           <a :href="localePath(getProductLink(product))">
                           <div class="discount-item">
-                            <span>0%</span>
+                            <span>{{(product.price.original)*(10)/(product.price.original)}}%</span>
                           </div>
                           <del
-                            ><span>{{$n(product.price.original)}}<span>ریال</span></span></del
+                            ><span>{{$n((product.price.original)*(1+0.1))}}<span>ریال</span></span></del
                           >
                           <ins
                             ><span>{{$n(product.price.current)}}<span>ریال</span></span></ins
@@ -115,6 +115,7 @@ export default {
     const getProductLink = (product) => {
       return `/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`
     }
+
     onSSR(async () => {
       await search({
         categorySlug: props.slug,
