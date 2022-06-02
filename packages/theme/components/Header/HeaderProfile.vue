@@ -2,7 +2,7 @@
   <a v-if="!isAuthenticated" href="login" class="login-link">
     <div class="btn-login">
       <span class="mdi mdi-account"></span>
-      ورود
+      ورود به حساب کاربری
     </div>
   </a>
   <a v-else href="#" class="login-link">

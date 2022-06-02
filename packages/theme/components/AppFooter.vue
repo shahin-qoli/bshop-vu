@@ -11,28 +11,28 @@
     <div class="container">
       <div class="footer-inner-box">
         <a href="#" class="footer-badge">
-          <img src="assets/images/footer-svg/delivery.svg" alt="badge" />
+          <img src="/footer-svg/delivery.svg" alt="badge" />
           <span class="item-feature">تحویل اکسپرس</span>
         </a>
 
         <a href="#" class="footer-badge">
-          <img src="assets/images/footer-svg/contact-us.svg" alt="badge" />
+          <img src="/footer-svg/contact-us.svg" alt="badge" />
           <span class="item-feature">پشتیبانی 24 ساعته</span>
         </a>
 
         <a href="#" class="footer-badge">
-          <img src="assets/images/footer-svg/payment-terms.svg" alt="badge" />
+          <img src="/footer-svg/payment-terms.svg" alt="badge" />
           <span class="item-feature">پرداخت در منزل</span>
         </a>
 
         <a href="#" class="footer-badge">
-          <img src="assets/images/footer-svg/return-policy.svg" alt="badge" />
+          <img src="/footer-svg/return-policy.svg" alt="badge" />
           <span class="item-feature">7 روز ضمانت برگشت</span>
         </a>
 
         <a href="#" class="footer-badge">
           <img
-            src="assets/images/footer-svg/origin-guarantee.svg"
+            src="/footer-svg/origin-guarantee.svg"
             alt="badge"
           />
           <span class="item-feature">ضمانت اصل بودن کالا</span>
@@ -44,7 +44,7 @@
         <div class="col-lg-6 col-xs-12 pull-right">
           <div class="footer-links">
             <div class="links-col">
-              <a href="#" class="head-line">راهنمای خرید از دیجی‌استور</a>
+              <a href="#" class="head-line">راهنمای خرید از بروکس</a>
               <ul class="links-ul">
                 <li><a href="#">نحوه ثبت سفارش</a></li>
                 <li><a href="#">رویه ارسال سفارش</a></li>
@@ -64,13 +64,13 @@
             </div>
 
             <div class="links-col">
-              <a href="#" class="head-line">با دیجی استور</a>
+              <a href="#" class="head-line">با بروکس</a>
               <ul class="links-ul">
-                <li><a href="#">اتاق خبر دیجی استور</a></li>
-                <li><a href="#">فروش در دیجی استور</a></li>
+                <li><a href="#">اتاق خبر بروکس</a></li>
+                <li><a href="#">فروش در بروکس</a></li>
                 <li><a href="#">فرصت های شغلی</a></li>
-                <li><a href="#">تماس با دیجی استور</a></li>
-                <li><a href="#">درباره ما دیجی استور</a></li>
+                <li><a href="#">تماس با بروکس</a></li>
+                <li><a href="#">درباره ما بروکس</a></li>
               </ul>
             </div>
           </div>
@@ -79,7 +79,7 @@
         <div class="col-lg-4 col-xs-12 pull-left">
           <div class="footer-form">
             <span class="newslitter-form"
-              >از تخفیف‌ها و جدیدترین‌های دیجی‌استور باخبر شوید:
+              >از تخفیف‌ها و جدیدترین‌های بروکس باخبر شوید:
             </span>
 
             <form action="#">
@@ -95,7 +95,7 @@
 
           <div class="footer-social">
             <span class="newslitter-form-social"
-              >دیجی‌استور را در شبکه‌های اجتماعی دنبال کنید:</span
+              >بروکس را در شبکه‌های اجتماعی دنبال کنید:</span
             >
 
             <div class="social-links">
@@ -117,11 +117,11 @@
             <li style="float: right">
               شماره تماس :
               <a href="#" class="phone-contact"
-                >۶۱۹۳۰۰۰۰ - ۰۲۱ ، ۹۵۱۱۹۰۹۵ - ۰۲۱</a
+                >75116 - 021 ، ۹۵۱۱۹۰۹۵ - ۰۲۱</a
               >
             </li>
             <li class="email-title">
-              آدرس ایمیل : <a href="#">info@digistore.com</a>
+              آدرس ایمیل : <a href="#">info@Burux.com</a>
             </li>
           </ul>
         </div>
@@ -138,13 +138,13 @@
     <div class="more-info">
       <div class="col-12">
         <div class="about-site">
-          <h1>فروشگاه اینترنتی دیجی‌استور بررسی، انتخاب و خرید آنلاین</h1>
+          <h1>فروشگاه اینترنتی بروکس بررسی، انتخاب و خرید آنلاین</h1>
           <p>
-            دیجی‌استور به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش
+            بروکس به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش
             از یک دهه تجربه، با پایبندی به سه اصل، پرداخت در محل، 7 روز ضمانت
             بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با فروشگاه‌های
             معتبر جهان، به بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض
-            ورود به سایت دیجی‌استور با دنیایی از کالا رو به رو می‌شوید! هر
+            ورود به سایت بروکس با دنیایی از کالا رو به رو می‌شوید! هر
             آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید
             کرد.
           </p>
@@ -193,9 +193,9 @@
 
         <div class="copy-right-footer">
           <p>
-            استفاده از مطالب فروشگاه اینترنتی دیجی‌استور فقط برای مقاصد
+            استفاده از مطالب فروشگاه اینترنتی بروکس فقط برای مقاصد
             غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به
-            شرکت نوآوران فن آوازه (فروشگاه آنلاین دیجی‌استور) می‌باشد.
+            شرکت نوآوران فن آوازه (فروشگاه آنلاین بروکس) می‌باشد.
           </p>
         </div>
       </div>

@@ -1,7 +1,8 @@
 <template>
+
 <section
   class="section-slider amazing-section mb-3 mt-4"
-  style="background: rgb(0, 148, 212)"
+  style="background: rgb(36, 93, 193, 1)"
 >
   <div class="container-amazing">
   <div class="container-main">
@@ -20,7 +21,7 @@
       <div class="col-lg-9 col-md-12 pull-left">
         <div class="section-slider-content">
           <div class="section-slider-product slider-amazing mt-3">
-            <div class="widget widget-product card" style="margin: 0">
+            <div class="widget widget-product card" style="margin: 50">
               <header class="card-header card-header-amazing">
                 <span class="title-one">پیشنهاد شگفت انگیز</span>
                 <a class="card-title">مشاهده نشود</a>
@@ -63,10 +64,10 @@
                         <div class="price">
                           <a :href="localePath(getProductLink(product))">
                           <div class="discount-item">
-                            <span>{{(product.price.original)*(10)/(product.price.original)}}%</span>
+                            <span>0%</span>
                           </div>
                           <del
-                            ><span>{{$n((product.price.original)*(1+0.1))}}<span>ریال</span></span></del
+                            ><span>{{$n(product.price.original)}}<span>ریال</span></span></del
                           >
                           <ins
                             ><span>{{$n(product.price.current)}}<span>ریال</span></span></ins
@@ -99,11 +100,11 @@ export default {
   props: {
     title: {
       type: String,
-      required: true
+      required: false
     },
     slug: { 
       type: String,
-      required: true
+      required: false
     }
   },
   data () {
@@ -115,7 +116,6 @@ export default {
     const getProductLink = (product) => {
       return `/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`
     }
-
     onSSR(async () => {
       await search({
         categorySlug: props.slug,

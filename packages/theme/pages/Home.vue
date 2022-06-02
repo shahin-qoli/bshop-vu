@@ -2,7 +2,7 @@
   <div>
     <Main-Slider />
     <!--    Start Main Slider -------------------->
-    <div class="col-12">
+    <!-- <div class="col-12">
       <aside class="adplacement-header">
         <a
           href="index.html"
@@ -10,7 +10,7 @@
           title="برای دربی آماده شو"
         ></a>
       </aside>
-    </div>
+    </div> -->
 
     <!--adplacement-------------------------------->
 <!--     <div class="col-lg-4 col-md-4 col-xs-12 pull-left">
@@ -27,16 +27,23 @@
         </a>
       </aside>
     </div> -->
-    <!--adplacement-------------------------------->
+    <!-- show taxons --------------------------------->
+    <show-taxons title="حبابی" slug1="lights/bulb" slug2="lights/panel" slug3="lights/candle" slug4="lights/panel " />
+    <!-- show taxons --------------------------------->
 
-    <Product-Slider title="حبابی" slug="lights/bulb" class="mt-4" />
+
     <!--slider-amazing----------------------------->
     
-    <amazing-section title="حبابی" slug="lights/bulb" class="mt-4" />
+    <amazing-section title="تخفیف های ویژه" slug="specialdisc/summerdisc" class="mt-4" />
     <!--slider-amazing----------------------------->
+    
+    <!--adplacement--------------------------------> 
 
+    <Product-Slider title="پرفروش ترین ها" slug="bestsellers" class="mt-4" />
+
+    <Product-Slider title="محبوب ترین ها" slug="popular" class="mt-4" />
     <!--   adplacement -------------------->
-    <div class="adplacement">
+    <!-- <div class="adplacement">
       <div class="col-6 col-lg-3 pull-right" style="padding-left: 0">
         <a href="#" class="item-adplacement">
           <img
@@ -76,11 +83,11 @@
           />
         </a>
       </div>
-    </div>
+    </div> -->
     <!--   adplacement -------------------->
 
     <!--slider-amazing----------------------------->
-    <section
+    <!-- <section
       class="section-slider amazing-section mb-3 mt-4"
       style="background: #6bb927"
     >
@@ -414,11 +421,11 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!--slider-amazing----------------------------->
 
     <!--    Slider-sidebar------------------->
-    <div class="col-lg-2 col-md-12 col-xs-12 pull-left">
+    <!-- <div class="col-lg-2 col-md-12 col-xs-12 pull-left">
       <div class="slider-sidebar">
         <div class="widget-suggestion widget card">
           <header class="card-header promo-single-headline">
@@ -535,11 +542,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!--    Slider-sidebar------------------->
 
     <!--   slider-product-------------------->
-    <div class="col-lg-10 col-md-12 col-xs-12 pull-right mt-2">
+    <!-- <div class="col-lg-10 col-md-12 col-xs-12 pull-right mt-2">
       <div class="row">
         <div class="col-12">
           <div class="widget widget-product card">
@@ -721,10 +728,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!--        category--------------------------->
-    <div class="col-12">
+    <!-- <div class="col-12">
       <div class="promotion-categories-container mt-4 mb-4">
         <span class="promotion-categories-title"
           >بیش از ۲،۰۰۰،۰۰۰ کالا در دسته‌بندی‌های مختلف</span
@@ -808,14 +815,14 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!--        category--------------------------->
 
     <!--   slider-product-------------------->
-    <Product-Slider title="پروژکتور" slug="lights/projector" class="mt-4" />
+    <Product-Slider title="پنل" slug="lights/panel" class="mt-4" />
 
     <!--   adplacement -------------------->
-    <div class="adplacement">
+    <!-- <div class="adplacement">
       <div class="col-6 col-lg-3 pull-right" style="padding-left: 0">
         <a href="#" class="item-adplacement">
           <img
@@ -855,12 +862,12 @@
           />
         </a>
       </div>
-    </div>
+    </div> -->
     <!--   adplacement -------------------->
 
     <Product-Slider title="حبابی" slug="lights/bulb" class="mt-4" />
     <!--   adplacement -------------------->
-    <div class="adplacement">
+    <!-- <div class="adplacement">
       <div class="col-lg-6 col-xs-12 pull-right">
         <a href="#" class="item-adplacement">
           <img
@@ -880,11 +887,11 @@
           />
         </a>
       </div>
-    </div>
+    </div> -->
     <!--   adplacement -------------------->
 
     <!--   slider-product-------------------->
-    <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
+    <!-- <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
       <div class="row">
         <div class="col-12">
           <div class="widget widget-product card">
@@ -1101,23 +1108,22 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <Product-Slider title="حبابی" slug="lights/bulb" class="mt-4" />
     <!--   slider-product-------------------->
 
     <!--banner----------------------------->
-    <div class="col-12">
+    <!-- <div class="col-12">
       <div class="banner" style="height: auto">
         <a href="#"
           ><img src="assets/images/promo/1000013242.jpg" alt="banner"
         /></a>
       </div>
-    </div>
+    </div> -->
     <!--banner----------------------------->
 
     <!--   slider-product-------------------->
-    <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
+    <!-- <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
       <div class="row">
         <div class="col-12">
           <div class="widget widget-product card">
@@ -1271,9 +1277,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
+    <!-- <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
       <div class="row">
         <div class="col-12">
           <div class="widget widget-product card">
@@ -1490,7 +1496,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -1499,13 +1505,18 @@ import AppFooter from '~/components/AppFooter.vue';
 import ProductSlider from '~/components/ProductSlider.vue'
 import MainSlider from '~/components/Home/MainSlider.vue'
 import AmazingSection from '../components/AmazingSection.vue';
+import ShowTaxons from '~/components/Home/showTaxons.vue';
+import campaign from '~/components/Home/campaign.vue';
 export default {
   components: {
     AppHeader,
     AppFooter,
     ProductSlider,
     MainSlider,
-    AmazingSection
+    AmazingSection,
+    ShowTaxons,
+    campaign
+
   },
   setup() {
     
