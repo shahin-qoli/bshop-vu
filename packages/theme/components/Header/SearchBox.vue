@@ -4,7 +4,7 @@
       <input
         type="text"
         class="header-search-input"
-        placeholder="جستجو در دیجی استور..."
+        placeholder="جستجو محصولات ..."
       />
       <button class="btn-search" type="submit">
         <img src="assets/images/search.png" alt="search" />
