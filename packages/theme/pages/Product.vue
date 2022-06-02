@@ -362,13 +362,14 @@
                           </div>
                         </div>
                         <div class="product-remaining-in-stock-parent">
-                          
                         </div>
-                        <button @click="addToCart" class="btn-add-to-cart">
-                          <span class="btn-add-to-cart-txt"
-                            >افزودن به سبد خرید
-                          </span>
+                          <button  @click="addToCart" class="btn-add-to-cart">
+                            <span  class="btn-add-to-cart-txt">
+                              افزودن به سبد خرید
+                            </span>
+                          
                         </button>
+                        
                       </div>
                     </div>
                   </div>
@@ -578,7 +579,8 @@ export default {
     'stale-when-revalidate': 5,
   }),
   setup() {
-
+    
+    let isClicked = ref(false);
     const qty = ref(1);
     const route = useRoute();
     const router = useRouter();
@@ -634,8 +636,10 @@ export default {
         .getBreadcrumbs(product.value)
         .map((e) => ({ ...e, link: context.localePath(e.link) }))
     );
-    const addToCart = () => {
-      addItem({ product: product.value, quantity: 1 })
+    const addToCart = async () => {
+      await addItem({ product: product.value, quantity: 1 })
+      isClicked.value=true
+      window.alert("کالای مورد نظر به سبد خرید اضافه شد")
     }
     const isInStock = computed(() => productGetters.getInStock(product.value));
     const productGallery = computed(() =>
@@ -668,6 +672,7 @@ export default {
     return {
       updateFilter,
       addToCart,
+      isClicked,
       configuration,
       product,
       isInStock,
