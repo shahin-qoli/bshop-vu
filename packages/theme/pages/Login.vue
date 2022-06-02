@@ -1,9 +1,9 @@
 <template>
   <div class="account-box">
     <a href="/" class="logo-account"
-      ><img src="/images/logo.png" alt="logo"
+      ><img src="/images/home/BURUX.svg" alt="logo"
     /></a>
-    <span class="account-head-line">ورود به دیجی‌استور</span>
+    <span class="account-head-line">ورود به بروکس</span>
     <div class="content-account">
       <form @submit.prevent="handleLogin" id="login">
         <label for="email-phone"
@@ -29,7 +29,7 @@
         />
         <div class="parent-btn">
           <button class="dk-btn dk-btn-info">
-            ورود به دیجی استور
+            ورود به بروکس
             <i class="fa fa-sign-in sign-in"></i>
           </button>
         </div>
@@ -53,7 +53,7 @@
     <div class="account-footer">
       <span>کاربر جدید هستید؟</span>
       <a href="/register" class="btn-link-register"
-        >ثبت‌نام در دیجی‌استور</a
+        >ثبت‌نام در بروکس</a
       >
     </div>
   </div>
