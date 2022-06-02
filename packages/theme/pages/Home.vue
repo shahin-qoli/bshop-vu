@@ -34,13 +34,12 @@
 
     <!--slider-amazing----------------------------->
     
-    <amazing-section title="تخفیف های ویژه" slug="lights/bulb" class="mt-4" />
+    <amazing-section title="تخفیف های ویژه" slug="specialdisc/summerdisc" class="mt-4" />
     <!--slider-amazing----------------------------->
     
     <!--adplacement--------------------------------> 
 
     <Product-Slider title="پرفروش ترین ها" slug="lights/bulb" class="mt-4" />
-    <campaign />
 
     <Product-Slider title="محبوب ترین ها" slug="lights/panel" class="mt-4" />
     <!--   adplacement -------------------->
@@ -1111,7 +1110,6 @@
       </div>
     </div> -->
 
-    <Product-Slider title="شمعی" slug="lights/candle" class="mt-4" />
     <!--   slider-product-------------------->
 
     <!--banner----------------------------->
