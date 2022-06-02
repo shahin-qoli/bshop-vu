@@ -39,9 +39,9 @@
     
     <!--adplacement--------------------------------> 
 
-    <Product-Slider title="پرفروش ترین ها" slug="lights/bulb" class="mt-4" />
+    <Product-Slider title="پرفروش ترین ها" slug="bestsellers" class="mt-4" />
 
-    <Product-Slider title="محبوب ترین ها" slug="lights/panel" class="mt-4" />
+    <Product-Slider title="محبوب ترین ها" slug="popular" class="mt-4" />
     <!--   adplacement -------------------->
     <!-- <div class="adplacement">
       <div class="col-6 col-lg-3 pull-right" style="padding-left: 0">
