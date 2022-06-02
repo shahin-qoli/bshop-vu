@@ -1,5 +1,43 @@
 <template>
   <div>
+    <header class="shopping-page">
+      <div class="container">
+        <div class="header-shopping-logo">
+          <a href="/"><img src="/images/logo.png" alt="logo" /></a>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <ul class="checkout-steps">
+            <li class="is-completed">
+              <a
+                href="/checkout/shipping"
+                class="checkout-steps-item-link active-link-shopping"
+              >
+                <span>اطلاعات ارسال</span>
+              </a>
+            </li>
+            <li class="is-completed">
+              <a
+                href="/checkout/payment"
+                class="checkout-steps-item active-link"
+              >
+                <span>پرداخت</span>
+              </a>
+            </li>
+            <li class="is-active">
+              <a
+                href="/checkout/complete"
+                class="checkout-steps-item active-link"
+              >
+                <span>اتمام خرید و ارسال</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
     <modal v-model="showEditAddr">
       <Address-Form v-model="form" />
     </modal>
@@ -8,7 +46,7 @@
         <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
           <div class="shipment-page-container">
             <div class="headline-checkout-shopping">
-              <span>انتخاب آدرس تحویل سفارش</span>
+              <span>آدرس تحویل سفارش</span>
             </div>
             <Address-Form
               v-model="form"
@@ -127,8 +165,6 @@
           <div class="checkout-to-shipping-sticky">
             <a
               @click.prevent="handleFormSubmit"
-              @click="router.push(localePath({ name: 'payment' }))"
-              href="checkout/payment"
               class="selenium-next-step-shipping"
               :class="{ dispabled: loading }"
             >
@@ -245,7 +281,7 @@ import {
 } from '@storefront-ui/vue';
 import { ref, watch, computed, onMounted, useRouter } from '@nuxtjs/composition-api';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
-import { useBilling, useShipping, useCountry, useUser, useUserShipping } from '@vue-storefront/spree';
+import { useBilling, useShipping, useCountry, useUser, useUserShipping, useShippingProvider } from '@vue-storefront/spree';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import AddressPicker from '~/components/Checkout/AddressPicker';
@@ -294,6 +330,7 @@ export default {
     const isCopyToBillingSelected = ref(true);
     const { countries, states, load: loadCountries, loadStates } = useCountry();
     const { shipping: checkoutShippingAddress, load, save, loading: shippingLoading } = useShipping();
+    const { state: shipments, save: saveShipments, load: loadShipments } = useShippingProvider();
     const { shipping: savedAddresses, load: loadSavedAddresses, addAddress, loading: userShippingLoading } = useUserShipping();
     const { isAuthenticated } = useUser();
     const { cart } = useCart();
@@ -330,8 +367,27 @@ export default {
       }
     };
 
-    const isStateRequired = computed(() => form.value.country && countries.value.find(e => e.key === form.value.country).stateRequired);
-
+    const isStateRequired = computed(() => true);
+    const selectedShippingRates = ref({})
+    onMounted(async () => {
+      await loadShipments()
+      console.log({ shipments })
+      selectedShippingRates.value = shipments.value.reduce((prev, curr) => ({...prev, [curr.id]: null }), {});
+/*       selectedShippingRates.value = {
+        10123: {
+          cost: "300000.0",
+          id: "10171",
+          methodId: 10000,
+          name: "Tehran",
+          selected: false
+        }
+      } */
+      const defaultShipment = shipments.value[0]
+      selectShippingRate(defaultShipment.id, defaultShipment.availableShippingRates[1].id)
+    })
+    const selectShippingRate = (shipmentId, shippingRateId) => {
+      selectedShippingRates.value = { ...selectedShippingRates.value, [shipmentId]: shippingRateId };
+    };
     const handleFormSubmit = async () => {
 
       const shippingAddress = isAuthenticated.value && selectedSavedAddress.value
@@ -346,6 +402,10 @@ export default {
       if (isSaveAddressSelected.value) {
         await addAddress({ address: shippingAddress });
       }
+      await saveShipments({
+        shippingMethod: selectedShippingRates.value
+      })
+      router.push('/checkout/payment')
 
       isFormSubmitted.value = true;
     };
@@ -405,6 +465,7 @@ export default {
     });
 
     return {
+      selectedShippingRates,
       router,
       cart,
       cartGetters,

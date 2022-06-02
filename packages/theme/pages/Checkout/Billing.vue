@@ -1,199 +1,104 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit }">
-    <SfHeading
-      v-e2e="'billing-heading'"
-      :level="3"
-      :title="$t('Billing')"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
-    <AddressPicker
-      v-if="isAuthenticated && savedAddresses"
-      v-model="selectedSavedAddressId"
-      :addresses="savedAddresses.addresses"
-      :saved-address="checkoutBillingAddress"
-    />
-    <form @submit.prevent="handleSubmit(handleFormSubmit)">
-      <div v-if="!selectedSavedAddressId" class="form">
-        <ValidationProvider
-          name="firstName"
-          rules="required|min:2"
-          v-slot="{ errors }"
-          slim
-        >
-          <SfInput
-            v-e2e="'billing-firstName'"
-            v-model="form.firstName"
-            label="First name"
-            name="firstName"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          name="lastName"
-          rules="required|min:2"
-          v-slot="{ errors }"
-          slim
-        >
-          <SfInput
-            v-e2e="'billing-lastName'"
-            v-model="form.lastName"
-            label="Last name"
-            name="lastName"
-            class="form__element form__element--half form__element--half-even"
-            required
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          name="streetName"
-          rules="required|min:2"
-          v-slot="{ errors }"
-          slim
-        >
-          <SfInput
-            v-e2e="'billing-streetName'"
-            v-model="form.addressLine1"
-            label="Street name"
-            name="streetName"
-            class="form__element"
-            required
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
-          />
-        </ValidationProvider>
-        <SfInput
-          v-e2e="'billing-apartment'"
-          v-model="form.addressLine2"
-          label="House/Apartment number"
-          name="apartment"
-          class="form__element"
-        />
-        <ValidationProvider
-          name="city"
-          rules="required|min:2"
-          v-slot="{ errors }"
-          slim
-        >
-          <SfInput
-            v-e2e="'billing-city'"
-            v-model="form.city"
-            label="City"
-            name="city"
-            class="form__element"
-            required
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-if="states && states.length > 0"
-          v-slot="{ errors }"
-          name="state"
-          rules="required"
-          slim
-        >
-          <SfSelect
-            class="form__element form form__select sf-select--underlined"
-            v-model="form.state"
-            name="state"
-            label="State/Province"
-            :required="isStateRequired"
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
-          >
-            <SfSelectOption
-              v-for="{ code, name } in states"
-              :key="code"
-              :value="code"
-            >
-              {{ name }}
-            </SfSelectOption>
-          </SfSelect>
-        </ValidationProvider>
-        <ValidationProvider
-          name="country"
-          rules="required|min:2"
-          v-slot="{ errors }"
-          slim
-        >
-          <SfSelect
-            v-e2e="'billing-country'"
-            v-model="form.country"
-            label="Country"
-            name="country"
-            class="form__element form__element--half form__select sf-select--underlined"
-            required
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
-          >
-            <SfSelectOption
-              v-for="countryOption in countries"
-              :key="countryOption.key"
-              :value="countryOption.key"
-            >
-              {{ countryOption.label }}
-            </SfSelectOption>
-          </SfSelect>
-        </ValidationProvider>
-        <ValidationProvider
-          name="zipCode"
-          rules="required|digits:10"
-          v-slot="{ errors }"
-          slim
-        >
-          <SfInput
-            v-e2e="'billing-zipcode'"
-            v-model="form.postalCode"
-            label="Zip-code"
-            name="zipCode"
-            class="form__element form__element--half form__element--half-even"
-            required
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          name="phone"
-          rules="required|digits:11"
-          v-slot="{ errors }"
-          slim
-        >
-          <SfInput
-            v-e2e="'billing-phone'"
-            v-model="form.phone"
-            label="Phone number"
-            name="phone"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
-          />
-        </ValidationProvider>
-      </div>
-      <div class="form">
-        <div class="form__action">
-          <SfButton
-            class="sf-button color-secondary form__back-button"
-            type="button"
-            @click="router.push(localePath({ name: 'shipping' }))"
-          >
-            {{ $t('Go back') }}
-          </SfButton>
-          <SfButton
-            v-e2e="'continue-to-payment'"
-            class="form__action-button"
-            type="submit"
-          >
-            {{ $t('Continue to payment') }}
-          </SfButton>
+  <div>
+    <header class="shopping-page">
+        <div class="container">
+            <div class="header-shopping-logo">
+                <a href="#"><img src="assets/images/logo.png" alt="logo"></a>
+            </div>
         </div>
-      </div>
-    </form>
-  </ValidationObserver>
+
+        <div class="container">
+            <div class="row">
+                <ul class="checkout-steps">
+                    <li class="is-completed is-completed-active">
+                        <a href="shopping.html" class="checkout-steps-item-link active-link-shopping">
+                            <span>اطلاعات ارسال</span>
+                        </a>
+                    </li>
+                    <li class="is-completed is-completed-active">
+                        <a href="shopping-payment.html" class="checkout-steps-item-link active-link-shopping">
+                            <span>پرداخت</span>
+                        </a>
+                    </li>
+                    <li class="is-active">
+                        <a href="/shopping-complate-buy.html" class="checkout-steps-item-link active-link-shopping">
+                            <span>اتمام خرید و ارسال</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-shopping">
+        <div class="col-12 text-center">
+            <div class="complate-page-container">
+                <div class="success-checkout">
+                    <div class="container">
+                        <div class="icon-success">
+                            <span class="fa fa-check"></span>
+                        </div>
+                        <div class="order-success">
+                            سفارش
+                            <a href="#" class="order-code">DKC-57262900</a>
+                            با موفقیت پرداخت و در سیستم ثبت شد.
+                            <span class="order-ready-post">پرداخت با موفقیت انجام شد. سفارش شما با موفقیت ثبت شد و در
+                                زمان تعیین شده برای شما ارسال خواهد شد.
+                                <br>
+                                از اینکه دیجی استور را برای خرید انتخاب کردید از شما سپاسگزاریم.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-order-info">
+                    <div class="order-info">
+                        <div class="order-code">
+                            کد سفارش :
+                            <span>DKC-57262900</span>
+                        </div>
+                        <div class="checkout-process-order-info">
+                            سفارش شما با موفقیت در سیستم ثبت شد و هم اکنون
+                            <a href="#" class="processing">در حال پردازش</a>
+                            است.جزئیات این سفارش را می توانید
+                            با کلیک بر روی دکمه
+                            <a href="#" class="link-border">پیگیری سفارش</a>
+                            مشاهده نمایید.
+                        </div>
+                        <div class="parent-btn btn-following-order">
+                            <button class="dk-btn dk-btn-info">
+                                پیگیری سفارش
+                                <i class="fa fa-shopping-bag sign-in"></i>
+                            </button>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">نام تحویل گیرنده: حسن شجاعی</th>
+                                    <th scope="col">شماره تماس :</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>تعداد مرسوله : 1</td>
+                                    <td>مبلغ کل :</td>
+                                </tr>
+                                <tr>
+                                    <td>وضعیت پرداخت : پرداخت آنلاین(موفق)</td>
+                                    <td>وضعیت سفارش : در حال انجام</td>
+                                </tr>
+                                <tr>
+                                    <td>آدرس : استان خراسان شمالی ، بجنورد</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
 </template>
 
 <script>
