@@ -1,243 +1,310 @@
 <template>
   <div>
-    <div class="main-shopping">
-        <div class="content-shopping">
-            <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
-                <div class="shipment-page-container">
-                    <div class="headline-checkout-shopping">
-                        <span>انتخاب شیوه پرداخت</span>
-                    </div>
-                    <div class="payment">
-                        <ul class="checkout-paymethod">
-                            <li class="wallet-container">
-                                <div class="checkout-paymethod-item">
-                                    <span class="mdi mdi-card-text-outline"></span>
-                                    <label class="radio-primary">
-                                        <input type="radio" name="payment-radio" value="wallet">
-                                        <span class="ui-radio-check"></span>
-                                    </label>
-                                    <div class="checkout-paymethod-title">
-                                        <div class="paymethod-wallet-amount">
-                                            <p class="checkout-paymethod-title-label">افزایش اعتبار و پرداخت از کیف پول</p>
-                                            <span>موجودی:</span>
-                                            <span class="wallet-amount">0</span>
-                                            <span class="checkout-paymethod-currency">تومان</span>
-                                        </div>
-                                    </div>
-                                    <div class="wallet-extra-info">نیازمند
-                                        <span class="wallet-needed-money">۷۷,۵۰۰ </span>
-                                        تومان افزایش اعتبار
-                                    </div>
-                                    <div class="checkout-paymethod-by-digipay">
-                                        <img src="assets/images/af737e9d.png" alt="digipay">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="wallet-container">
-                                <div class="checkout-paymethod-item">
-                                    <span class="mdi mdi-card-text-outline"></span>
-                                    <label class="radio-primary" style="display:block">
-                                        <input type="radio" name="payment-radio" value="wallet" checked="checked">
-                                        <span class="ui-radio-check"></span>
-                                    </label>
-                                    <div class="checkout-paymethod-title">
-                                        <div class="paymethod-wallet-amount">
-                                            <p class="checkout-paymethod-title-label">پرداخت اینترنتی هوشمند دیجی‌استور</p>
-                                            <span>آنلاین با تمامی کارت‌های بانکی</span>
-                                        </div>
-                                    </div>
-                                    <div class="checkout-paymethod-by-digipay">
-                                        <img src="assets/images/af737e9d.png" alt="digipay">
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="headline-checkout-shopping">
-                        <span>خلاصه سفارش</span>
-                    </div>
-                    <div class="checkout-order-summary">
-                        <div class="checkout-order-summary-item">
-                            <a class="btn btn-light btn-checkout" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                <header class="checkout-order-summary-header">
-                                    <i class="fa fa-chevron-down arrow"></i>
-                                    <div class="checkout-order-summary-row">
-                                        <div class="checkout-order-summary-col-post-time">مرسوله 1 از 1
-                                            <span>(۱ کالا)</span>
-                                        </div>
-                                        <div class="checkout-order-summary-col-post-time">زمان ارسال
-                                            <span>بازه جمعه ۸ آذر - سه‌شنبه ۱۲ آذر</span>
-                                        </div>
-                                        <div class="checkout-order-summary-col-shipping-cost">
-                                            مبلغ مرسوله
-                                            <span>423,000,0 تومان</span>
-                                        </div>
-                                    </div>
-                                </header>
-                            </a>
-                            <div class="collapse float-right" id="collapseExample">
-                                <div class="checkout-order-summary-content">
-                                    <section class="swiper-order-summary">
-                                        <div class="swiper-container">
-                                            <div class="col-lg-5 col-md-6 col-xs-12">
-                                                <div class="product-box-container">
-                                                    <div class="product-box-compact">
-                                                        <a href="#">
-                                                            <img src="assets/images/product-slider-2/111460776.jpg" alt="img-slider">
-                                                        </a>
-                                                        <div class="product-box-title">
-                                                            گوشی موبایل سامسونگ مدل Galaxy A50 SM-A505F/DS دو ...
-                                                        </div>
-                                                        <div class="checkout-order-summary-tagline">
-                                                            <span>تعداد : 1 عدد</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="checkout-to-shipping-sticky">
-                            <a href="#" class="selenium-next-step-shipping">ادامه فرآیند خرید</a>
-                            <div class="checkout-to-shipping-price-report">
-                                <p>مبلغ قابل پرداخت</p>
-                                <div class="cart-item-product-price">
-                                    ۳,۴۲۰,۰۰۰
-                                    <span>تومان</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="grid">
-                    <div class="checkout-price-options">
-                        <section class="checkout-price-options-container">
-                            <div class="checkout-price-options-header">
-                                <span>استفاده از کارت هدیه دیجی‌استور</span>
-                            </div>
-                            <div class="checkout-price-options-content">
-                                <p>با ثبت کد کارت هدیه، مبلغ کارت هدیه از “مبلغ قابل پرداخت” کسر می‌شود.</p>
-                            </div>
-                            <div class="checkout-price-options-row">
-                                <div class="checkout-price-options-form-field">
-                                    <input type="text" name="gift-card-serial" class="input-field"
-                                        placeholder="مثلا 1234ABCD5678EFGH0123">
-                                </div>
-                                <button class="checkout-price-options-form-button">
-                                    ثبت کدهدیه
-                                </button>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="checkout-price-options">
-                        <section class="checkout-price-options-container">
-                            <div class="checkout-price-options-header">
-                                <span>استفاده از کد تخفیف دیجی‌استور</span>
-                            </div>
-                            <div class="checkout-price-options-content">
-                                <p>با ثبت کد تخفیف، مبلغ کد تخفیف از “مبلغ قابل پرداخت” کسر می‌شود.</p>
-                            </div>
-                            <div class="checkout-price-options-row">
-                                <div class="checkout-price-options-form-field">
-                                    <input type="text" name="gift-card-serial" class="input-field"
-                                        placeholder="مثلا 837A2CS">
-                                </div>
-                                <button class="checkout-price-options-form-button">
-                                    ثبت کد هدیه
-                                </button>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-
-
-
-                <div class="checkout-actions">
-                    <a href="#" class="btn-link-spoiler">
-                        « بازگشت به سبد خرید
-                    </a>
-                    <a href="#" class="save-shipping-data">
-                        تایید و ادامه ثبت سفارش »
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-xs-12 pull-left">
-                <div class="page-aside" style="margin-top: 95px;">
-                    <div class="checkout-summary">
-                        <ul class="checkout-summary-summary">
-                            <li>
-                                <span>مبلغ کل (۱ کالا)</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
-                            </li>
-                            <li>
-                                <span>جمع</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
-                            </li>
-                            <li>
-                                <span style="color: #424750; font-size:14px;">هزینه ارسال</span>
-                                <span></span>
-                            </li>
-                            <li>
-                                <span><i class="fa fa-truck"></i>ارسال عادی</span>
-                                <span>رایگان</span>
-                            </li>
-                            <li>
-                                <span>مبلغ قابل پرداخت</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
-                            </li>
-                            <li class="checkout-digiclub-container">
-                                <span class="checkout-digiclub-row">
-                                    <img src="assets/images/digiclub.png" alt="digiclub">
-                                    <span class="checkout-digiclub-points">
-                                        امتیاز دیجی‌کلاب
-                                    </span>
-                                </span>
-                                <span class="checkout-digiclub-row">150
-                                    <span class="checkout-bill-currency">
-                                        امتیاز
-                                    </span>
-                                </span>
-
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="checkout-summary-content">
-                        <p>کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید.</p>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="footer-light">
-                <div class="container">
-                    <div class="footer-checkout-col">
-                        <div class="footer-checkout-col-phone">
-                            <span class="mdi mdi-phone"></span>شماره تماس :
-                            <a href="#">۶۱۹۳۰۰۰۰
-                                - ۰۲۱</a>
-                        </div>
-                    </div>
-
-                    <div class="footer-checkout-col">
-                        <div class="footer-checkout-col-phone">
-                            <span class="mdi mdi-email-outline"></span>شماره تماس :
-                            <a href="#">info@digistore.com</a>
-                        </div>
-                    </div>
-
-                    <p class="title-footer">استفاده از کارت هدیه یا کد تخفیف، درصفحه ی پرداخت امکان پذیر است.</p>
-
-                    <p class="copy-right-footer-light">Copyright © 2006 - 2019 DigiStore.com</p>
-                </div>
-            </footer>
+    <header class="shopping-page">
+      <div class="container">
+        <div class="header-shopping-logo">
+          <a href="#"><img src="/images/logo.png" alt="logo" /></a>
         </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <ul class="checkout-steps">
+            <li class="is-completed is-completed-active">
+              <a
+                href="/checkout/shipping"
+                class="checkout-steps-item-link active-link-shopping"
+              >
+                <span>اطلاعات ارسال</span>
+              </a>
+            </li>
+            <li class="is-completed">
+              <a
+                href="/checkout/payment"
+                class="checkout-steps-item-link active-link-shopping"
+              >
+                <span>پرداخت</span>
+              </a>
+            </li>
+            <li class="is-active">
+              <a
+                href="/checkout/thank-you"
+                class="checkout-steps-item active-link"
+              >
+                <span>اتمام خرید و ارسال</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="main-shopping">
+      <div class="content-shopping">
+        <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
+          <div class="shipment-page-container">
+            <div class="headline-checkout-shopping">
+              <span>انتخاب شیوه پرداخت</span>
+            </div>
+            <div class="payment">
+              <ul class="checkout-paymethod">
+                <li class="wallet-container">
+                  <div class="checkout-paymethod-item">
+                    <span class="mdi mdi-card-text-outline"></span>
+                    <label class="radio-primary">
+                      <input type="radio" name="payment-radio" value="wallet" />
+                      <span class="ui-radio-check"></span>
+                    </label>
+                    <div class="checkout-paymethod-title">
+                      <div class="paymethod-wallet-amount">
+                        <p class="checkout-paymethod-title-label">
+                          افزایش اعتبار و پرداخت از کیف پول
+                        </p>
+                        <span>موجودی:</span>
+                        <span class="wallet-amount">0</span>
+                        <span class="checkout-paymethod-currency">تومان</span>
+                      </div>
+                    </div>
+                    <div class="wallet-extra-info">
+                      نیازمند
+                      <span class="wallet-needed-money"
+                        >{{ $n(totals.subtotal) }}
+                      </span>
+                      ریال افزایش اعتبار
+                    </div>
+                    <div class="checkout-paymethod-by-digipay">
+                      <img src="/images/af737e9d.png" alt="digipay" />
+                    </div>
+                  </div>
+                </li>
+                <li class="wallet-container">
+                  <div class="checkout-paymethod-item">
+                    <span class="mdi mdi-card-text-outline"></span>
+                    <label class="radio-primary" style="display: block">
+                      <input
+                        type="radio"
+                        name="payment-radio"
+                        value="wallet"
+                        checked="checked"
+                      />
+                      <span class="ui-radio-check"></span>
+                    </label>
+                    <div class="checkout-paymethod-title">
+                      <div class="paymethod-wallet-amount">
+                        <p class="checkout-paymethod-title-label">
+                          پرداخت اینترنتی بروکس
+                        </p>
+                        <span>آنلاین با تمامی کارت‌های بانکی</span>
+                      </div>
+                    </div>
+                    <div class="checkout-paymethod-by-digipay">
+                      <img src="assets/images/af737e9d.png" alt="digipay" />
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="headline-checkout-shopping">
+              <span>خلاصه سفارش</span>
+            </div>
+            <div class="checkout-order-summary">
+              <div class="checkout-order-summary-item">
+                <a
+                  class="btn btn-light btn-checkout"
+                  data-toggle="collapse"
+                  href="#collapseExample"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                >
+                  <header class="checkout-order-summary-header">
+                    <i class="fa fa-chevron-down arrow"></i>
+                    <div class="checkout-order-summary-row">
+                      <div class="checkout-order-summary-col-post-time">
+                        مرسوله 1 از 1
+                        <span>(۱ کالا)</span>
+                      </div>
+                      <div class="checkout-order-summary-col-post-time">
+                        زمان ارسال
+                        <span>بازه جمعه ۸ تیر - سه‌شنبه ۱۲ تیر</span>
+                      </div>
+                      <div class="checkout-order-summary-col-shipping-cost">
+                        مبلغ مرسوله
+                        <span>{{ $n(300000) }} ریال</span>
+                      </div>
+                    </div>
+                  </header>
+                </a>
+                <div class="collapse float-right" id="collapseExample">
+                  <div class="checkout-order-summary-content">
+                    <section class="swiper-order-summary">
+                      <div class="swiper-container">
+                        <div class="col-lg-5 col-md-6 col-xs-12">
+                          <div class="product-box-container">
+                            <div class="product-box-compact">
+                              <a href="#">
+                                <img
+                                  src="assets/images/product-slider-2/111460776.jpg"
+                                  alt="img-slider"
+                                />
+                              </a>
+                              <div class="product-box-title">
+                                گوشی موبایل سامسونگ مدل Galaxy A50 SM-A505F/DS
+                                دو ...
+                              </div>
+                              <div class="checkout-order-summary-tagline">
+                                <span>تعداد : 1 عدد</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+              <div class="checkout-to-shipping-sticky">
+                <a @click="processOrder" class="selenium-next-step-shipping"
+                  >پرداخت</a
+                >
+                <div class="checkout-to-shipping-price-report">
+                  <p>مبلغ قابل پرداخت</p>
+                  <div class="cart-item-product-price">
+                    {{ $n(totals.subtotal + 300000) }}
+                    <span>ریال</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="checkout-price-options">
+              <section class="checkout-price-options-container">
+                <div class="checkout-price-options-header">
+                  <span>استفاده از کارت هدیه بروکس</span>
+                </div>
+                <div class="checkout-price-options-content">
+                  <p>
+                    با ثبت کد کارت هدیه، مبلغ کارت هدیه از “مبلغ قابل پرداخت”
+                    کسر می‌شود.
+                  </p>
+                </div>
+                <div class="checkout-price-options-row">
+                  <div class="checkout-price-options-form-field">
+                    <input
+                      type="text"
+                      name="gift-card-serial"
+                      class="input-field"
+                      placeholder="مثلا 1234ABCD5678EFGH0123"
+                    />
+                  </div>
+                  <button class="checkout-price-options-form-button">
+                    ثبت کدهدیه
+                  </button>
+                </div>
+              </section>
+            </div>
+            <div class="checkout-price-options">
+              <section class="checkout-price-options-container">
+                <div class="checkout-price-options-header">
+                  <span>استفاده از کد تخفیف بروکس</span>
+                </div>
+                <div class="checkout-price-options-content">
+                  <p>
+                    با ثبت کد تخفیف، مبلغ کد تخفیف از “مبلغ قابل پرداخت” کسر
+                    می‌شود.
+                  </p>
+                </div>
+                <div class="checkout-price-options-row">
+                  <div class="checkout-price-options-form-field">
+                    <input
+                      type="text"
+                      name="gift-card-serial"
+                      class="input-field"
+                      placeholder="مثلا 837A2CS"
+                    />
+                  </div>
+                  <button class="checkout-price-options-form-button">
+                    ثبت کد هدیه
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="checkout-actions">
+            <a href="#" class="btn-link-spoiler"> « بازگشت به سبد خرید </a>
+            <a href="#" class="save-shipping-data">
+              تایید و ادامه ثبت سفارش »
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-12 pull-left">
+          <div class="page-aside" style="margin-top: 95px">
+            <div class="checkout-summary">
+              <ul class="checkout-summary-summary">
+                <li>
+                  <span>مبلغ کل ({{ $n(totalItems) }} کالا)</span>
+                  <span>{{ $n(totals.subtotal) }} ریال</span>
+                </li>
+                <li>
+                  <span>جمع</span>
+                  <span>{{ $n(totals.subtotal) }} ریال</span>
+                </li>
+                <li>
+                  <span style="color: #424750; font-size: 14px"
+                    >هزینه ارسال</span
+                  >
+                  <span></span>
+                </li>
+                <li>
+                  <span><i class="fa fa-truck"></i>ارسال عادی</span>
+                  <span>{{ $n(300000) }} ریال</span>
+                </li>
+                <li>
+                  <span>مبلغ قابل پرداخت</span>
+                  <span>{{ $n(totals.subtotal + 300000) }} ریال</span>
+                </li>
+              </ul>
+            </div>
+            <div class="checkout-summary-content">
+              <p>
+                کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش
+                مراحل بعدی را تکمیل کنید.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer-light">
+          <div class="container">
+            <div class="footer-checkout-col">
+              <div class="footer-checkout-col-phone">
+                <span class="mdi mdi-phone"></span>شماره تماس :
+                <a href="#">۶۱۹۳۰۰۰۰ - ۰۲۱</a>
+              </div>
+            </div>
+
+            <div class="footer-checkout-col">
+              <div class="footer-checkout-col-phone">
+                <span class="mdi mdi-email-outline"></span>شماره تماس :
+                <a href="#">info@digistore.com</a>
+              </div>
+            </div>
+
+            <p class="title-footer">
+              استفاده از کارت هدیه یا کد تخفیف، درصفحه ی پرداخت امکان پذیر است.
+            </p>
+
+            <p class="copy-right-footer-light">
+              Copyright © 2006 - 2019 DigiStore.com
+            </p>
+          </div>
+        </footer>
+      </div>
     </div>
     <template v-if="false">
-
       <SfHeading
         :level="3"
         title="Payment"
@@ -245,7 +312,9 @@
       />
       <SfTable class="sf-table--bordered table desktop-only">
         <SfTableHeading class="table__row">
-          <SfTableHeader class="table__header table__image">{{ $t('Item') }}</SfTableHeader>
+          <SfTableHeader class="table__header table__image">{{
+            $t('Item')
+          }}</SfTableHeader>
           <SfTableHeader
             v-for="tableHeader in tableHeaders"
             :key="tableHeader"
@@ -261,23 +330,39 @@
           class="table__row"
         >
           <SfTableData class="table__image">
-            <SfImage :src="cartGetters.getItemImage(product)" :alt="cartGetters.getItemName(product)" />
+            <SfImage
+              :src="cartGetters.getItemImage(product)"
+              :alt="cartGetters.getItemName(product)"
+            />
           </SfTableData>
           <SfTableData class="table__data table__description table__data">
-            <div class="product-title">{{ cartGetters.getItemName(product) }}</div>
+            <div class="product-title">
+              {{ cartGetters.getItemName(product) }}
+            </div>
             <div class="product-sku">{{ cartGetters.getItemSku(product) }}</div>
           </SfTableData>
           <SfTableData
-            class="table__data" v-for="(value, key) in cartGetters.getItemAttributes(product, ['size', 'color'])"
+            class="table__data"
+            v-for="(value, key) in cartGetters.getItemAttributes(product, [
+              'size',
+              'color',
+            ])"
             :key="key"
           >
             {{ value }}
           </SfTableData>
-          <SfTableData class="table__data">{{ cartGetters.getItemQty(product) }}</SfTableData>
+          <SfTableData class="table__data">{{
+            cartGetters.getItemQty(product)
+          }}</SfTableData>
           <SfTableData class="table__data price">
             <SfPrice
-              :regular="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-              :special="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
+              :regular="
+                $n(cartGetters.getItemPrice(product).regular, 'currency')
+              "
+              :special="
+                cartGetters.getItemPrice(product).special &&
+                $n(cartGetters.getItemPrice(product).special, 'currency')
+              "
               class="product-price"
             />
           </SfTableData>
@@ -288,7 +373,12 @@
           <div class="summary__total">
             <SfProperty
               name="Subtotal"
-              :value="$n(totals.special > 0 ? totals.special : totals.subtotal, 'currency')"
+              :value="
+                $n(
+                  totals.special > 0 ? totals.special : totals.subtotal,
+                  'currency'
+                )
+              "
               class="sf-property--full-width property"
             />
           </div>
@@ -298,15 +388,24 @@
           <SfProperty
             name="Total price"
             :value="$n(totals.total, 'currency')"
-            class="sf-property--full-width sf-property--large summary__property-total"
+            class="
+              sf-property--full-width sf-property--large
+              summary__property-total
+            "
           />
 
           <VsfPaymentProvider @change:payment="handlePaymentChange" />
 
-          <SfCheckbox v-e2e="'terms'" v-model="terms" name="terms" class="summary__terms">
+          <SfCheckbox
+            v-e2e="'terms'"
+            v-model="terms"
+            name="terms"
+            class="summary__terms"
+          >
             <template #label>
               <div class="sf-checkbox__label">
-                {{ $t('I agree to') }} <SfLink href="#"> {{ $t('Terms and conditions') }}</SfLink>
+                {{ $t('I agree to') }}
+                <SfLink href="#"> {{ $t('Terms and conditions') }}</SfLink>
               </div>
             </template>
           </SfCheckbox>
@@ -320,7 +419,7 @@
               {{ $t('Go back') }}
             </SfButton>
             <SfButton
-              :disabled="loading  || !terms"
+              :disabled="loading || !terms"
               class="summary__action-button"
               @click="processOrder"
             >
@@ -345,15 +444,20 @@ import {
   SfPrice,
   SfProperty,
   SfAccordion,
-  SfLink
+  SfLink,
 } from '@storefront-ui/vue';
 import { onSSR, Logger } from '@vue-storefront/core';
 import { ref, computed, useRouter } from '@nuxtjs/composition-api';
-import { useMakeOrder, useCart, cartGetters, orderGetters } from '@vue-storefront/spree';
+import {
+  useMakeOrder,
+  useCart,
+  cartGetters,
+  orderGetters,
+} from '@vue-storefront/spree';
 import axios from 'axios';
 
 export default {
-  name: 'ReviewOrder',
+  name: 'Payment',
   components: {
     SfHeading,
     SfTable,
@@ -366,7 +470,8 @@ export default {
     SfProperty,
     SfAccordion,
     SfLink,
-    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider')
+    VsfPaymentProvider: () =>
+      import('~/components/Checkout/VsfPaymentProvider'),
   },
   setup(_props, { root }) {
     const router = useRouter();
@@ -389,15 +494,15 @@ export default {
     const processOrder = async () => {
       const orderId = orderGetters.getId(cart.value);
       try {
-             const cartId = cart.value._id;
-     const cartamount = cart.value.totalAmount;
-     debugger
+        const cartId = cart.value._id;
+        const cartamount = cart.value.totalAmount + 300000;
 
-    const res2= await axios.get("http://bshop.burux.com/paymenturl/"+cartId+"/"+cartamount+"");
-    
+        const res2 = await axios.get(
+          'http://bshop.burux.com/paymenturl/' + cartId + '/' + cartamount + ''
+        );
 
-    window.open(res2.data.payment_url,"_self");
-    const CartNumber = cart.value.number
+        window.open(res2.data.payment_url, '_self');
+        const CartNumber = cart.value.number;
 
         //await savePayment.value();
       } catch (e) {
@@ -423,9 +528,9 @@ export default {
       tableHeaders: ['Description', 'Size', 'Color', 'Quantity', 'Amount'],
       cartGetters,
       processOrder,
-      handlePaymentChange
+      handlePaymentChange,
     };
-  }
+  },
 };
 </script>
 
@@ -506,9 +611,9 @@ export default {
       margin: 0 var(--spacer-xl) 0 0;
       width: auto;
     }
-    color:  var(--c-white);
+    color: var(--c-white);
     &:hover {
-      color:  var(--c-white);
+      color: var(--c-white);
     }
   }
   &__property-total {

@@ -1,5 +1,43 @@
 <template>
   <div>
+    <header class="shopping-page">
+      <div class="container">
+        <div class="header-shopping-logo">
+          <a href="/"><img src="/images/logo.png" alt="logo" /></a>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <ul class="checkout-steps">
+            <li class="is-completed">
+              <a
+                href="/checkout/shipping"
+                class="checkout-steps-item-link active-link-shopping"
+              >
+                <span>اطلاعات ارسال</span>
+              </a>
+            </li>
+            <li class="is-completed">
+              <a
+                href="/checkout/payment"
+                class="checkout-steps-item active-link"
+              >
+                <span>پرداخت</span>
+              </a>
+            </li>
+            <li class="is-active">
+              <a
+                href="/checkout/complete"
+                class="checkout-steps-item active-link"
+              >
+                <span>اتمام خرید و ارسال</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
     <modal v-model="showEditAddr">
       <Address-Form v-model="form" />
     </modal>
@@ -8,7 +46,7 @@
         <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
           <div class="shipment-page-container">
             <div class="headline-checkout-shopping">
-              <span>انتخاب آدرس تحویل سفارش</span>
+              <span>آدرس تحویل سفارش</span>
             </div>
             <Address-Form
               v-model="form"
@@ -91,12 +129,12 @@
                           class="checkout-additional-options-action-container"
                         >
                           <div class="action-title">
-                            زمان تقریبی تحویل از ۸ آذر تا ۱۲ آذر
+                            زمان تقریبی تحویل از ۸ تیر تا ۱۲ تیر
                           </div>
                           <ul class="action-description">
-                            <li>پست پیشتاز با ظرفیت اختصاصی برای دیجی استور</li>
+                            <li>پست پیشتاز با ظرفیت اختصاصی برای بروکس</li>
                             <li class="package-shipping-cost">
-                              هزینه ارسال : ۸,۰۰۰ تومان
+                              هزینه ارسال : {{$n(300000)}} ریال
                             </li>
                           </ul>
                         </div>
@@ -127,7 +165,6 @@
           <div class="checkout-to-shipping-sticky">
             <a
               @click.prevent="handleFormSubmit"
-              href="#"
               class="selenium-next-step-shipping"
               :class="{ dispabled: loading }"
             >
@@ -135,12 +172,13 @@
                 ادامه فرآیند خرید
               </span>
               <div v-else class="spinner-border spinner-border-sm" role="status"></div>
+              
             </a>
             <div class="checkout-to-shipping-price-report">
               <p>مبلغ قابل پرداخت</p>
               <div class="cart-item-product-price">
-                ۳,۴۲۰,۰۰۰
-                <span>تومان</span>
+                {{ $n(cartGetters.getTotals(cart).total +300000) }}
+                <span>ریال</span>
               </div>
             </div>
           </div>
@@ -163,16 +201,16 @@
                   <span>مبلغ کل (۱ کالا)</span>
                   <span>
                     <span>
-                      {{ cartGetters.getTotals(cart).total }}
+                      {{$n(cartGetters.getTotals(cart).total) }}
                     </span>
                     <span>
-                      تومان
+                      ریال
                     </span>
                   </span>
                 </li>
                 <li>
                   <span>جمع</span>
-                  <span>۳,۴۲۰,۰۰۰ تومان</span>
+                  <span>{{$n(cartGetters.getTotals(cart).total) }} ریال</span>
                 </li>
                 <li>
                   <span style="color: #424750; font-size: 14px"
@@ -182,24 +220,13 @@
                 </li>
                 <li>
                   <span><i class="fa fa-truck"></i>ارسال عادی</span>
-                  <span>رایگان</span>
+                  <span>{{$n(300000)}}ریال</span>
                 </li>
                 <li>
                   <span>مبلغ قابل پرداخت</span>
-                  <span>۳,۴۲۰,۰۰۰ تومان</span>
+                  <span>{{$n(cartGetters.getTotals(cart).total+300000) }} ریال</span>
                 </li>
-                <li class="checkout-digiclub-container">
-                  <span class="checkout-digiclub-row">
-                    <img src="assets/images/digiclub.png" alt="digiclub" />
-                    <span class="checkout-digiclub-points">
-                      امتیاز دیجی‌کلاب
-                    </span>
-                  </span>
-                  <span class="checkout-digiclub-row"
-                    >150
-                    <span class="checkout-bill-currency"> امتیاز </span>
-                  </span>
-                </li>
+                
               </ul>
             </div>
             <div class="checkout-summary-content">
@@ -254,7 +281,7 @@ import {
 } from '@storefront-ui/vue';
 import { ref, watch, computed, onMounted, useRouter } from '@nuxtjs/composition-api';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
-import { useBilling, useShipping, useCountry, useUser, useUserShipping } from '@vue-storefront/spree';
+import { useBilling, useShipping, useCountry, useUser, useUserShipping, useShippingProvider } from '@vue-storefront/spree';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import AddressPicker from '~/components/Checkout/AddressPicker';
@@ -303,6 +330,7 @@ export default {
     const isCopyToBillingSelected = ref(true);
     const { countries, states, load: loadCountries, loadStates } = useCountry();
     const { shipping: checkoutShippingAddress, load, save, loading: shippingLoading } = useShipping();
+    const { state: shipments, save: saveShipments, load: loadShipments } = useShippingProvider();
     const { shipping: savedAddresses, load: loadSavedAddresses, addAddress, loading: userShippingLoading } = useUserShipping();
     const { isAuthenticated } = useUser();
     const { cart } = useCart();
@@ -339,8 +367,27 @@ export default {
       }
     };
 
-    const isStateRequired = computed(() => form.value.country && countries.value.find(e => e.key === form.value.country).stateRequired);
-
+    const isStateRequired = computed(() => true);
+    const selectedShippingRates = ref({})
+    onMounted(async () => {
+      await loadShipments()
+      console.log({ shipments })
+      selectedShippingRates.value = shipments.value.reduce((prev, curr) => ({...prev, [curr.id]: null }), {});
+/*       selectedShippingRates.value = {
+        10123: {
+          cost: "300000.0",
+          id: "10171",
+          methodId: 10000,
+          name: "Tehran",
+          selected: false
+        }
+      } */
+      const defaultShipment = shipments.value[0]
+      selectShippingRate(defaultShipment.id, defaultShipment.availableShippingRates[1].id)
+    })
+    const selectShippingRate = (shipmentId, shippingRateId) => {
+      selectedShippingRates.value = { ...selectedShippingRates.value, [shipmentId]: shippingRateId };
+    };
     const handleFormSubmit = async () => {
 
       const shippingAddress = isAuthenticated.value && selectedSavedAddress.value
@@ -355,6 +402,10 @@ export default {
       if (isSaveAddressSelected.value) {
         await addAddress({ address: shippingAddress });
       }
+      await saveShipments({
+        shippingMethod: selectedShippingRates.value
+      })
+      router.push('/checkout/payment')
 
       isFormSubmitted.value = true;
     };
@@ -414,6 +465,7 @@ export default {
     });
 
     return {
+      selectedShippingRates,
       router,
       cart,
       cartGetters,

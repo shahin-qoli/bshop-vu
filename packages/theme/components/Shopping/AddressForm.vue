@@ -1,6 +1,6 @@
 <template>
   <form action="#" class="form-checkout">
-    <div class="form-checkout-headline">
+    <div v-if="false" class="form-checkout-headline">
       {{ title }}
     </div>
     <div class="form-checkout-row">
