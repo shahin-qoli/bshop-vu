@@ -370,9 +370,6 @@ export default {
     const isStateRequired = computed(() => true);
     const selectedShippingRates = ref({})
     onMounted(async () => {
-      await loadShipments()
-      console.log({ shipments })
-      selectedShippingRates.value = shipments.value.reduce((prev, curr) => ({...prev, [curr.id]: null }), {});
 /*       selectedShippingRates.value = {
         10123: {
           cost: "300000.0",
@@ -382,8 +379,6 @@ export default {
           selected: false
         }
       } */
-      const defaultShipment = shipments.value[0]
-      selectShippingRate(defaultShipment.id, defaultShipment.availableShippingRates[1].id)
     })
     const selectShippingRate = (shipmentId, shippingRateId) => {
       selectedShippingRates.value = { ...selectedShippingRates.value, [shipmentId]: shippingRateId };
@@ -402,6 +397,10 @@ export default {
       if (isSaveAddressSelected.value) {
         await addAddress({ address: shippingAddress });
       }
+      await loadShipments()
+      selectedShippingRates.value = shipments.value.reduce((prev, curr) => ({...prev, [curr.id]: null }), {});
+      const defaultShipment = shipments.value[0]
+      selectShippingRate(defaultShipment.id, defaultShipment.availableShippingRates[1].id)
       await saveShipments({
         shippingMethod: selectedShippingRates.value
       })
