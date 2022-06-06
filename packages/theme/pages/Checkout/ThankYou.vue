@@ -3,7 +3,7 @@
     <header class="shopping-page">
       <div class="container">
         <div class="header-shopping-logo">
-          <a href="/"><img src="/images/logo.png" alt="logo" /></a>
+          <a href="/"><img src="/images/home/BURUX.svg" alt="logo" /></a>
         </div>
       </div>
 
