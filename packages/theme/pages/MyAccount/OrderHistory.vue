@@ -1,5 +1,5 @@
 <template>
-  <SfTabs :open-tab="1">
+  <!-- <SfTabs :open-tab="1">
     <SfTab title="My orders">
       <div>
         <p class="message">
@@ -34,7 +34,88 @@
         <p>Total orders - {{ totalOrders }}</p>
       </div>
     </SfTab>
-  </SfTabs>
+  </SfTabs> -->
+          <div class="col-lg-9 col-md-3 col-xs-12 pull-left">
+        <div class="headline-profile page-profile-order">
+            <span>همه سفارش ها</span>
+        </div>
+        <div v-if="orders.length === 0" class="no-orders">
+                <p class="no-orders__title">{{ $t('You currently have no orders') }}</p>
+                <SfButton class="no-orders__button">{{ $t('Start shopping') }}</SfButton>
+            </div>
+        <div v-else class="profile-stats page-profile-order">
+            <div class="table-orders">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">ردیف</th>
+                            <th scope="col">شماره سفارش</th>
+                            <th scope="col">تاریخ ثبت سفارش</th>
+                            <th scope="col">مبلغ قابل پرداخت</th>
+                            <th scope="col">مبلغ کل</th>
+                            <th scope="col">عملیات پرداخت</th>
+                            <th scope="col">جزئیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="order in orders" :key="orderGetters.getId(order)">
+                            <td>{{orderGetters.getId(order)}}</td>
+                            <td class="order-code">{{ orderGetters.getId(order) }}</td>
+                            <td>{{ orderGetters.getDate(order) }}</td>
+                            <td>0</td>
+                            <td>{{ $n(orderGetters.getPrice(order))}}</td>
+                            <td :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</td>
+                            <td class="detail"><a><i class="fa fa-angle-left" @click="displayOrderDetails(order)"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--        responsive-profile-order------------------------->
+        <div class="page-profile">
+            <div class="page-navigation">
+                <div class="page-navigation-title">سفارش‌های من</div>
+                <a href="#" class="page-navigation-btn-back">بازگشت <i class="fa fa-angle-left"></i></a>
+            </div>
+            <div v-if="orders.length === 0" class="no-orders">
+                <p class="no-orders__title">{{ $t('You currently have no orders') }}</p>
+                <SfButton class="no-orders__button">{{ $t('Start shopping') }}</SfButton>
+            </div>
+            <div v-else class="profile-orders">
+                <div class="collapse">
+                    <div class="profile-orders-item">
+                        <div class="profile-orders-header" v-for="order in orders" :key="orderGetters.getId(order)">
+                            <a href="profile-order-2.html" class="profile-orders-header-details">
+                                <div class="profile-orders-header-summary">
+                                    <div class="profile-orders-header-row">
+                                        <span class="profile-orders-header-id">{{ orderGetters.getId(order) }}</span>
+                                        <span class="profile-orders-header-state">{{ orderGetters.getStatus(order) }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="ui-separator">
+                            <div class="profile-orders-header-data">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-label">تاریخ ثبت سفارش</div>
+                                    <div class="profile-info-value">{{ orderGetters.getDate(order) }}</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-label">مبلغ قابل پرداخت</div>
+                                    <div class="profile-info-value">0</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-label">مبلغ کل</div>
+                                    <div class="profile-info-value">{{ $n(orderGetters.getPrice(order))}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        responsive-profile-order------------------------->
+    </div>
 </template>
 
 <script>
@@ -47,6 +128,7 @@ import { computed, useRouter } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters } from '@vue-storefront/spree';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
+
 
 export default {
   name: 'OrderHistory',

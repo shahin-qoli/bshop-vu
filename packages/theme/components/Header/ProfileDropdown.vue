@@ -61,7 +61,7 @@
     </div>
     <div class="header-profile-dropdown-actions">
       <div class="header-profile-dropdown-action-container">
-        <span class="header-profile-dropdown-action-link"
+        <span class="header-profile-dropdown-action-link"  @click="displayOrderHistory()"
           >سفارش‌های من</span
         >
       </div>
@@ -118,11 +118,17 @@ export default {
       const localeTransformedPath = context.root.localePath(transformedPath);
       router.push(localeTransformedPath);
     };
+    const displayOrderHistory = () => {
+      const localeTransformedPath = context.root.localePath('/my-account/order-history');
+      router.push(localeTransformedPath);
+      console.log("path is:",localeTransformedPath);
+    };
     return {
       userGetters,
       user,
       isAuthenticated,
-      handleLogout
+      handleLogout,
+      displayOrderHistory
     };
     
     
