@@ -10,7 +10,7 @@
 
                     <div class="profile-box-content">
                         <span class="profile-box-nameuser">{{userGetters.getEmailAddress(user)}}</span>
-                        <span class="profile-box-phone">*******0991</span>
+                        <span class="profile-box-phone">شماره موبایل</span>
                     </div>
 
                     <a href="#" class="profile-box-row-arrow">
@@ -36,7 +36,7 @@
                     <li><a href="profile.html" class="profile-menu-url"><span
                                 class="mdi mdi-account-outline"></span>پروفایل</a></li>
                     <li><a href="profile-order.html" class="profile-menu-url active-profile"><span
-                                class="mdi mdi-basket"></span>همه سفارش ها</a></li>
+                                class="mdi mdi-basket"  ></span>همه سفارش ها</a></li>
                     
                     <li><a href="profile-order-return.html" class="profile-menu-url"><span
                                 class="mdi mdi-autorenew"></span>در خواست مرجوعی</a></li>
@@ -58,11 +58,9 @@
 
         </div>
     </div>
-    <Order-History/>
-
-
+  <div v-if="!flag"><Order-History/></div>
     
-              
+
   </div>
 </template>
 <script>
@@ -80,6 +78,8 @@ import {
   unMapMobileObserver
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 import OrderHistory from './MyAccount/OrderHistory.vue';
+
+const flag=false;
 
 
 export default {
@@ -147,6 +147,8 @@ export default {
         return;
       }
 
+      
+
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
       const localeTransformedPath = context.root.localePath(transformedPath);
@@ -162,7 +164,8 @@ export default {
       user,
       isAuthenticated,
       handleLogout,
-      displayOrderHistory
+      displayOrderHistory,
+      flag
     };
     
     

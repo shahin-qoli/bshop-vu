@@ -39,10 +39,13 @@
         <div class="headline-profile page-profile-order">
             <span>همه سفارش ها</span>
         </div>
-        <div v-if="orders.length === 0" class="no-orders">
-                <p class="no-orders__title">{{ $t('You currently have no orders') }}</p>
-                <SfButton class="no-orders__button">{{ $t('Start shopping') }}</SfButton>
+        <div v-if="orders.length === 0" class="profile-stats">
+            <div class="profile-return-box">
+                <p class="profile-return-message">در حال حاضر سفارش ثبت شده ای ندارید</p>
+                <a href="/" class="profile-return-message-link">بازگشت به فروشگاه</a>
             </div>
+                
+        </div>
         <div v-else class="profile-stats page-profile-order">
             <div class="table-orders">
                 <table class="table">
@@ -58,12 +61,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="order in orders" :key="orderGetters.getId(order)">
-                            <td>{{orderGetters.getId(order)}}</td>
+                        <tr v-for="(order, i) in orders" :key="i">
+                            <td>{{i+1}}</td>
                             <td class="order-code">{{ orderGetters.getId(order) }}</td>
                             <td>{{ orderGetters.getDate(order) }}</td>
                             <td>0</td>
-                            <td>{{ $n(orderGetters.getPrice(order))}}</td>
+                            <td>{{ $n(orderGetters.getPrice(order))}} ریال</td>
                             <td :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</td>
                             <td class="detail"><a><i class="fa fa-angle-left" @click="displayOrderDetails(order)"></i></a></td>
                         </tr>
