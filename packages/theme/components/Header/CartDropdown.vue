@@ -80,9 +80,9 @@
         </p>
       </div>
       <div>
-        <NuxtLink :to="localePath('/checkout/shipping')" class="header-cart-info-submit btn btn-danger">
+        <a href="/checkout/shipping" class="header-cart-info-submit btn btn-danger">
           ثبت سفارش
-        </NuxtLink>
+        </a>
       </div>
     </div>
   </div>
