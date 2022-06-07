@@ -33,7 +33,17 @@
                     </a>
                 </div>
                 <ul class="profile-menu-items">
-                    <li><a href="profile.html" class="profile-menu-url"><span
+                  <li v-for="(page, i) in pages" :key="i">
+                    <a
+                      :href="page.link"
+                      class="profile-menu-url"
+                      :class="{ 'active-profile': page.name == activePage }"
+                    >
+                      <span class="mdi" :class="page.icon"></span>
+                      {{ page.title }}
+                    </a>
+                  </li>
+<!--                     <li><a href="profile" class="profile-menu-url"><span
                                 class="mdi mdi-account-outline"></span>پروفایل</a></li>
                     <li><a href="profile-order.html" class="profile-menu-url active-profile"><span
                                 class="mdi mdi-basket"  ></span>همه سفارش ها</a></li>
@@ -50,7 +60,7 @@
                     <li><a href="profile-personal-info.html" class="profile-menu-url"><span
                                 class="mdi mdi-account-circle"></span>اطلاعات شخصی</a></li>
                     <li><a href="index.html" class="profile-menu-url"><span
-                                class="mdi mdi-power"></span>خروج</a></li>
+                                class="mdi mdi-power"></span>خروج</a></li> -->
                     <div id="my-account"> 
                   </div>
                 </ul>               
@@ -58,14 +68,16 @@
 
         </div>
     </div>
-  <div v-if="!flag"><Order-History/></div>
+    <order-history v-if="activePage == 'Order history'" />
+    <my-profile v-if="activePage == 'Profile'" />
+    <order-details v-if="activePage == 'Order details'" />
     
 
   </div>
 </template>
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
-import { computed, onBeforeUnmount, useRoute, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRoute, useRouter } from '@nuxtjs/composition-api';
 import { userGetters, useUser } from '@vue-storefront/spree';
 import { onMounted } from '@nuxtjs/composition-api';
 import MyProfile from './MyAccount/MyProfile';
@@ -73,13 +85,8 @@ import SavedAddressesDetails from './MyAccount/SavedAddressesDetails';
 import MyNewsletter from './MyAccount/MyNewsletter';
 
 import OrderDetails from './MyAccount/OrderDetails';
-import {
-  mapMobileObserver,
-  unMapMobileObserver
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 import OrderHistory from './MyAccount/OrderHistory.vue';
 
-const flag=false;
 
 
 export default {
@@ -96,7 +103,7 @@ export default {
   middleware: [
     'is-authenticated'
   ],
-  setup(props, context) {
+/*   setup(props, context) {
     const route = useRoute();
     const router = useRouter();
     const { logout } = useUser();
@@ -125,17 +132,42 @@ export default {
     });
 
     return { changeActivePage, activePage };
-  },
+  }, */
 
-    setup(props,context) {
+  setup(props,context) {
     const {
       isAuthenticated,
       user,
       load: loadUser,
       logout
     } = useUser();
+    const route = useRoute();
     const router = useRouter();
-      
+    const activePage = computed(() => {
+      const { pageName } = route.value.params;
+      if (!pageName) return isMobile.value ? '' : 'My profile';
+      return `${pageName.charAt(0).toUpperCase()}${pageName.slice(1)}`.replace('-', ' ');
+    });
+    const pages = [
+      {
+        title: 'پروفایل',
+        name: 'Profile',
+        link: 'profile',
+        icon: 'mdi-account-outline'
+      },
+      {
+        title: 'همه سفارش ها',
+        name: 'Order history',
+        link: 'order-history',
+        icon: 'mdi-basket'
+      },
+      {
+        title: 'درخواست مرجوعی',
+        name: 'Return',
+        link: 'return',
+        icon: 'mdi-account-outline'
+      }
+    ]   
     onMounted(async () => {
       await loadUser();
     });
@@ -162,10 +194,11 @@ export default {
     return {
       userGetters,
       user,
+      activePage,
+      pages,
       isAuthenticated,
       handleLogout,
-      displayOrderHistory,
-      flag
+      displayOrderHistory
     };
     
     

@@ -68,7 +68,11 @@
                             <td>0</td>
                             <td>{{ $n(orderGetters.getPrice(order))}} ریال</td>
                             <td :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</td>
-                            <td class="detail"><a><i class="fa fa-angle-left" @click="displayOrderDetails(order)"></i></a></td>
+                            <td class="detail" >
+                              <a :href="`/my-account/order-details/${orderGetters.getId(order)}`" class="w-100 h-100 d-inline-block">
+                                <i class="fa fa-angle-left"></i>
+                              </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
