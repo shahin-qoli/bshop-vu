@@ -64,8 +64,8 @@
                         <tr v-for="(order, i) in orders" :key="i">
                             <td>{{i+1}}</td>
                             <td class="order-code">{{ orderGetters.getId(order) }}</td>
-                            <td>{{ orderGetters.getDate(order) }}</td>
-                            <td>0</td>
+                            <td dir="ltr">{{ getFaDate(order.completedAt) }}</td>
+                            <td>{{ $n(orderGetters.getPrice(order))}}</td>
                             <td>{{ $n(orderGetters.getPrice(order))}} ریال</td>
                             <td :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</td>
                             <td class="detail" >
@@ -105,11 +105,11 @@
                             <div class="profile-orders-header-data">
                                 <div class="profile-info-row">
                                     <div class="profile-info-label">تاریخ ثبت سفارش</div>
-                                    <div class="profile-info-value">{{ orderGetters.getDate(order) }}</div>
+                                    <div class="profile-info-value">{{ getFaDate(order.completedAt) }}</div>
                                 </div>
                                 <div class="profile-info-row">
                                     <div class="profile-info-label">مبلغ قابل پرداخت</div>
-                                    <div class="profile-info-value">0</div>
+                                    <div class="profile-info-value">{{ $n(orderGetters.getPrice(order))}}</div>
                                 </div>
                                 <div class="profile-info-row">
                                     <div class="profile-info-label">مبلغ کل</div>
@@ -135,7 +135,7 @@ import { computed, useRouter } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters } from '@vue-storefront/spree';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
-
+import moment from 'moment-jalaali'
 
 export default {
   name: 'OrderHistory',
@@ -153,7 +153,9 @@ export default {
       const localeTransformedPath = context.root.localePath(path);
       router.push(localeTransformedPath);
     };
-
+    const getFaDate = (date) => {
+      return moment(date).format('jYYYY/jM/jD HH:mm')
+    }
     onSSR(async () => {
       await search();
     });
@@ -183,7 +185,8 @@ export default {
       totalOrders: computed(() => orderGetters.getOrdersTotal(orders.value)),
       getStatusTextClass,
       orderGetters,
-      displayOrderDetails
+      displayOrderDetails,
+      getFaDate
     };
   }
 };

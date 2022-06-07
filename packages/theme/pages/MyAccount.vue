@@ -71,6 +71,7 @@
     <order-history v-if="activePage == 'Order history'" />
     <my-profile v-if="activePage == 'Profile'" />
     <order-details v-if="activePage == 'Order details'" />
+    <Saved-Addresses-Details v-if="activePage == 'Saved addresses'" />
     
 
   </div>
@@ -165,7 +166,13 @@ export default {
         title: 'درخواست مرجوعی',
         name: 'Return',
         link: 'return',
-        icon: 'mdi-account-outline'
+        icon: 'mdi mdi-autorenew'
+      },
+      {
+        title: 'آدرس ها',
+        name: 'SavedAdresses',
+        link: 'saved-addresses',
+        icon: 'mdi mdi-map-marker-outline'
       }
     ]   
     onMounted(async () => {

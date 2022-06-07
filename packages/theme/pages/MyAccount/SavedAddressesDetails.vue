@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <!-- <transition name="fade">
     <SfTabs
       v-if="edittingAddress"
       key="edit-address"
@@ -64,7 +64,100 @@
         </SfButton>
       </SfTab>
     </SfTabs>
-  </transition>
+  </transition> -->
+      <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
+        <div class="d-block">
+            <div class="profile-content">
+                <div class="headline-profile">
+                    <span>آدرس من</span>
+                </div>
+                <div class="profile-stats">
+                    <div class="profile-address">
+                        <div class="box-header">
+                            <span class="box-title">نشانی ما</span>
+                        </div>
+                        <div
+                          v-for="address in addresses"
+                          :key="userShippingGetters.getId(address)"
+                          class="saved-addresses__address address">
+                          <UserSavedAddress :address="address" />
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--       modal----------------------->
+    <!-- <div class="remodal-overlay" id="modal">
+        <div class="col-lg-8 col-md-8 col-xs-12 mx-auto">
+            <div class="remodal">
+                <a href="#" class="remodal-close close-profile-address"
+                    onclick="document.getElementById('modal').style.display='none'"><i class="fa fa-close"></i></a>
+                <div class="middle-container">
+                    <form action="#" class="form-checkout">
+                        <div class="form-checkout-headline">ویرایش آدرس</div>
+                        <div class="form-checkout-row">
+                            <label for="name">نام و نام خانوادگی تحویل گیرنده <span class="required-star"
+                                    style="color:red;">*</span></label>
+                            <input type="text" id="name" class="input-name-checkout"
+                                placeholder="نام تحویل گیرنده را وارد نمایید">
+                            <label for="phone-number">شماره موبایل <span class="required-star"
+                                    style="color:red;">*</span></label>
+                            <input type="text" id="phone-number" class="input-name-checkout" placeholder="09xxxxxxxxx"
+                                style="text-align:left;">
+                            <label for="fixed-number">شماره تلفن ثابت <span class="required-star"
+                                    style="color:red;">*</span></label>
+                            <input type="text" id="fixed-number" class="input-name-checkout" placeholder="021xxxxxx"
+                                style="text-align:left;">
+
+                            <div class="form-checkout-valid-row">
+                                <label for="province">استان <span class="required-star"
+                                        style="color:red;"></span></label>
+                                <select name="province" id="province">
+                                    <option value="date-desc" selected="selected">شهر مورد نظر خود را انتخاب کنید
+                                    </option>
+                                    <option value="date-asc">تهران</option>
+                                    <option value="rate">مشهد</option>
+                                    <option value="views">اصفهان</option>
+                                    <option value="comments">شیراز</option>
+                                </select>
+                            </div>
+
+                            <div class="form-checkout-valid-row">
+                                <label for="city">شهر
+                                    <span class="required-star" style="color:red;">*</span></label>
+                                <select name="city" id="city">
+                                    <option value="date-desc" selected="selected">شهر مورد نظر خود را انتخاب کنید
+                                    </option>
+                                    <option value="date-asc">آشخانه</option>
+                                    <option value="rate">شیروان</option>
+                                    <option value="views">اسفراین</option>
+                                    <option value="comments">جاجرم</option>
+                                </select>
+                            </div>
+
+                            <label for="address">آدرس
+                                <span class="required-star" style="color:red;">*</span></label>
+                            <input type="text" id="address" class="input-name-checkout"
+                                placeholder="آدرس خود را وارد نمایید" style="height:80px;">
+
+                            <div class="form-checkout-valid-row">
+                                <div class="parent-btn">
+                                    <button class="dk-btn dk-btn-info">
+                                        ثبت آدرس
+                                        <i class="fa fa-check sign-in"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <a href="#" class="cancel-edit-address"
+                                onclick="document.getElementById('modal').style.display='none'">انصراف و بازگشت</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </template>
 <script>
 import {
