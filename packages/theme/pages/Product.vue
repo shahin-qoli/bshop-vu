@@ -242,59 +242,18 @@
                                 :presentation="optionTypeValue.presentation"
                                 class="product-variants">
                         <span>{{optionTypeValue.presentation}}: </span>
-                        <ul>
-                          <li class="js-c-ui-variant">
-                            <label class="ui-variant-color">
-                              <span
-                                class="ui-variant-shape"
-                                style="background-color: #2196f3"
-                              ></span>
-                              <input
-                                type="radio"
-                                value="4"
-                                name="color"
-                                id="variant"
-                                class="js-variant-selector"
-                                checked=""
-                              />
-                              <span class="ui-variant-check"></span>
-                            </label>
-                          </li>
-                          <li class="js-c-ui-variant">
-                            <label class="ui-variant-color">
-                              <span
-                                class="ui-variant-shape"
-                                style="background-color: #fff"
-                              ></span>
-                              <input
-                                type="radio"
-                                value="4"
-                                name="color"
-                                id="variant"
-                                class="js-variant-selector"
-                              />
-                              <span
-                                class="ui-variant-check ui-variant-check-white"
-                              ></span>
-                            </label>
-                          </li>
-                          <li class="js-c-ui-variant">
-                            <label class="ui-variant-color">
-                              <span
-                                class="ui-variant-shape"
-                                style="background-color: #212121"
-                              ></span>
-                              <input
-                                type="radio"
-                                value="4"
-                                name="color"
-                                id="variant"
-                                class="js-variant-selector"
-                              />
-                              <span class="ui-variant-check"></span>
-                            </label>
-                          </li>
-                        </ul>
+                        <Color-Select
+                          v-if="optionTypeValue.name == 'color'"
+                          :value="configuration[optionTypeValue.name]"
+                          @input="updateFilter({ [optionTypeValue.id]: $event })"
+                          :options="options[optionTypeValue.name]"
+                        />
+                        <Text-Select
+                          v-else
+                          :value="configuration[optionTypeValue.name]"
+                          @input="updateFilter({ [optionTypeValue.id]: $event })"
+                          :options="options[optionTypeValue.name]"
+                        />
                       </div>
                       <div class="product-params">
                         <ul>
@@ -536,6 +495,8 @@
 <script>
 import ProductSlider from '~/components/ProductSlider.vue'
 import ProductGallery from '~/components/Product/ProductGallery.vue'
+import ColorSelect from '~/components/Product/ColorSelect.vue'
+import TextSelect from '~/components/Product/TextSelect.vue'
 import {
   SfProperty,
   SfHeading,
@@ -658,11 +619,34 @@ export default {
     });
 
     const updateFilter = (filter) => {
+      const keys = Object.keys(filter)
+      const conf = {}
+      if (keys.length) {
+        const key = keys[0]
+        const p = products.value.find((p) => {
+          return p.optionValues
+            .some(ov => ov.optionTypeId == key &&
+              ov.presentation == filter[key]
+            )
+        })
+        if (p) {
+          for (var ov of p.optionValues) {
+            const otv = optionTypeValues.value.find(ot => ot.id == ov.optionTypeId)
+            if (otv) {
+              conf[otv.name] = ov.presentation
+            }
+          }
+        }
+        else {
+          alert('محصولی با این مشخصات موجود نیست')
+          return
+        }
+      }
       router.push({
         path: route.value.path,
         query: {
-          ...configuration.value,
-          ...filter,
+          ...conf,
+          // ...filter,
         },
       });
     };
@@ -694,12 +678,15 @@ export default {
       breadcrumbs,
       cartproducts,
       totals,
+      products,
       totalItems
     };
   },
   components: {
     ProductSlider,
     ProductGallery,
+    ColorSelect,
+    TextSelect,
     SfAlert,
     SfColor,
     SfProperty,
