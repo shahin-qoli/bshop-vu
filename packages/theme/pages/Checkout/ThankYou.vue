@@ -81,9 +81,9 @@
                 مشاهده نمایید. -->
               </div>
               <div class="parent-btn btn-following-order">
-                <button @click="goToHome" class="dk-btn dk-btn-info">
-                  بازگشت به صفحه اصلی
-                  <i class="fa fa-home sign-in"></i>
+                <button @click="goToDetails" class="dk-btn dk-btn-info">
+                  مشاهده جزئیات
+                  <i class="fa fa-shopping-bag sign-in"></i>
                 </button>
               </div>
               <table class="table table-striped">
@@ -200,8 +200,8 @@ export default {
     const isPaymentReady = ref(false);
     const savePayment = ref(null);
     const terms = ref(false);
-    const goToHome = function () {
-      window.location.href = '/'
+    const goToDetails = function () {
+      window.location.href = `/my-account/order-details/${orderNumber.value}`
     }
     onSSR(async () => {
       await load();
@@ -249,7 +249,7 @@ export default {
       order,
       orderNumber,
       orderId,
-      goToHome,
+      goToDetails,
       isPaymentReady,
       terms,
       loading,
