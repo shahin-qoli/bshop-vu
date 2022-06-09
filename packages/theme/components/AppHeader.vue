@@ -6,9 +6,8 @@
           <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
             <div class="header-right">
               <div class="logo">
-                <a href="/"><img src="/images/home/BURUX.svg" alt="logo" /></a>
+                <a href="#"><img src="static/images/home/BURUX.svg" alt="logo" /></a>
               </div>
-
               <div class="col-lg-8 col-md-12 col-xs-12 pull-right">
                 <Search-Box />
               </div>
@@ -36,7 +35,7 @@
         </div>
         <!-- Start megamenu-->
         <nav class="main-menu">
-          <ul class="new-list-menu">
+          <ul class="new-list-menu">  
             <li class="item-list-menu megamenu-1 category nav-overlay">
               <a
                 href="#"
@@ -46,7 +45,7 @@
                 <i class="mdi mdi-menu"></i>
                 دسته بندی محصولات
               </a>
-              <Categories />
+              <Categories :categoryTree="categoryTree" />
             </li>
             <li class="item-list-menu megamenu-1">
               <a href="#" class="list-category first after">
@@ -72,19 +71,24 @@
       <!--        End megamenu------------------->
 
       <!--    responsive-megamenu-mobile----------------->
-      <nav class="sidebar">
+      <nav class="sidebar" 
+      
+       :class="sidebarOpen ? 'open' : ''">
         <div class="nav-header">
-          <div class="header-cover"></div>
+          <div class="header-cover"></div>  
           <div class="logo-wrap">
             <a class="logo-icon" href="#"
-              ><img alt="logo-icon" src="assets/images/logo.png" width="40"
+              ><img alt="logo-icon" src="static/images/home/BURUX.svg" width="40"
             /></a>
           </div>
         </div>
         <ul class="nav-categories ul-base">
-          <li class="has-sub">
-            <a href="#">کالای دیجیتال</a>
-            <ul>
+          <li 
+            v-for="(cat_lev_1, m) in categoryTree.items"
+            :key="m"
+          class="has-sub">
+            <a href="#">{{cat_lev_1.name}}</a>
+             <ul>
               <li class="has-sub">
                 <a href="#" class="category-level-2">لوازم جانبی گوشی</a>
                 <ul>
@@ -103,8 +107,8 @@
                     <a href="#" class="category-level-3">همه موارد این دسته</a>
                   </li>
                 </ul>
-              </li>
-              <li class="has-sub">
+              </li> 
+               <li class="has-sub">
                 <a href="#" class="category-level-2">گوشی موبایل</a>
                 <ul>
                   <li><a href="#" class="category-level-3">سامسونگ</a></li>
@@ -135,8 +139,8 @@
                     <a href="#" class="category-level-3">دوربین چاپ سریع</a>
                   </li>
                 </ul>
-              </li>
-            </ul>
+              </li> 
+            </ul> 
           </li>
           <li class="has-sub">
             <a href="#">آرایشی، بهداشتی و سلامت</a>
@@ -602,12 +606,13 @@
           </li>
         </ul>
       </nav>
-      <div class="nav-btn">
+      <div class="nav-btn"
+       @click="sidebarOpen = !sidebarOpen">
         <span class="linee1"></span>
         <span class="linee2"></span>
         <span class="linee3"></span>
       </div>
-      <div class="overlay"></div>
+      <div class="overlay" :style="{ display: sidebarOpen ? 'block' : 'none' }"></div>
       <!--    responsive-megamenu-mobile----------------->
     </header>
     <SfHeader
@@ -735,34 +740,37 @@ import {
   SfColor,
   SfProperty
 } from '@storefront-ui/vue';
-import { computed, onMounted, useContext } from '@nuxtjs/composition-api';
-import { useCart, useWishlist, productGetters, useFacet, facetGetters, useUser, wishlistGetters, useMenus } from '@vue-storefront/spree';
+import { computed, onMounted, useContext, ref } from '@nuxtjs/composition-api';
+import { useCart, useWishlist, productGetters, useFacet, useCategory, facetGetters, useUser, wishlistGetters, useMenus } from '@vue-storefront/spree';
 import { useUiHelpers, useUiState } from '~/composables';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
-import cacheControl from './../helpers/cacheControl';
+// import cacheControl from './../helpershelpers/cacheControl';
 import CategoryPageHeader from '~/components/CategoryPageHeader';
+import Categories from './Header/Categories.vue';
+
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
   transition: 'fade',
-  middleware: cacheControl({
-    'max-age': 60,
-    'stale-when-revalidate': 5
-  }),
+  // middleware: cacheControl({
+  //   'max-age': 60,
+  //   'stale-when-revalidate': 5
+  // }),
   setup() {
     const th = useUiHelpers();
     const uiState = useUiState();
     const context = useContext();
     const { addItem: addItemToCart, isInCart } = useCart();
-    const { result, search, loading, error } = useFacet();
+    // const { result, search, loading, error } = useFacet();
+    const { categories, search, loading, error } = useCategory();
     const { wishlist, addItem: addItemToWishlist, isInWishlist, removeItem: removeItemFromWishlist } = useWishlist();
     const { isAuthenticated } = useUser();
     const { menu, loadMenu } = useMenus('header');
-    const products = computed(() => facetGetters.getProducts(result.value));
-    const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value).map(e => ({...e, link: context.localePath(e.link)})));
-    const pagination = computed(() => facetGetters.getPagination(result.value));
-    const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
+    //const products = computed(() => facetGetters.getProducts(result.value));
+    //const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value).map(e => ({...e, link: context.localePath(e.link)})));
+    //const pagination = computed(() => facetGetters.getPagination(result.value));
+    //const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
     const { locale } = context.app.i18n;
 
     const getRoute = (category) => {
@@ -772,7 +780,7 @@ export default {
       //return "";
     };
 
-    const activeCategory = computed(() => {
+/*     const activeCategory = computed(() => {
       const items = categoryTree.value.items;
 
       if (!items || !items.length) {
@@ -781,9 +789,17 @@ export default {
 
       const category = items.find(({ isCurrent, items }) => isCurrent || items.find(({ isCurrent }) => isCurrent));
       return category?.label || items[0]?.label;
-    });
+    }); */
 
     const isWishlistDisabled = computed(() => wishlistGetters.isWishlistDisabled(wishlist.value));
+    const categoryTree = computed(() => categories.value.current)
+
+    const rootCategoryTree = computed(() => categories.value.root.items)
+
+    let sidebarOpen = ref(false)
+
+
+
 
     const handleWishlistClick = async (product) => {
       if (!isAuthenticated.value) {
@@ -798,28 +814,37 @@ export default {
     onMounted(async () => {
       await loadMenu({menuType: 'header', menuName: 'Main menu', locale: locale});
     });
-
+const searchParams = {
+  categorySlug: "mhswlt-rwshnyy"
+}
     onSSR(async () => {
-      await search(th.getFacetsFromURL());
-      if (error?.value?.search) context.app.nuxt.error;
+      await search(searchParams);
+      if (error?.value?.search) {
+        console.error(error?.value?.search)
+      };
     });
+  
     return {
       ...uiState,
       th,
-      products,
       categoryTree,
+      //products,
+      //categoryTree,
       loading,
       productGetters,
-      pagination,
-      activeCategory,
-      breadcrumbs,
+      //pagination,
+      //activeCategory,
+      //breadcrumbs,
+      categories,
       addItemToCart,
       isInWishlist,
       isInCart,
       handleWishlistClick,
       isWishlistDisabled,
       getRoute,
-      menu
+      menu,
+      rootCategoryTree,
+      sidebarOpen
     };
   },
   components: {
@@ -840,9 +865,20 @@ export default {
     SfColor,
     SfHeading,
     SfProperty,
-    LazyHydrate
+    LazyHydrate,
+    Categories,
+
   }
 };
+// let document;
+// const sideBar = document.querySelector('sidebar')
+// function openSideBar(){
+//   sideBar.
+//   console.log("sideBar")
+//   //sideBar.style.display = "open"
+// } 
+// debugger
+
 </script>
 
 <style lang="scss" scoped>

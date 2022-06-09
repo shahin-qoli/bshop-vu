@@ -17,16 +17,17 @@ $(document).ready(function () {
         }
     });
 
-    $('.nav-btn').on('click', function () {
+/*     $('.nav-btn').on('click', function () {
         $('.overlay').show();
-        $('nav').toggleClass("open");
-    });
+        $('.sidebar').toggleClass("open");
+    }); */
 
     $('.overlay').on('click', function () {
         if ($('nav').hasClass('open')) {
             $('nav').removeClass('open');
         }
         $(this).hide();
+        sidebarOpen = falses;
     });
 
 
