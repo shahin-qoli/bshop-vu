@@ -14,7 +14,7 @@
         id="gallery-slider"
       >
         <li v-for="image in images" 
-        :key="image"
+        :key="image.desktop.url"
         :value="image"
         class="item"
         >
