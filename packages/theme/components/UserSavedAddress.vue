@@ -8,14 +8,6 @@
     <p>{{ address.countryName }}</p>
     <p>{{ address.phone }}</p>
   </div> -->
-  <div class="profile-address-item">
-        <div class="profile-address-item-top">
-            <div class="profile-address-item-title">{{ address.city }}</div>
-            <div class="ui-more">
-                <button class="btn-remove-address btn btn-danger" type="submit">حذف</button>
-            </div>
-        </div>
-
         <div class="profile-address-content">
             <ul class="profile-address-info">
                 <li>
@@ -52,7 +44,6 @@
                 </li> -->
             </ul>
         </div>
-                        </div>
 </template>
 
 <script>
