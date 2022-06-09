@@ -32,15 +32,15 @@
                 class="
                   header-profile-dropdown-account-item-amount-number
                 "
-                >۰
+                >{{ $n(userGetters.getStoreCredits(user)) }}
               </span>
-              تومان
+              ریال
             </div>
           </div>
           <div class="header-profile-dropdown-account-item">
             <span
               class="header-profile-dropdown-account-item-title"
-              >باشگاه    </span
+              > باشگاه مشتریان    </span
             >
             <div
               class="
@@ -53,7 +53,7 @@
                 "
                 >۰
               </span>
-              تومان
+              امتیاز
             </div>
           </div>
         </div>
