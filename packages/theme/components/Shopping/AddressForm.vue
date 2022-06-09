@@ -1,5 +1,5 @@
 <template>
-  <form action="#" class="form-checkout">
+  <form @submit.prevent="$emit('submit')" class="form-checkout">
     <div v-if="false" class="form-checkout-headline">
       {{ title }}
     </div>
@@ -87,6 +87,7 @@
       />
 
     </div>
+    <slot></slot>
   </form>
 </template>
 <script>
