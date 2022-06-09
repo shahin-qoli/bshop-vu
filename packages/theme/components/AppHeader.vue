@@ -6,7 +6,7 @@
           <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
             <div class="header-right">
               <div class="logo">
-                <a href="#"><img src="static/images/home/BURUX.svg" alt="logo" /></a>
+                <a href="/"><img src="/images/home/BURUX.svg" alt="logo" /></a>
               </div>
               <div class="col-lg-8 col-md-12 col-xs-12 pull-right">
                 <Search-Box />
@@ -78,7 +78,7 @@
           <div class="header-cover"></div>  
           <div class="logo-wrap">
             <a class="logo-icon" href="#"
-              ><img alt="logo-icon" src="static/images/home/BURUX.svg" width="40"
+              ><img alt="logo-icon" src="/images/home/BURUX.svg" width="40"
             /></a>
           </div>
         </div>
@@ -615,113 +615,24 @@
       <div class="overlay" :style="{ display: sidebarOpen ? 'block' : 'none' }"></div>
       <!--    responsive-megamenu-mobile----------------->
     </header>
-    <SfHeader
-      v-if="false"
-      class="sf-header--has-mobile-search"
-      :class="{'header-on-top': isSearchOpen}"
-      :isNavVisible="isMobileMenuOpen"
-    >
-      <!-- TODO: add mobile view buttons after SFUI team PR -->
-      <template #logo>
-        <a :href="localePath('/')" class="sf-header__logo">
-          <SfImage src="/icons/logo.svg" alt="Vue Storefront Next" class="sf-header__logo-image"/>
-        </a>
-      </template>
-      <template #navigation>
-        <HeaderNavigation :isMobile="isMobile" />
-      </template>
-      <template #aside>
-        <LocaleSelector class="smartphone-only" />
-      </template>
-      <template #header-icons>
-        <div v-e2e="'header-icons'" class="sf-header__icons">
-          <SfButton
-            class="sf-button--pure sf-header__action"
-            aria-label="Open account button"
-            @click="handleAccountClick"
-          >
-            <SfIcon
-              :icon="accountIcon"
-              size="1.25rem"
-            />
-          </SfButton>
-          <SfButton
-            v-if="!isWishlistDisabled"
-            class="sf-button--pure sf-header__action"
-            aria-label="Toggle wishlist sidebar"
-            @click="toggleWishlistSidebar"
-          >
-            <SfIcon
-              class="sf-header__icon"
-              icon="heart"
-              size="1.25rem"
-            />
-            <SfBadge v-if="wishlistTotalItems > 0" class="sf-badge--number">{{wishlistTotalItems}}</SfBadge>
-          </SfButton>
-          <SfButton
-            class="sf-button--pure sf-header__action"
-            aria-label="Toggle cart sidebar"
-            @click="toggleCartSidebar"
-          >
-            <SfIcon
-              class="sf-header__icon"
-              icon="empty_cart"
-              size="1.25rem"
-            />
-            <SfBadge v-if="cartTotalItems > 0" class="sf-badge--number">{{cartTotalItems}}</SfBadge>
-          </SfButton>
-        </div>
-      </template>
-      <template #search>
-        <SfSearchBar
-          ref="searchBarRef"
-          :placeholder="$t('Search for items')"
-          aria-label="Search"
-          class="sf-header__search"
-          :value="term"
-          @input="handleSearch"
-          @keydown.enter="handleSearch($event)"
-          @focus="isSearchOpen = true"
-          @keydown.esc="closeSearch"
-          v-click-outside="closeSearch"
-        >
-          <template #icon>
-            <SfButton
-              v-if="!!term"
-              aria-label="Close search"
-              class="sf-search-bar__button sf-button--pure"
-              @click="closeOrFocusSearchBar"
-            >
-              <span class="sf-search-bar__icon">
-                <SfIcon color="var(--c-text)" size="18px" icon="cross" />
-              </span>
-            </SfButton>
-            <SfButton
-              v-else
-              aria-label="Open search"
-              class="sf-search-bar__button sf-button--pure"
-              @click="isSearchOpen ? isSearchOpen = false : isSearchOpen = true"
-            >
-              <span class="sf-search-bar__icon">
-                <SfIcon color="var(--c-text)" size="20px" icon="search" />
-              </span>
-            </SfButton>
-          </template>
-        </SfSearchBar>
-      </template>
-    </SfHeader>
-    <SearchResults
+
+<!--     <SearchResults
       :visible="isSearchOpen"
       :result="result"
       :term="term"
       @close="closeSearch"
       @removeSearchResults="removeSearchResults"
     />
-    <SfOverlay :visible="isSearchOpen" />
+    <SfOverlay :visible="isSearchOpen" /> -->
   </div>
 </template>
 
 <script>
+import MiniCartHeader from './Header/MiniCart.vue'
+import MiniCartResponsive from './Header/MiniCartResponsive.vue'
+import HeaderProfile from './Header/HeaderProfile.vue'
+import HeaderProfileResponsive from './Header/HeaderProfileResponsive.vue'
+import SearchBox from './Header/SearchBox.vue'
 import {
   SfSidebar,
   SfButton,
@@ -867,6 +778,11 @@ const searchParams = {
     SfProperty,
     LazyHydrate,
     Categories,
+    MiniCartHeader,
+    MiniCartResponsive,
+    HeaderProfile,
+    HeaderProfileResponsive,
+    SearchBox,
 
   }
 };
