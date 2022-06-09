@@ -80,9 +80,9 @@
         </p>
       </div>
       <div>
-        <a href="/checkout/shipping" class="header-cart-info-submit btn btn-danger">
+        <NuxtLink to="/checkout/shipping" class="header-cart-info-submit btn btn-danger">
           ثبت سفارش
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </div>

@@ -41,7 +41,10 @@
     <modal v-model="showEditAddr">
       <Address-Form v-model="form" />
     </modal>
-    <div class="main-shopping">
+    <div v-if="dataLoading" class="d-flex align-items-center justify-content-center w-100" style="height: 50vh">
+      <div class="spinner-border"></div>
+    </div>
+    <div v-else class="main-shopping">
       <div class="content-shopping">
         <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
           <div class="shipment-page-container">
@@ -49,48 +52,17 @@
               <span>آدرس تحویل سفارش</span>
             </div>
             <Address-Form
+              v-if="!savedAddresses.length && !dataLoading"
               v-model="form"
               :states="states"
             />
-            <div id="address-section" class="d-none">
-              <div class="checkout-contact">
-                <div class="checkout-contact-content">
-                  <ul class="checkout-contact-items">
-                    <li class="checkout-contact-item">
-                      گیرنده:
-                      <span class="full-name">حسن شجاعی</span>
-                      <a
-                        href="#"
-                        class="edit-address-btn"
-                        @click="showEditAddr = true"
-                        >اصلاح این آدرس</a
-                      >
-                      <a
-                        href="#"
-                        class="checkout-contact-location"
-                        @click="showEditAddr = true"
-                        >تغییر آدرس ارسال</a
-                      >
-                    </li>
-                    <li class="checkout-contact-item">
-                      <div class="checkout-contact-item-mobile">
-                        شماره تماس:
-                        <span class="mobile-phone">0991xxxxxxx</span>
-                      </div>
-                      <div class="checkout-contact-item-message">
-                        کد پستی:
-                        <span class="post-code">946598848626</span>
-                        <br />
-                      </div>
-                      <span class="address-part">خراسان شمالی، بجنورد</span>
-                    </li>
-                  </ul>
-                  <div class="checkout-contact-badge">
-                    <i class="fa fa-check"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Select-Address-Form
+              v-else
+              v-model="selectedSavedAddressId"
+              :savedAddresses="savedAddresses"
+            >
+
+            </Select-Address-Form>
             <form action="#" id="shipping-data-form">
               <div class="normal-delivery">
                 <div class="checkout-pack">
@@ -272,6 +244,7 @@
 import Modal from '~/components/Modal.vue'
 import CartItem from '~/components/Shopping/CartItem.vue'
 import AddressForm from '~/components/Shopping/AddressForm.vue'
+import SelectAddressForm from '~/components/Shopping/SelectAddressForm.vue'
 import {
   SfHeading,
   SfInput,
@@ -279,7 +252,7 @@ import {
   SfSelect,
   SfCheckbox
 } from '@storefront-ui/vue';
-import { ref, watch, computed, onMounted, useRouter } from '@nuxtjs/composition-api';
+import { ref, watch, computed, onMounted, useRouter, onBeforeMount } from '@nuxtjs/composition-api';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useBilling, useShipping, useCountry, useUser, useUserShipping, useShippingProvider } from '@vue-storefront/spree';
 import { required, min, digits } from 'vee-validate/dist/rules';
@@ -316,7 +289,8 @@ export default {
     AddressPicker,
     ValidationProvider,
     ValidationObserver,
-    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider')
+    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
+    SelectAddressForm
   },
   data () {
     return {
@@ -326,20 +300,19 @@ export default {
   setup () {
     const router = useRouter();
     const isFormSubmitted = ref(false);
-    const isSaveAddressSelected = ref(false);
+    const isSaveAddressSelected = ref(true);
     const isCopyToBillingSelected = ref(true);
     const { countries, states, load: loadCountries, loadStates } = useCountry();
     const { shipping: checkoutShippingAddress, load, save, loading: shippingLoading } = useShipping();
     const { state: shipments, save: saveShipments, load: loadShipments } = useShippingProvider();
-    const { shipping: savedAddresses, load: loadSavedAddresses, addAddress, loading: userShippingLoading } = useUserShipping();
+    const { shipping: savedAddressesObj, load: loadSavedAddresses, addAddress, loading: userShippingLoading } = useUserShipping();
     const { isAuthenticated } = useUser();
     const { cart } = useCart();
     const billing = useBilling();
-
-    const selectedSavedAddressId = ref(undefined);
-    const loading = computed(() => {
-      return shippingLoading.value || userShippingLoading.value
-    })
+    const savedAddresses = computed(() => savedAddressesObj.value.addresses || [])
+    const selectedSavedAddressId = ref('');
+    const loading = ref(false)
+    const dataLoading = ref(false)
     const form = ref({
       email: '',
       firstName: '',
@@ -358,7 +331,7 @@ export default {
         return undefined;
       }
 
-      return savedAddresses.value.addresses.find(e => e._id === selectedSavedAddressId.value);
+      return savedAddresses.value.find(e => e._id === selectedSavedAddressId.value);
     });
 
     const getBackToShippingDetails = () => {
@@ -380,15 +353,18 @@ export default {
         }
       } */
     })
+    onSSR(() => {
+      dataLoading.value = true
+    })
     const selectShippingRate = (shipmentId, shippingRateId) => {
       selectedShippingRates.value = { ...selectedShippingRates.value, [shipmentId]: shippingRateId };
     };
     const handleFormSubmit = async () => {
-
+      form.value.country = 'IR'
       const shippingAddress = isAuthenticated.value && selectedSavedAddress.value
         ? selectedSavedAddress.value
         : form.value;
-
+      loading.value = true
       await save({ shippingDetails: shippingAddress });
       if (isCopyToBillingSelected.value || true) {
         await billing.save({ billingDetails: shippingAddress });
@@ -404,6 +380,7 @@ export default {
       await saveShipments({
         shippingMethod: selectedShippingRates.value
       })
+      loading.value = false
       router.push('/checkout/payment')
 
       isFormSubmitted.value = true;
@@ -414,36 +391,42 @@ export default {
       const bWithoutId = _.omit(b, ['_id']);
       return _.isEqual(aWithoutId, bWithoutId);
     };
-
-    const populateSelectedAddressId = () => {
-      if (checkoutShippingAddress.value && savedAddresses.value?.addresses) {
-        selectedSavedAddressId.value = savedAddresses.value.addresses.find(e => isEqualAddress(e, checkoutShippingAddress.value))?._id;
+    computed(() => {
+      return selectedSavedAddressId.value
+    })
+/*     const populateSelectedAddressId = () => {
+      if (checkoutShippingAddress.value && savedAddresses.value) {
+        selectedSavedAddressId.value = savedAddresses.value.find(e => isEqualAddress(e, checkoutShippingAddress.value))?._id;
       }
-    };
+    }; */
 
     onMounted(async () => {
-      await load();
-      await loadSavedAddresses();
       // await loadCountries();
 
-      if (form.value.country) {
-        await loadStates(form.value.country);
-      }
+      // await loadSavedAddresses();
 
       // if (checkoutShippingAddress.value) {
         // form.value = _.omit(checkoutShippingAddress.value, ['_id']);
       // }
 
-      populateSelectedAddressId();
+      // populateSelectedAddressId();
     });
-
-    onSSR(async () => {
+    onBeforeMount(async () => {
+      dataLoading.value = true
       if (isAuthenticated.value === false) {
         router.push('/login?returnUrl=/checkout/shipping')
       }
       await load();
       await loadSavedAddresses();
-      await loadCountries();
+      if (savedAddresses.value.length) {
+        isSaveAddressSelected.value = false
+        selectedSavedAddressId.value = savedAddresses.value[0]._id
+      }
+      // await loadSavedAddresses();
+      // await loadCountries();
+      if (form.value.country) {
+        await loadStates(form.value.country);
+      }
 
       if (form.value.country) {
         await loadStates(form.value.country);
@@ -452,19 +435,21 @@ export default {
       if (checkoutShippingAddress.value) {
         form.value = _.omit(checkoutShippingAddress.value, ['_id']);
       }
+      dataLoading.value = false
+      // populateSelectedAddressId();
 
-      populateSelectedAddressId();
-    });
+    })
 
-    watch(() => form.value.country, async (newValue, oldValue) => {
+/*     watch(() => form.value.country, async (newValue, oldValue) => {
       if (newValue !== oldValue) {
         form.value.state = null;
         await loadStates(newValue)
       }
-    });
+    }); */
 
     return {
       selectedShippingRates,
+      dataLoading,
       router,
       cart,
       cartGetters,
