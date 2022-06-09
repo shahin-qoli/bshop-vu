@@ -463,7 +463,7 @@
                   <article>
                     <h2 class="params-headline">
                       
-                      <span><p {{ productGetters.getName(product) }}></p></span
+                      <span><p>{{ productGetters.getName(product) }}</p></span
                       >
                     </h2>
                     <section class="content-expert-summary">
