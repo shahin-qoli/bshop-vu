@@ -6,9 +6,8 @@
           <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
             <div class="header-right">
               <div class="logo">
-                <a href="/"><img src="/images/home/BURUX.svg" alt="logo" /></a>
+                <a href="#"><img src="static/images/home/BURUX.svg" alt="logo" /></a>
               </div>
-
               <div class="col-lg-8 col-md-12 col-xs-12 pull-right">
                 <Search-Box />
               </div>
@@ -36,7 +35,7 @@
         </div>
         <!-- Start megamenu-->
         <nav class="main-menu">
-          <ul class="new-list-menu">
+          <ul class="new-list-menu">  
             <li class="item-list-menu megamenu-1 category nav-overlay">
               <a
                 href="#"
@@ -46,7 +45,7 @@
                 <i class="mdi mdi-menu"></i>
                 دسته بندی محصولات
               </a>
-              <Categories />
+              <Categories :categoryTree="categoryTree" />
             </li>
             <li class="item-list-menu megamenu-1">
               <a href="#" class="list-category first after">
@@ -72,19 +71,24 @@
       <!--        End megamenu------------------->
 
       <!--    responsive-megamenu-mobile----------------->
-      <nav class="sidebar">
+      <nav class="sidebar" 
+      
+       :class="sidebarOpen ? 'open' : ''">
         <div class="nav-header">
-          <div class="header-cover"></div>
+          <div class="header-cover"></div>  
           <div class="logo-wrap">
             <a class="logo-icon" href="#"
-              ><img alt="logo-icon" src="assets/images/logo.png" width="40"
+              ><img alt="logo-icon" src="static/images/home/BURUX.svg" width="40"
             /></a>
           </div>
         </div>
         <ul class="nav-categories ul-base">
-          <li class="has-sub">
-            <a href="#">کالای دیجیتال</a>
-            <ul>
+          <li 
+            v-for="(cat_lev_1, m) in categoryTree.items"
+            :key="m"
+          class="has-sub">
+            <a href="#">{{cat_lev_1.name}}</a>
+             <ul>
               <li class="has-sub">
                 <a href="#" class="category-level-2">لوازم جانبی گوشی</a>
                 <ul>
@@ -103,8 +107,8 @@
                     <a href="#" class="category-level-3">همه موارد این دسته</a>
                   </li>
                 </ul>
-              </li>
-              <li class="has-sub">
+              </li> 
+               <li class="has-sub">
                 <a href="#" class="category-level-2">گوشی موبایل</a>
                 <ul>
                   <li><a href="#" class="category-level-3">سامسونگ</a></li>
@@ -135,8 +139,8 @@
                     <a href="#" class="category-level-3">دوربین چاپ سریع</a>
                   </li>
                 </ul>
-              </li>
-            </ul>
+              </li> 
+            </ul> 
           </li>
           <li class="has-sub">
             <a href="#">آرایشی، بهداشتی و سلامت</a>
@@ -602,12 +606,13 @@
           </li>
         </ul>
       </nav>
-      <div class="nav-btn">
+      <div class="nav-btn"
+       @click="sidebarOpen = !sidebarOpen">
         <span class="linee1"></span>
         <span class="linee2"></span>
         <span class="linee3"></span>
       </div>
-      <div class="overlay"></div>
+      <div class="overlay" :style="{ display: sidebarOpen ? 'block' : 'none' }"></div>
       <!--    responsive-megamenu-mobile----------------->
     </header>
     <SfHeader
@@ -717,139 +722,163 @@
 </template>
 
 <script>
-import MiniCartHeader from './Header/MiniCart.vue'
-import MiniCartResponsive from './Header/MiniCartResponsive.vue'
-import Categories from './Header/Categories.vue'
-import HeaderProfile from './Header/HeaderProfile.vue'
-import HeaderProfileResponsive from './Header/HeaderProfileResponsive.vue'
-import SearchBox from './Header/SearchBox.vue'
-import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay } from '@storefront-ui/vue';
-import { useUiState } from '~/composables';
-import { useCart, useFacet, useUser, cartGetters, useWishlist, wishlistGetters } from '@vue-storefront/spree';
-import { computed, ref, watch, onBeforeUnmount, useRouter } from '@nuxtjs/composition-api';
-import { useUiHelpers } from '~/composables';
-import LocaleSelector from './LocaleSelector';
-import SearchResults from '~/components/SearchResults';
-import HeaderNavigation from './HeaderNavigation';
-import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
 import {
-  mapMobileObserver,
-  unMapMobileObserver
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import debounce from 'lodash.debounce';
+  SfSidebar,
+  SfButton,
+  SfList,
+  SfIcon,
+  SfHeading,
+  SfMenuItem,
+  SfFilter,
+  SfProductCard,
+  SfProductCardHorizontal,
+  SfPagination,
+  SfAccordion,
+  SfSelect,
+  SfBreadcrumbs,
+  SfLoader,
+  SfColor,
+  SfProperty
+} from '@storefront-ui/vue';
+import { computed, onMounted, useContext, ref } from '@nuxtjs/composition-api';
+import { useCart, useWishlist, productGetters, useFacet, useCategory, facetGetters, useUser, wishlistGetters, useMenus } from '@vue-storefront/spree';
+import { useUiHelpers, useUiState } from '~/composables';
+import { onSSR } from '@vue-storefront/core';
+import LazyHydrate from 'vue-lazy-hydration';
+// import cacheControl from './../helpershelpers/cacheControl';
+import CategoryPageHeader from '~/components/CategoryPageHeader';
+import Categories from './Header/Categories.vue';
 
+
+// TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
-  components: {
-    MiniCartHeader,
-    MiniCartResponsive,
-    Categories,
-    HeaderProfile,
-    HeaderProfileResponsive,
-    SearchBox,
-    SfHeader,
-    SfImage,
-    LocaleSelector,
-    SfIcon,
-    SfButton,
-    SfBadge,
-    SfSearchBar,
-    SearchResults,
-    SfOverlay,
-    HeaderNavigation
-  },
-  directives: { clickOutside },
-  setup(props, { root }) {
-    const router = useRouter();
-    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal, isMobileMenuOpen } = useUiState();
-    const { setTermForUrl, getFacetsFromURL } = useUiHelpers();
+  transition: 'fade',
+  // middleware: cacheControl({
+  //   'max-age': 60,
+  //   'stale-when-revalidate': 5
+  // }),
+  setup() {
+    const th = useUiHelpers();
+    const uiState = useUiState();
+    const context = useContext();
+    const { addItem: addItemToCart, isInCart } = useCart();
+    // const { result, search, loading, error } = useFacet();
+    const { categories, search, loading, error } = useCategory();
+    const { wishlist, addItem: addItemToWishlist, isInWishlist, removeItem: removeItemFromWishlist } = useWishlist();
     const { isAuthenticated } = useUser();
-    const { result: searchResult, search } = useFacet('searchResults');
-    const { cart } = useCart();
-    const { wishlist } = useWishlist();
-    const term = ref(getFacetsFromURL().phrase);
-    const isSearchOpen = ref(false);
-    const searchBarRef = ref(null);
-    const isMobile = computed(mapMobileObserver().isMobile);
+    const { menu, loadMenu } = useMenus('header');
+    //const products = computed(() => facetGetters.getProducts(result.value));
+    //const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value).map(e => ({...e, link: context.localePath(e.link)})));
+    //const pagination = computed(() => facetGetters.getPagination(result.value));
+    //const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
+    const { locale } = context.app.i18n;
 
-    const result = computed(() => searchResult.value?.data);
-    const cartTotalItems = computed(() => cartGetters.getTotalItems(cart.value));
-    const wishlistTotalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));
+    const getRoute = (category) => {
+      // if (menu.value.isDisabled) {
+         return '/c/' + category.slug;
+      // }
+      //return "";
+    };
 
-    const accountIcon = computed(() => isAuthenticated.value ? 'profile_fill' : 'profile');
+/*     const activeCategory = computed(() => {
+      const items = categoryTree.value.items;
+
+      if (!items || !items.length) {
+        return '';
+      }
+
+      const category = items.find(({ isCurrent, items }) => isCurrent || items.find(({ isCurrent }) => isCurrent));
+      return category?.label || items[0]?.label;
+    }); */
+
     const isWishlistDisabled = computed(() => wishlistGetters.isWishlistDisabled(wishlist.value));
+    const categoryTree = computed(() => categories.value.current)
 
-    // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
-    const handleAccountClick = async () => {
-      if (isAuthenticated.value) {
-        const localeAccountPath = root.localePath({ name: 'my-account' });
-        return router.push(localeAccountPath);
-      }
+    const rootCategoryTree = computed(() => categories.value.root.items)
 
-      toggleLoginModal();
-    };
+    let sidebarOpen = ref(false)
 
-    const closeSearch = () => {
-      const wishlistClassName = 'sf-product-card__wishlist-icon';
-      const isWishlistIconClicked = event.path.find(p => wishlistClassName.search(p.className) > 0);
-      if (isWishlistIconClicked || !isSearchOpen.value) return;
 
-      term.value = '';
-      isSearchOpen.value = false;
-    };
 
-    const handleSearch = debounce(async (paramValue) => {
-      if (!paramValue.target) {
-        term.value = paramValue;
+
+    const handleWishlistClick = async (product) => {
+      if (!isAuthenticated.value) {
+        uiState.toggleLoginModal();
+      } else if (!isInWishlist({ product })) {
+        await addItemToWishlist({ product });
       } else {
-        term.value = paramValue.target.value;
-      }
-      await search({ term: term.value });
-    }, 1000);
-
-    const closeOrFocusSearchBar = () => {
-      if (isMobile.value) {
-        return closeSearch();
-      } else {
-        term.value = '';
-        return searchBarRef.value.$el.children[0].focus();
+        await removeItemFromWishlist({ product });
       }
     };
 
-    watch(() => term.value, (newVal, oldVal) => {
-      const shouldSearchBeOpened = (!isMobile.value && term.value.length > 0) && ((!oldVal && newVal) || (newVal.length !== oldVal.length && isSearchOpen.value === false));
-      if (shouldSearchBeOpened) {
-        isSearchOpen.value = true;
-      }
+    onMounted(async () => {
+      await loadMenu({menuType: 'header', menuName: 'Main menu', locale: locale});
     });
-
-    const removeSearchResults = () => {};
-
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
+const searchParams = {
+  categorySlug: "mhswlt-rwshnyy"
+}
+    onSSR(async () => {
+      await search(searchParams);
+      if (error?.value?.search) {
+        console.error(error?.value?.search)
+      };
     });
-
+  
     return {
-      accountIcon,
-      cartTotalItems,
-      wishlistTotalItems,
-      handleAccountClick,
-      toggleCartSidebar,
-      toggleWishlistSidebar,
-      setTermForUrl,
-      term,
-      isSearchOpen,
-      closeSearch,
-      handleSearch,
-      result,
-      closeOrFocusSearchBar,
-      searchBarRef,
-      isMobile,
-      isMobileMenuOpen,
-      removeSearchResults,
-      isWishlistDisabled
+      ...uiState,
+      th,
+      categoryTree,
+      //products,
+      //categoryTree,
+      loading,
+      productGetters,
+      //pagination,
+      //activeCategory,
+      //breadcrumbs,
+      categories,
+      addItemToCart,
+      isInWishlist,
+      isInCart,
+      handleWishlistClick,
+      isWishlistDisabled,
+      getRoute,
+      menu,
+      rootCategoryTree,
+      sidebarOpen
     };
+  },
+  components: {
+    CategoryPageHeader,
+    SfButton,
+    SfSidebar,
+    SfIcon,
+    SfList,
+    SfFilter,
+    SfProductCard,
+    SfProductCardHorizontal,
+    SfPagination,
+    SfMenuItem,
+    SfAccordion,
+    SfSelect,
+    SfBreadcrumbs,
+    SfLoader,
+    SfColor,
+    SfHeading,
+    SfProperty,
+    LazyHydrate,
+    Categories,
+
   }
 };
+// let document;
+// const sideBar = document.querySelector('sidebar')
+// function openSideBar(){
+//   sideBar.
+//   console.log("sideBar")
+//   //sideBar.style.display = "open"
+// } 
+// debugger
+
 </script>
 
 <style lang="scss" scoped>
