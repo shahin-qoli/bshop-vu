@@ -40,7 +40,7 @@
           <div class="header-profile-dropdown-account-item">
             <span
               class="header-profile-dropdown-account-item-title"
-              >دیجی‌کلاب</span
+              >باشگاه    </span
             >
             <div
               class="
@@ -67,7 +67,7 @@
       </div>
       <div class="header-profile-dropdown-action-container">
         <span class="header-profile-dropdown-action-link"
-          >جوایز دیجی‌کلاب</span
+          >جوایز بروکس</span
         >
       </div>
       <div @click="handleLogout('Log Out')" class="header-profile-dropdown-action-container">
