@@ -360,7 +360,7 @@ export default {
       selectedShippingRates.value = { ...selectedShippingRates.value, [shipmentId]: shippingRateId };
     };
     const handleFormSubmit = async () => {
-
+      form.value.country = 'IR'
       const shippingAddress = isAuthenticated.value && selectedSavedAddress.value
         ? selectedSavedAddress.value
         : form.value;
@@ -440,12 +440,12 @@ export default {
 
     })
 
-    watch(() => form.value.country, async (newValue, oldValue) => {
+/*     watch(() => form.value.country, async (newValue, oldValue) => {
       if (newValue !== oldValue) {
         form.value.state = null;
         await loadStates(newValue)
       }
-    });
+    }); */
 
     return {
       selectedShippingRates,
