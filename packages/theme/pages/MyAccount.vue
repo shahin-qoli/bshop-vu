@@ -153,13 +153,13 @@ export default {
       {
         title: 'پروفایل',
         name: 'Profile',
-        link: 'profile',
+        link: '/my-account/profile',
         icon: 'mdi-account-outline'
       },
       {
         title: 'همه سفارش ها',
         name: 'Order history',
-        link: 'order-history',
+        link: '/my-account/order-history',
         icon: 'mdi-basket'
       },
       {
@@ -171,7 +171,7 @@ export default {
       {
         title: 'آدرس ها',
         name: 'SavedAdresses',
-        link: 'saved-addresses',
+        link: '/my-account/saved-addresses',
         icon: 'mdi mdi-map-marker-outline'
       }
     ]   
