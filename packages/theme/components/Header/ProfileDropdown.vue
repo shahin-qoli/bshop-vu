@@ -32,15 +32,15 @@
                 class="
                   header-profile-dropdown-account-item-amount-number
                 "
-                >۰
+                >{{ $n(userGetters.getStoreCredits(user)) }}
               </span>
-              تومان
+              ریال
             </div>
           </div>
           <div class="header-profile-dropdown-account-item">
             <span
               class="header-profile-dropdown-account-item-title"
-              >دیجی‌کلاب</span
+              > باشگاه مشتریان    </span
             >
             <div
               class="
@@ -53,7 +53,7 @@
                 "
                 >۰
               </span>
-              تومان
+              امتیاز
             </div>
           </div>
         </div>
@@ -61,13 +61,13 @@
     </div>
     <div class="header-profile-dropdown-actions">
       <div class="header-profile-dropdown-action-container">
-        <span class="header-profile-dropdown-action-link"
+        <span class="header-profile-dropdown-action-link"  @click="displayOrderHistory()"
           >سفارش‌های من</span
         >
       </div>
       <div class="header-profile-dropdown-action-container">
         <span class="header-profile-dropdown-action-link"
-          >جوایز دیجی‌کلاب</span
+          >جوایز بروکس</span
         >
       </div>
       <div @click="handleLogout('Log Out')" class="header-profile-dropdown-action-container">
@@ -118,11 +118,17 @@ export default {
       const localeTransformedPath = context.root.localePath(transformedPath);
       router.push(localeTransformedPath);
     };
+    const displayOrderHistory = () => {
+      const localeTransformedPath = context.root.localePath('/my-account/order-history');
+      router.push(localeTransformedPath);
+      console.log("path is:",localeTransformedPath);
+    };
     return {
       userGetters,
       user,
       isAuthenticated,
-      handleLogout
+      handleLogout,
+      displayOrderHistory
     };
     
     

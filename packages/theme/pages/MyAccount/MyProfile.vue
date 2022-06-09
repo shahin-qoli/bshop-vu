@@ -1,10 +1,100 @@
 <template>
-  <SfTabs :open-tab="1">
+    <div class="col-lg-9 col-md-8 col-xs-12 pull-right" >
+        <div class="col-lg-6 col-xs-12 pull-right">
+            <div class="headline-profile">
+                <span>اطلاعات شخصی</span>
+            </div>
+            <div class="profile-stats mt-3">
+                <div class="profile-stats-row" v-if="isAuthenticated && user">
+                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                        <div class="profile-stats-col">
+                            <p><span> نام و نام خانوادگی :</span>{{ mainAddress ? `${userShippingGetters.getFirstName(mainAddress)} ${userShippingGetters.getLastName(mainAddress)}` : 'Shipping' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                        <div class="profile-stats-col">
+                            <p><span>پست الکترونیک :</span>{{ userGetters.getEmailAddress(user) }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                        <div class="profile-stats-col">
+                            <p><span>شماره تلفن همراه :</span>*******0991</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                        <div class="profile-stats-col">
+                            <p><span>کد ملی :</span>-</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                        <div class="profile-stats-col">
+                            <p><span>دریافت خبرنامه :</span>بله</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                        <div class="profile-stats-col">
+                            <p><span>شماره کارت :</span>-</p>
+                        </div>
+                    </div>
+                    <div class="profile-stats-action">
+                        <a href="profile-additional-info.html" class="link-spoiler-edit"><i
+                                class="fa fa-pencil"></i>ویرایش اطلاعات شخصی</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-lg-6 col-xs-12 pull-right">
+            <div class="headline-profile headline-profile-favorites">
+                <span>لیست علاقه مندی</span>
+            </div>
+            <div class="profile-stats mt-3">
+                <div class="profile-recent-fav">
+                    <a href="#"><img src="assets/images/product-slider-2/111472656.jpg" alt="profile"></a>
+                    <div class="profile-recent-fav-col">
+                        <a href="#">گوشی موبایل سامسونگ مدل Samsung Galaxy S10 Plus SM...</a>
+                        <div class="profile-recent-fav-price">۱,۷۴۶,۰۰۰تومان</div>
+                        <div class="profile-recent-fav-remove">
+                            <a href="#">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-recent-fav">
+                    <a href="#"><img src="assets/images/product-slider-2/111472656.jpg" alt="profile"></a>
+                    <div class="profile-recent-fav-col">
+                        <a href="#">گوشی موبایل سامسونگ مدل Samsung Galaxy S10 Plus SM...</a>
+                        <div class="profile-recent-fav-price">۱,۷۴۶,۰۰۰تومان</div>
+                        <div class="profile-recent-fav-remove">
+                            <a href="#">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-stats-action">
+                    <a href="#" class="link-spoiler-edit"><i class="fa fa-pencil"></i>مشاهده و ویرایش لیست علاقه
+                        مندی</a>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="headline-profile order-end" style="margin-top:0;">
+            <span>آخرین سفارش ها</span>
+        </div>
+        <order-history />
+        
+        
+    </div>
+
+  <!-- <SfTabs :open-tab="1"> -->
     <!-- Personal data update -->
-    <SfTab title="Personal data">
-      <p class="message">
-        {{ $t('Feel free to edit') }}
-      </p>
+    <!-- <SfTab title="Personal data">
+      <p class="message"> -->
+        <!-- {{ $t('Feel free to edit') }} -->
+      <!-- </p>
 
       <ProfileUpdateForm @submit="updatePersonalData" />
 
@@ -12,23 +102,26 @@
         {{ $t('Use your personal data') }}
         <a href="">{{ $t('Privacy Policy') }}</a>
       </p>
-    </SfTab>
+    </SfTab> -->
     <!-- Password reset -->
-    <SfTab title="Password change">
+    <!-- <SfTab title="Password change">
 
       <p class="message">
         {{ $t('Change password your account') }}:<br />
       </p>
       <PasswordResetForm/>
     </SfTab>
-  </SfTabs>
+  </SfTabs> -->
 </template>
 
 <script>
 import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm';
 import PasswordResetForm from '~/components/MyAccount/PasswordResetForm';
-import { SfTabs, SfInput, SfButton } from '@storefront-ui/vue';
-import { useUser } from '@vue-storefront/spree';
+import { SfTabs, SfProperty, SfHeading, SfTable, SfLink, SfButton, SfInput } from '@storefront-ui/vue';
+import { userGetters, useUser, useUserShipping, userShippingGetters } from '@vue-storefront/spree';
+import { onMounted } from '@nuxtjs/composition-api';
+import {computed} from '@nuxtjs/composition-api';
+import OrderHistory from './OrderHistory.vue';
 
 export default {
   name: 'PersonalDetails',
@@ -38,11 +131,23 @@ export default {
     SfInput,
     SfButton,
     ProfileUpdateForm,
-    PasswordResetForm
+    PasswordResetForm,
+    SfProperty,
+    SfHeading,
+    SfTable,
+    SfLink,
+    OrderHistory
   },
 
   setup() {
-    const { updateUser} = useUser();
+    const { updateUser , isAuthenticated,
+      user,
+      load: loadUser} = useUser();
+
+
+    const { shipping, load: loadUserShipping } = useUserShipping();
+    const addresses = computed(() => userShippingGetters.getAddresses(shipping.value));
+    const mainAddress = computed(() => addresses.value ? addresses.value[0] : null);
 
     const formHandler = async (fn, onComplete, onError) => {
       try {
@@ -55,8 +160,19 @@ export default {
 
     const updatePersonalData = ({ form, onComplete, onError }) => formHandler(() => updateUser({ user: form.value }), onComplete, onError);
 
+    onMounted(async () => {
+      await loadUserShipping();
+      await loadUser();
+    });
+
     return {
-      updatePersonalData
+      updatePersonalData,
+      userGetters,
+      user,
+      mainAddress,
+      shipping,
+      userShippingGetters,
+      isAuthenticated
     };
   }
 };

@@ -5,13 +5,13 @@
       ورود به حساب کاربری
     </div>
   </a>
-  <a v-else href="#" class="login-link">
+  <span v-else class="login-link">
     <div class="btn-login">
       <span class="mdi mdi-account"></span>
       پروفایل من
       <ProfileDropdown />
     </div>
-  </a>
+  </span>
 </template>
 <script>
 import { SfBottomNavigation, SfIcon, SfCircleIcon, SfBadge } from '@storefront-ui/vue';

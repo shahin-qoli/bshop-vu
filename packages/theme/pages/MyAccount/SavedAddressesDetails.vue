@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <!-- <transition name="fade">
     <SfTabs
       v-if="edittingAddress"
       key="edit-address"
@@ -64,7 +64,37 @@
         </SfButton>
       </SfTab>
     </SfTabs>
-  </transition>
+  </transition> -->
+      <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
+        <div class="d-block">
+            <div class="profile-content">
+                <div class="headline-profile">
+                    <span>آدرس من</span>
+                </div>
+                <div class="profile-stats">
+                    <div class="profile-address">
+                        <div class="box-header">
+                            <span class="box-title"><strong>نشانی ها</strong></span>
+                        </div>
+                        <div
+                          v-for="address in addresses"
+                          :key="userShippingGetters.getId(address)"
+                          class="saved-addresses__address address">
+                            <div class="profile-address-item">
+                                <div class="profile-address-item-top">
+                                    <div class="profile-address-item-title">{{ address.city }}</div>
+                                    <div class="ui-more">
+                                        <Button class="btn-remove-address btn btn-danger" type="submit" @click="removeAddress(address)">حذف آدرس</Button>   
+                                    </div>
+                                </div>
+                                <UserSavedAddress :address="address" />    
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 import {

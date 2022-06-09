@@ -1,5 +1,5 @@
 <template>
-  <SfTabs :open-tab="1">
+  <!-- <SfTabs :open-tab="1">
     <SfTab title="My orders">
       <div>
         <p class="message">
@@ -34,7 +34,95 @@
         <p>Total orders - {{ totalOrders }}</p>
       </div>
     </SfTab>
-  </SfTabs>
+  </SfTabs> -->
+          <div class="col-lg-9 col-md-3 col-xs-12 pull-left">
+        <div class="headline-profile page-profile-order">
+            <span>همه سفارش ها</span>
+        </div>
+        <div v-if="orders.length === 0" class="profile-stats">
+            <div class="profile-return-box">
+                <p class="profile-return-message">در حال حاضر سفارش ثبت شده ای ندارید</p>
+                <a href="/" class="profile-return-message-link">بازگشت به فروشگاه</a>
+            </div>
+                
+        </div>
+        <div v-else class="profile-stats page-profile-order">
+            <div class="table-orders">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">ردیف</th>
+                            <th scope="col">شماره سفارش</th>
+                            <th scope="col">تاریخ ثبت سفارش</th>
+                            <th scope="col">مبلغ قابل پرداخت</th>
+                            <th scope="col">مبلغ کل</th>
+                            <th scope="col">عملیات پرداخت</th>
+                            <th scope="col">جزئیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(order, i) in orders" :key="i">
+                            <td>{{i+1}}</td>
+                            <td class="order-code">{{ orderGetters.getId(order) }}</td>
+                            <td dir="ltr">{{ getFaDate(order.completedAt) }}</td>
+                            <td>{{ $n(orderGetters.getPrice(order))}}</td>
+                            <td>{{ $n(orderGetters.getPrice(order))}} ریال</td>
+                            <td :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</td>
+                            <td class="detail" >
+                              <a :href="`/my-account/order-details/${orderGetters.getId(order)}`" class="w-100 h-100 d-inline-block">
+                                <i class="fa fa-angle-left"></i>
+                              </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--        responsive-profile-order------------------------->
+        <div class="page-profile">
+            <div class="page-navigation">
+                <div class="page-navigation-title">سفارش‌های من</div>
+                <a href="#" class="page-navigation-btn-back">بازگشت <i class="fa fa-angle-left"></i></a>
+            </div>
+            <div v-if="orders.length === 0" class="no-orders">
+                <p class="no-orders__title">{{ $t('You currently have no orders') }}</p>
+                <SfButton class="no-orders__button">{{ $t('Start shopping') }}</SfButton>
+            </div>
+            <div v-else class="profile-orders">
+                <div class="collapse">
+                    <div class="profile-orders-item">
+                        <div class="profile-orders-header" v-for="order in orders" :key="orderGetters.getId(order)">
+                            <a href="profile-order-2.html" class="profile-orders-header-details">
+                                <div class="profile-orders-header-summary">
+                                    <div class="profile-orders-header-row">
+                                        <span class="profile-orders-header-id">{{ orderGetters.getId(order) }}</span>
+                                        <span class="profile-orders-header-state">{{ orderGetters.getStatus(order) }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="ui-separator">
+                            <div class="profile-orders-header-data">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-label">تاریخ ثبت سفارش</div>
+                                    <div class="profile-info-value">{{ getFaDate(order.completedAt) }}</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-label">مبلغ قابل پرداخت</div>
+                                    <div class="profile-info-value">{{ $n(orderGetters.getPrice(order))}}</div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-label">مبلغ کل</div>
+                                    <div class="profile-info-value">{{ $n(orderGetters.getPrice(order))}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        responsive-profile-order------------------------->
+    </div>
 </template>
 
 <script>
@@ -47,6 +135,7 @@ import { computed, useRouter } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters } from '@vue-storefront/spree';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
+import moment from 'moment-jalaali'
 
 export default {
   name: 'OrderHistory',
@@ -64,7 +153,9 @@ export default {
       const localeTransformedPath = context.root.localePath(path);
       router.push(localeTransformedPath);
     };
-
+    const getFaDate = (date) => {
+      return moment(date).format('jYYYY/jM/jD HH:mm')
+    }
     onSSR(async () => {
       await search();
     });
@@ -94,7 +185,8 @@ export default {
       totalOrders: computed(() => orderGetters.getOrdersTotal(orders.value)),
       getStatusTextClass,
       orderGetters,
-      displayOrderDetails
+      displayOrderDetails,
+      getFaDate
     };
   }
 };
