@@ -647,11 +647,34 @@
                 <!-- </ul> -->
                 <div class="pager">
                     <ul class="page-item">
-                        <li class="pagination-item"><a href="#" class="pager-item-active">1</a></li>
-                        <li class="pagination-item"><a href="#">2</a></li>
-                        <li class="pagination-item"><a href="#">3</a></li>
+                        <!-- <li 
+                        class="pagination-item"><a :href="'?page='" class="pager-item-active">1</a></li>
+                        <li 
+                        v-for="(num,i) in Math.floor(products.length/10)"
+                        :key="i"
+                        :number="i+2"
+                        class="pagination-item"><a :href="'?page='+(i+2) " @click="document.getElementByClassName('pager-item-active')">{{i+2}}</a></li> -->
+                        
+                        <li 
+                            v-for="(num,i) in pagination.totalPages"
+                            :key="i"
+                            :currentPage="pagination.currentPage"
+                            class="pagination-item"
+                        >
+                            <a :href="'?page='+(i+1)"  :class=" pagination.currentPage===i+1 ? 'pager-item-active' : '' ">
+                                {{i+1}}
+                            </a>
+                        </li>
+
+                        <!-- <li 
+                        v-for="(num,i) in Math.floor(products.length/10)+1"
+                        :key="i"
+                        class="pagination-item"><a :href="'?page='+(i+2)" @click="document.getElementByClassName('pager-item-active')">{{i+1}}</a></li>
+ -->
+
+                        <!-- <li class="pagination-item"><a href="#">3</a></li>
                         <li class="pagination-item"><a href="#">4</a></li>
-                        <li class="pagination-item"><a href="#">5</a></li>
+                        <li class="pagination-item"><a href="#">5</a></li> -->
                         <li class="pagination-item">
                             <div class="pager-items-partition"></div>
                         </li>
@@ -712,6 +735,7 @@ export default {
     const pagination = computed(() => facetGetters.getPagination(result.value));
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
     const { locale } = context.app.i18n;
+    const lengthProduct = products.length
 
     const getRoute = (category) => {
       // if (menu.value.isDisabled) {
@@ -751,6 +775,8 @@ export default {
       await search(th.getFacetsFromURL());
       if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
     });
+
+
     return {
       ...uiState,
       th,
