@@ -252,10 +252,10 @@
                         </div>
                         <template v-if="product.inStock">
                           <button v-if="!isInCart" @click="addToCart" class="btn-add-to-cart">
-                            <span class="btn-add-to-cart-txt">
+                            <span v-if="!flag" class="btn-add-to-cart-txt">
                               افزودن به سبد خرید
                             </span>
-
+                            <div v-else-if="flag" class="spinner-border spinner-border-sm" role="status"></div>
                           </button>
                           <div v-else class="quantity">
                             <input
@@ -268,13 +268,9 @@
                                     quantity: isInCart.qty-1 })">-</div>
                               <div v-else class="quantity-button quantity-down" @click="removeItem({ product: { id: isInCart.id } })">
                                     <i class="fa fa-trash"></i></div>
-      
                             </div>
                           </div>
-
                         </template>
-
-
                       </div>
                     </div>
                   </div>
@@ -478,6 +474,7 @@ export default {
         attributes: route.value.query,
       })[0]
     );
+    const flag = ref(false)
 
     const optionTypes = computed(() =>
       productGetters.getOptionTypeNames(product.value)
@@ -517,7 +514,9 @@ export default {
         .map((e) => ({ ...e, link: context.localePath(e.link) }))
     );
     const addToCart = async () => {
+      flag.value = true
       await addItem({ product: product.value, quantity: 1 })
+      flag.value = false
       isClicked.value = true
       
     }
@@ -527,7 +526,7 @@ export default {
       productGetters.getGallery(product.value)
     );
     const updateQuantity = debounce(async ({ product, quantity }) => {
-      console.log({ product, quantity })
+      
       await updateItemQty({ product, quantity });
     }, 500);
 
@@ -593,6 +592,7 @@ export default {
     return {
       updateFilter,
       removeItem,
+      flag,
       variant,
       cartGetters,
       isInCart,
