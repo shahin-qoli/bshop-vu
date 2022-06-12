@@ -6,10 +6,7 @@
           <div class="product-nav-container">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb px-0">
-                <SfBreadcrumbs
-                class="breadcrumb-item"
-                :breadcrumbs="breadcrumbs"
-                />
+                <SfBreadcrumbs class="breadcrumb-item" :breadcrumbs="breadcrumbs" />
               </ol>
             </nav>
             <!-- <div class="product-ext-links">
@@ -20,30 +17,19 @@
             </div> -->
           </div>
           <div class="col-lg-4 col-md-12 col-xs-12 pull-right">
-            <Product-Gallery :images="productGallery"/>
+            <Product-Gallery :images="productGallery" />
           </div>
 
           <!-- Modal social-->
-          <div
-            class="modal fade"
-            id="exampleModalCenter"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true"
-          >
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalCenterTitle">
                     اشتراک گذاری در شبکه های اجتماعی
                   </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -72,12 +58,8 @@
                 <form for="#" class="send-to-email">
                   <div class="form-share-row">
                     <div class="form-share-col">
-                      <input
-                        name="email"
-                        class="input-send-to-email"
-                        type="email"
-                        placeholder="آدرس ایمیل را وارد نمایید."
-                      />
+                      <input name="email" class="input-send-to-email" type="email"
+                        placeholder="آدرس ایمیل را وارد نمایید." />
                     </div>
                   </div>
                   <div class="form-share-row">
@@ -86,32 +68,21 @@
                     </div>
                   </div>
                 </form>
-                
+
               </div>
             </div>
           </div>
           <!-- Modal social-->
           <!-- Modal alarm -->
-          <div
-            class="modal fade"
-            id="exampleModalCenteralarm"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true"
-          >
+          <div class="modal fade" id="exampleModalCenteralarm" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalCenterTitle">
                     به من اطلاع بده
                   </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -134,53 +105,32 @@
                           <li>
                             <div class="form-auth-row">
                               <label class="ui-checkbox">
-                                <input
-                                  type="checkbox"
-                                  value="1"
-                                  name="login"
-                                  id="remember1"
-                                />
+                                <input type="checkbox" value="1" name="login" id="remember1" />
                                 <span class="ui-checkbox-check"></span>
                               </label>
-                              <label for="remember1" class="remember-me"
-                                >ایمیل به
-                                <span class="js-observed-user-email"
-                                  >09911234567</span
-                                >
+                              <label for="remember1" class="remember-me">ایمیل به
+                                <span class="js-observed-user-email">09911234567</span>
                               </label>
                             </div>
                           </li>
                           <li>
                             <div class="form-auth-row">
                               <label class="ui-checkbox">
-                                <input
-                                  type="checkbox"
-                                  value="1"
-                                  name="login"
-                                  id="remember2"
-                                />
+                                <input type="checkbox" value="1" name="login" id="remember2" />
                                 <span class="ui-checkbox-check"></span>
                               </label>
-                              <label for="remember2" class="remember-me"
-                                >پیامک به
-                                <span class="js-observed-user-email"
-                                  >09911234567</span
-                                >
+                              <label for="remember2" class="remember-me">پیامک به
+                                <span class="js-observed-user-email">09911234567</span>
                               </label>
                             </div>
                           </li>
                           <li>
                             <div class="form-auth-row">
                               <label class="ui-checkbox">
-                                <input
-                                  type="checkbox"
-                                  value="1"
-                                  name="login"
-                                  id="remember3"
-                                />
+                                <input type="checkbox" value="1" name="login" id="remember3" />
                                 <span class="ui-checkbox-check"></span>
                               </label>
-                              
+
                             </div>
                           </li>
                         </ul>
@@ -192,11 +142,7 @@
                   <button type="button" class="btn btn-primary ml-2">
                     ثبت
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
                     بازگشت
                   </button>
                 </div>
@@ -210,20 +156,17 @@
                 <div class="product-title-container">
                   <div class="product-directory">
                     <ul class="mb-0">
-                      <li v-for="(breadcrumb, i) in breadcrumbs"
-                                :key="i"
-                                :text="breadcrumb.text"
-                                :link="breadcrumb.link"      
-                    >
-                        <a href='#' class="link-border">{{breadcrumb.text}}
-                        <span>/</span>
+                      <li v-for="(breadcrumb, i) in breadcrumbs" :key="i" :text="breadcrumb.text"
+                        :link="breadcrumb.link">
+                        <a href='#' class="link-border">{{ breadcrumb.text }}
+                          <span>/</span>
                         </a>
-                      
+
                       </li>
                       <!-- <li>
                         <a href="#" class="link-border">گوشی موبایل شیائومی</a>
                       </li> -->
-                      
+
                     </ul>
                     <h1 class="product-title">
                       {{ productGetters.getName(product) }}
@@ -234,52 +177,38 @@
               <div class="product-attributes">
                 <div class="col-lg-8 col-md-8 col-xs-12 pull-right pr-0">
                   <div class="product-config">
-                 
+
                     <div class="product-config-wrapper">
-                      <div v-for="(optionTypeValue, i) in optionTypeValues"
-                                :key="i"
-                                :name="optionTypeValue.name"
-                                :presentation="optionTypeValue.presentation"
-                                class="product-variants">
-                        <span>{{optionTypeValue.presentation}}: </span>
-                        <Color-Select
-                          v-if="optionTypeValue.name == 'color'"
+                      <div v-for="(optionTypeValue, i) in optionTypeValues" :key="i" :name="optionTypeValue.name"
+                        :presentation="optionTypeValue.presentation" class="product-variants">
+                        <span>{{ optionTypeValue.presentation }}: </span>
+                        <Color-Select v-if="optionTypeValue.name == 'color'"
                           :value="configuration[optionTypeValue.name]"
                           @input="updateFilter({ [optionTypeValue.id]: $event })"
-                          :options="options[optionTypeValue.name]"
-                        />
-                        <Text-Select
-                          v-else
-                          :value="configuration[optionTypeValue.name]"
+                          :options="options[optionTypeValue.name]" />
+                        <Text-Select v-else :value="configuration[optionTypeValue.name]"
                           @input="updateFilter({ [optionTypeValue.id]: $event })"
-                          :options="options[optionTypeValue.name]"
-                        />
+                          :options="options[optionTypeValue.name]" />
                       </div>
                       <div class="product-params">
                         <ul>
                           <li class="title-product-features">
                             ویژگی‌های محصول
                           </li>
-                          <li v-for="(property, i) in properties"
-                                :key="i"
-                                :name="property.name"
-                                :value="property.value"
-                                class="sf-property--full-width product__property">
+                          <li v-for="(property, i) in properties" :key="i" :name="property.name" :value="property.value"
+                            class="sf-property--full-width product__property">
 
-                            <span>{{property.name}}: </span>
-                            <span>{{property.value}}</span>
+                            <span>{{ property.name }}: </span>
+                            <span>{{ property.value }}</span>
                           </li>
-                          
+
                         </ul>
-        
+
                       </div>
                     </div>
                   </div>
                 </div>
-                <div
-                  class="col-lg-4 col-md-4 col-xs-12 pull-left sticky-sidebar"
-                  style="padding: 0"
-                >
+                <div class="col-lg-4 col-md-4 col-xs-12 pull-left sticky-sidebar" style="padding: 0">
                   <div class="product-seller-info">
                     <div class="js-seller-info-changable">
                       <div class="product-seller-row">
@@ -290,9 +219,7 @@
                           <span class="js-seller-count u-text-bold">بروکس</span>
                         </a>
                       </div>
-                      <div
-                        class="product-seller-row product-seller-row-guarantee"
-                      >
+                      <div class="product-seller-row product-seller-row-guarantee">
                         <div class="js-guarantee-text">
                           گارانتی شرکتی بروکس
                           <i class="mdi mdi-check"></i>
@@ -300,14 +227,15 @@
                       </div>
                       <div class="product-seller-row js-seller-info-shipment">
                         <div class="js-guarantee-text">
-                          موجود در انبار فروشنده
+                          <a v-if="product.inStock">موجود در انبار فروشنده</a>
+                          <a v-else>موجود نیست!</a>
                           <i class="mdi mdi-content-save-outline"></i>
                         </div>
                         <div class="product-delivery-warehouse">
                           ارسال سریع از انبار بروکس
                         </div>
                       </div>
-                      
+
                       <div class="product-seller-row">
                         <div class="product-seller-row-price">
                           <div class="product-seller-price-label">
@@ -322,13 +250,31 @@
                         </div>
                         <div class="product-remaining-in-stock-parent">
                         </div>
-                          <button  @click="addToCart" class="btn-add-to-cart">
-                            <span  class="btn-add-to-cart-txt">
+                        <template v-if="product.inStock">
+                          <button v-if="!isInCart" @click="addToCart" class="btn-add-to-cart">
+                            <span class="btn-add-to-cart-txt">
                               افزودن به سبد خرید
                             </span>
-                          
-                        </button>
-                        
+
+                          </button>
+                          <div v-else class="quantity">
+                            <input
+                              @input="updateQuantity({ product: { id: isInCart.id }, quantity: Number($event.currentTarget.value) })"
+                              type="number" min="1" max="10" step="1" :value="isInCart.qty">
+                            <div class="quantity-nav">
+                              <div class="quantity-button quantity-up" @click="updateQuantity({ product: { id: isInCart.id }, 
+                                    quantity: isInCart.qty+1 })">+</div>
+                              <div v-if="isInCart.qty>1" class="quantity-button quantity-down" @click="updateQuantity({ product: { id: isInCart.id }, 
+                                    quantity: isInCart.qty-1 })">-</div>
+                              <div v-else class="quantity-button quantity-down" @click="removeItem({ product: { id: isInCart.id } })">
+                                    <i class="fa fa-trash"></i></div>
+      
+                            </div>
+                          </div>
+
+                        </template>
+
+
                       </div>
                     </div>
                   </div>
@@ -339,12 +285,8 @@
                   <div class="row">
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
-                        <img
-                          src="/footer-svg/delivery.svg"
-                          alt="delivery"
-                        />
-                        <span
-                          >امکان تحویل
+                        <img src="/footer-svg/delivery.svg" alt="delivery" />
+                        <span>امکان تحویل
                           <br />
                           اکسپرس
                         </span>
@@ -353,13 +295,8 @@
 
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
-                        <img
-                          src="/footer-svg/contact-us.svg"
-                          alt="contact-us"
-                          style="width: 35px"
-                        />
-                        <span
-                          >۷ روز هفته
+                        <img src="/footer-svg/contact-us.svg" alt="contact-us" style="width: 35px" />
+                        <span>۷ روز هفته
                           <br />
                           ۲۴ ساعته
                         </span>
@@ -368,13 +305,8 @@
 
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
-                        <img
-                          src="/footer-svg/payment-terms.svg"
-                          alt="payment-terms"
-                          style="width: 35px"
-                        />
-                        <span
-                          >امکان
+                        <img src="/footer-svg/payment-terms.svg" alt="payment-terms" style="width: 35px" />
+                        <span>امکان
                           <br />
                           پرداخت در محل
                         </span>
@@ -383,13 +315,8 @@
 
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
-                        <img
-                          src="/footer-svg/origin-guarantee.svg"
-                          alt="origin-guarantee"
-                          style="width: 35px"
-                        />
-                        <span
-                          >ضمانت
+                        <img src="/footer-svg/origin-guarantee.svg" alt="origin-guarantee" style="width: 35px" />
+                        <span>ضمانت
                           <br />
                           اصل بودن کالا
                         </span>
@@ -413,7 +340,7 @@
                 <li class="box-tabs-tab">
                   <a href="#"> مشخصات</a>
                 </li>
-                
+
               </ul>
             </div>
             <div class="tabs-content">
@@ -421,16 +348,17 @@
                 <div class="tab content-expert" style="display: block">
                   <article>
                     <h2 class="params-headline">
-                      
-                      <span><p>{{ productGetters.getName(product) }}</p></span
-                      >
+
+                      <span>
+                        <p>{{ productGetters.getName(product) }}</p>
+                      </span>
                     </h2>
                     <section class="content-expert-summary">
                       <div class="is-masked">
                         <div class="mask-text-product-summary active">
-                          <p v-html="productGetters.getDescription(product)" ></p>
+                          <p v-html="productGetters.getDescription(product)"></p>
                         </div>
-                         <!--<a  href="#" class="mask-handler">
+                        <!--<a  href="#" class="mask-handler">
                           <span class="show-more">ادامه مطلب</span>
                           <span class="show-less">بستن</span>
                         </a> -->
@@ -443,39 +371,26 @@
                   <article>
                     <h2 class="params-headline">
                       مشخصات فنی
-                      <span
-                        >{{ productGetters.getName(product) }}</span
-                      >
+                      <span>{{ productGetters.getName(product) }}</span>
                     </h2>
                     <section>
                       <h3 class="params-title">مشخصات کلی</h3>
                       <ul class="params-list">
-                        <li  v-for="(property, i) in properties"
-                                :key="i"
-                                :name="property.name"
-                                :value="property.value"
-                                class="sf-property--full-width product__property">
-                          
-                          <div
-                            class="col-lg-3 col-md-3 col-xs-12 pull-right"
-                            style="padding: 0"
-                          >
+                        <li v-for="(property, i) in properties" :key="i" :name="property.name" :value="property.value"
+                          class="sf-property--full-width product__property">
+
+                          <div class="col-lg-3 col-md-3 col-xs-12 pull-right" style="padding: 0">
                             <div class="params-list-key">
-                              <span class="block">{{property.name}}</span>
+                              <span class="block">{{ property.name }}</span>
                             </div>
                           </div>
 
-                          <div
-                            class="col-lg-9 col-md-9 col-xs-12 pull-left"
-                            style="padding: 0"
-                          >
+                          <div class="col-lg-9 col-md-9 col-xs-12 pull-left" style="padding: 0">
                             <div class="params-list-value">
-                              <span class="block"
-                                >{{property.value}}</span
-                              >
+                              <span class="block">{{ property.value }}</span>
                             </div>
                           </div>
-                         </li>
+                        </li>
                       </ul>
                     </section>
                   </article>
@@ -483,7 +398,7 @@
               </div>
               <div class="footer-product-id">
                 <span>شناسه کالا :</span>
-                <span>DKP - ۱۶۷۲۴۷۸</span>
+                <span>BRX - {{ product._variantId }}</span>
               </div>
             </div>
           </div>
@@ -497,6 +412,7 @@ import ProductSlider from '~/components/ProductSlider.vue'
 import ProductGallery from '~/components/Product/ProductGallery.vue'
 import ColorSelect from '~/components/Product/ColorSelect.vue'
 import TextSelect from '~/components/Product/TextSelect.vue'
+import debounce from 'lodash.debounce';
 import {
   SfProperty,
   SfHeading,
@@ -540,30 +456,32 @@ export default {
     'stale-when-revalidate': 5,
   }),
   setup() {
-    
+
     let isClicked = ref(false);
     const qty = ref(1);
     const route = useRoute();
     const router = useRouter();
     const context = useContext();
+    
     const { products, search } = useProduct('products');
     const {
       products: relatedProducts,
       search: searchRelatedProducts,
       loading: relatedLoading,
     } = useProduct('relatedProducts');
-    const { addItem, loading, cart } = useCart();
+    const { addItem, loading, cart, updateItemQty, removeItem } = useCart();
     const { slug } = route.value.params;
 
     const product = computed(() =>
-        productGetters.getFiltered(products.value, {
-          master: true,
-          attributes: route.value.query,
-        })[0]
+      productGetters.getFiltered(products.value, {
+        master: true,
+        attributes: route.value.query,
+      })[0]
     );
-    const optionTypes = computed(() => 
-        productGetters.getOptionTypeNames(product.value)
-      );
+
+    const optionTypes = computed(() =>
+      productGetters.getOptionTypeNames(product.value)
+    );
     const optionTypeValues = computed(() => {
       if (product.value) {
         return product.value.optionTypes
@@ -584,9 +502,10 @@ export default {
     const properties = computed(() =>
       productGetters.getProperties(product.value)
     );
-    const Description = computed (() =>
+    const Description = computed(() =>
       productGetters.getDescription(product)
     );
+
 
     const cartproducts = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
@@ -599,16 +518,34 @@ export default {
     );
     const addToCart = async () => {
       await addItem({ product: product.value, quantity: 1 })
-      isClicked.value=true
-      window.alert("کالای مورد نظر به سبد خرید اضافه شد")
+      isClicked.value = true
+      
     }
+
     const isInStock = computed(() => productGetters.getInStock(product.value));
     const productGallery = computed(() =>
       productGetters.getGallery(product.value)
     );
+    const updateQuantity = debounce(async ({ product, quantity }) => {
+      console.log({ product, quantity })
+      await updateItemQty({ product, quantity });
+    }, 500);
+
+    const isInCart = computed(() => {
+      return cartproducts.value.find((p) => {
+        return p._variantId == product.value._variantId
+
+      })
+
+    }
+
+
+    );
+
+    const variant = product.inStock;
 
     //debugger
-    
+
 
     onSSR(async () => {
       await search({ slug });
@@ -650,11 +587,16 @@ export default {
         },
       });
     };
-    
+
 
 
     return {
       updateFilter,
+      removeItem,
+      variant,
+      cartGetters,
+      isInCart,
+      updateQuantity,
       addToCart,
       isClicked,
       configuration,
@@ -723,23 +665,28 @@ export default {
 <style lang="scss" scoped>
 #product {
   box-sizing: border-box;
+
   @include for-desktop {
     max-width: 1272px;
     margin: 0 auto;
   }
 }
+
 .product {
   @include for-desktop {
     display: flex;
   }
+
   &__info {
     width: 100%;
     margin: var(--spacer-sm) auto;
+
     @include for-desktop {
       max-width: 32.625rem;
       margin: 0 0 0 7.5rem;
     }
   }
+
   &__header {
     --heading-title-color: var(--c-link);
     --heading-title-font-weight: var(--font-weight--bold);
@@ -747,142 +694,163 @@ export default {
     margin: 0 var(--spacer-sm);
     display: flex;
     justify-content: space-between;
+
     @include for-desktop {
       --heading-title-font-weight: var(--font-weight--semibold);
       margin: 0 auto;
     }
   }
+
   &__drag-icon {
     animation: moveicon 1s ease-in-out infinite;
   }
+
   &__price-and-rating {
     margin: 0 var(--spacer-sm) var(--spacer-base);
     align-items: center;
+
     @include for-desktop {
       display: flex;
       justify-content: space-between;
       margin: var(--spacer-sm) 0 var(--spacer-lg) 0;
     }
   }
+
   &__rating {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     margin: var(--spacer-xs) 0 var(--spacer-xs);
   }
+
   &__count {
-    @include font(
-      --count-font,
+    @include font(--count-font,
       var(--font-weight--normal),
       var(--font-size--sm),
       1.4,
-      var(--font-family--secondary)
-    );
+      var(--font-family--secondary));
     color: var(--c-text);
     text-decoration: none;
     margin: 0 0 0 var(--spacer-xs);
   }
+
   &__description {
-    @include font(
-      --product-description-font,
+    @include font(--product-description-font,
       var(--font-weight--light),
       var(--font-size--base),
       1.6,
-      var(--font-family--secondary)
-    );
+      var(--font-family--secondary));
     padding: 0;
     margin: 0;
   }
+
   &__select-size {
     margin: 0 var(--spacer-sm);
+
     @include for-desktop {
       margin: 0;
     }
   }
+
   &__colors {
-    @include font(
-      --product-color-font,
+    @include font(--product-color-font,
       var(--font-weight--normal),
       var(--font-size--lg),
       1.6,
-      var(--font-family--secondary)
-    );
+      var(--font-family--secondary));
     display: flex;
     align-items: center;
     margin-top: var(--spacer-sm);
   }
+
   &__color-label {
     margin: 0 var(--spacer-sm) 0 0;
   }
+
   &__color {
     margin: 0 var(--spacer-2xs);
   }
+
   &__add-to-cart {
     margin: var(--spacer-2xl) 0 var(--spacer-sm);
   }
+
   &__guide {
     display: block;
     margin: 0 0 var(--spacer-sm) auto;
   }
+
   &__compare,
   &__save {
     display: block;
     margin: var(--spacer-xl) 0 var(--spacer-base) auto;
   }
+
   &__compare {
     margin-top: 0;
   }
+
   &__tabs {
     --tabs-title-z-index: 0;
     margin: var(--spacer-lg) auto var(--spacer-2xl);
     --tabs-title-font-size: var(--font-size--lg);
   }
+
   &__property {
     margin: var(--spacer-sm) 0;
+
     &__button {
       --button-font-size: var(--font-size--base);
     }
   }
+
   &__review {
     padding-bottom: 24px;
     border-bottom: var(--c-light) solid 1px;
     margin-bottom: var(--spacer-base);
   }
+
   &__additional-info {
     color: var(--c-link);
-    @include font(
-      --additional-info-font,
+    @include font(--additional-info-font,
       var(--font-weight--light),
       var(--font-size--sm),
       1.6,
-      var(--font-family--primary)
-    );
+      var(--font-family--primary));
+
     &__title {
       font-weight: var(--font-weight--normal);
       font-size: var(--font-size--base);
       margin: 0 0 var(--spacer-sm);
+
       &:not(:first-child) {
         margin-top: 3.5rem;
       }
     }
+
     &__paragraph {
       margin: 0;
     }
   }
+
   &__gallery {
     flex: 1;
   }
 }
+
 .breadcrumbs {
   margin: var(--spacer-base) auto var(--spacer-lg);
 }
+
 @keyframes moveicon {
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   50% {
     transform: translate3d(0, 30%, 0);
   }
+
   100% {
     transform: translate3d(0, 0, 0);
   }

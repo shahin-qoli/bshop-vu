@@ -12,10 +12,10 @@
 
         </div>
     </div>
-    <div class="cart-tab-main">
+    <div v-if="cart.itemCount!=0" class="cart-tab-main">
         <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
             <div class="page-content-cart">
-                <form action="#">
+                <form @submit.prevent>
                     <div class="header-express">
                         <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
                         <span class="header-extra-info">({{$n(totalItems)}}
@@ -50,8 +50,16 @@
                             </div>
                             <div class="quantity">
                                 <input
-                                  @change="updateQuantity({ product: { id: product.id }, quantity: Number($event.currentTarget.value) })"
+                                  @input="updateQuantity({ product: { id: product.id }, quantity: Number($event.currentTarget.value) })"
                                   type="number" min="1" max="10" step="1" :value="cartGetters.getItemQty(product)" >
+                                  <div class="quantity-nav">
+                                    <div class="quantity-button quantity-up" @click="updateQuantity({ product: { id: product.id }, 
+                                    quantity: cartGetters.getItemQty(product)+1 })">+</div>
+                                    <div v-if="product.qty>1" class="quantity-button quantity-down" @click="updateQuantity({ product: { id: product.id }, 
+                                    quantity: cartGetters.getItemQty(product)-1 })">-</div>
+                                    <div v-else class="quantity-button quantity-down" @click="removeItem({ product: { id: product.id } })">
+                                    <i class="fa fa-trash"></i></div>             
+                                  </div>
                             </div>
                             
                             <a href="#" class="add-to-sfl">
@@ -100,7 +108,7 @@
                         </li>
                         <li>
                             <span><i class="fa fa-truck"></i>ارسال عادی</span>
-                            <span>رایگان</span>
+                            <span>براساس شهر واستان</span>
                         </li>
                         <li>
                             <span>مبلغ قابل پرداخت</span>
@@ -116,7 +124,7 @@
         </div>
     </div>
 
-    <div class="cart-tab-main" style="display:none;">
+    <div v-else class="cart-tab-main"  >
         <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
             <div class="page-content-cart">
                 <div class="container">
@@ -124,7 +132,7 @@
                         <div class="checkout-empty-icon">
                             <span class="mdi mdi-cart-remove"></span>
                         </div>
-                        <div class="checkout-empty-title">لیست خرید بعدی شما خالی است!</div>
+                        <div class="checkout-empty-title">سبد خرید شما خالی است!</div>
                     </div>
                 </div>
             </div>
@@ -132,11 +140,9 @@
         <div class="col-lg-4 col-md-4 col-xs-12 pull-left">
             <div class="page-aside">
                 <div class="checkout-summary">
-                    <h1>لیست خرید بعدی چیست؟</h1>
+                    <h1>چگونه میتوان خرید کرد؟</h1>
                     <p>
-                        شما می‌توانید محصولاتی که به سبد خرید
-                        خود افزوده اید و موقتا قصد خرید آن‌ها را ندارید، در لیست خرید بعدی خود قرار داده و
-                        هر زمان مایل بودید آن‌ها را مجدداً به سبد خرید اضافه کرده و خرید آن‌ها را تکمیل کنید.
+                        .شما میتوانبد با مشاهده هر کالا و با انتخاب گزینه "افزودن به سبد خرید"  آن را در سبد خرید خود مشاهده کنید
                     </p>
                 </div>
             </div>

@@ -189,48 +189,17 @@
     <div class="col-lg-3 col-md-4 col-xs-12 float-right sticky-sidebar">
         <div class="sidebar-wrapper search-sidebar">
             <div class="box-sidebar">
-                <button class="btn btn-light btn-box-sidebar" type="button">دسته‌بندی </button>
-                <div class="catalog" :class="{ 'loading--categories': loading }"
-                    :loading="loading">
-                    <ul class="catalog-list" v-e2e="'categories-accordion'"
-                        :open="activeCategory"
-                        :show-chevron="true">
-                        <li v-for="(cat, i) in ((menu && menu.items) || (categoryTree && categoryTree.items))"
-                            :key="i"
-                            :header="cat.name || cat.label"><a :href="localePath(getRoute(cat))" class="catalog-link"><i class="fa fa-angle-left"></i>{{cat.name || cat.label}}</a>
-                            <div class="show-more" v-for="(subCat, j) in cat.items"
-                            :key="j" >
-                                <span class="catalog-cat-item" :count="subCat.count || ''"
-                                :label="subCat.name || subCat.label" :href="localePath(getRoute(subCat))"><i class="fa fa-angle-down" ></i>{{subCat.name || subCat.label}}</span>
-                                
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="box-sidebar">
-                <button class="btn btn-light btn-box-sidebar" type="button">
-                    جستجو در نتایج:
-                </button>
-                <form action="#">
-                    <input type="text" class="input-sidebar" placeholder="نام محصول یا برند مورد نظر را بنویسید…">
-
-                    <button class="btn-search-sidebar"><img src="assets/images/search.png" alt="search"></button>
-                </form>
-            </div>
-
-            <div class="box-sidebar">
-                <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
+                <button  @click="toggleFilterSidebar" class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
                     data-target="#collapseExamplebrand" aria-expanded="false" aria-controls="collapseExamplebrand">
-                    <i class="fa fa-chevron-down arrow"></i>برند
+                    <i class="fa fa-chevron-down arrow" ></i>برند
                 </button>
                 <div class="collapse" id="collapseExamplebrand">
                     <div class="catalog">
+                        
                         <form action="#">
+                            
                             <input type="text" class="input-sidebar"
                                 placeholder="نام محصول یا برند مورد نظر را بنویسید…">
-
                             <button class="btn-search-sidebar"><img
                                         src="assets/images/search.png" alt="search"></button>
                         </form>
@@ -250,6 +219,39 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="box-sidebar">
+                <button class="btn btn-light btn-box-sidebar" type="button">دسته‌بندی </button>
+                <div class="catalog" :class="{ 'loading--categories': loading }"
+                    :loading="loading">
+                    <ul class="catalog-list" v-e2e="'categories-accordion'"
+                        :open="activeCategory"
+                        :show-chevron="true">
+                        <li v-for="(cat, i) in ((menu && menu.items) || (categoryTree && categoryTree.items))"
+                            :key="i"
+                            :header="cat.name || cat.label"><a :href="localePath(getRoute(cat))" class="catalog-link"><i class="fa fa-angle-left"></i>{{cat.name || cat.label}}</a>
+                            <div class="show-more" v-for="(subCat, j) in cat.items"
+                            :key="j" :href="localePath(getRoute(subCat))" >
+                            <a :href="localePath(getRoute(subCat))">
+                                <span class="catalog-cat-item" :count="subCat.count || ''"
+                                :label="subCat.name || subCat.label" :href="localePath(getRoute(subCat))"><i class="fa fa-angle-left" ></i>{{subCat.name || subCat.label}}</span>
+                            </a>      
+                                
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="box-sidebar">
+                <button class="btn btn-light btn-box-sidebar" type="button">
+                    جستجو در نتایج:
+                </button>
+                <form action="#">
+                    <input type="text" class="input-sidebar" placeholder="نام محصول یا برند مورد نظر را بنویسید…">
+
+                    <button class="btn-search-sidebar"><img src="assets/images/search.png" alt="search"></button>
+                </form>
             </div>
             <div class="box-sidebar">
                 <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
@@ -683,13 +685,15 @@ import {
   SfColor,
   SfProperty
 } from '@storefront-ui/vue';
-import { computed, onMounted, useContext } from '@nuxtjs/composition-api';
+import { computed, onMounted, useContext, useRoute, watch } from '@nuxtjs/composition-api';
 import { useCart, useWishlist, productGetters, useFacet, facetGetters, useUser, wishlistGetters, useMenus } from '@vue-storefront/spree';
+
 import { useUiHelpers, useUiState } from '~/composables';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import cacheControl from './../helpers/cacheControl';
 import CategoryPageHeader from '~/components/CategoryPageHeader';
+import FiltersSidebar from '~/components/FiltersSidebar.vue';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
@@ -700,8 +704,9 @@ export default {
   }),
   setup() {
     const th = useUiHelpers();
-    const uiState = useUiState();
+    const { toggleFilterSidebar, isCategoryGridView, changeToCategoryGridView, changeToCategoryListView, uiState } = useUiState();
     const context = useContext();
+    const route = useRoute()
     const { addItem: addItemToCart, isInCart } = useCart();
     const { result, search, loading, error } = useFacet();
     const { wishlist, addItem: addItemToWishlist, isInWishlist, removeItem: removeItemFromWishlist } = useWishlist();
@@ -712,6 +717,7 @@ export default {
     const pagination = computed(() => facetGetters.getPagination(result.value));
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
     const { locale } = context.app.i18n;
+    
 
     const getRoute = (category) => {
       // if (menu.value.isDisabled) {
@@ -719,7 +725,11 @@ export default {
       // }
       //return "";
     };
-
+    watch(() => route.query, async () => {
+        console.log("hey")
+      await search(th.getFacetsFromURL());
+      if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
+    })
     const activeCategory = computed(() => {
       const items = categoryTree.value.items;
 
@@ -753,6 +763,8 @@ export default {
     });
     return {
       ...uiState,
+      toggleFilterSidebar,
+      route,
       th,
       products,
       categoryTree,
@@ -788,7 +800,8 @@ export default {
     SfColor,
     SfHeading,
     SfProperty,
-    LazyHydrate
+    LazyHydrate,
+    FiltersSidebar
   }
 };
 </script>
