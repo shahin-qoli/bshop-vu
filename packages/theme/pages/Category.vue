@@ -658,7 +658,7 @@
                         <li 
                             v-for="(num,i) in pagination.totalPages"
                             :key="i"
-                            :currentPage="pagination.currentPage"
+
                             class="pagination-item"
                         >
                             <a :href="'?page='+(i+1)"  :class=" pagination.currentPage===i+1 ? 'pager-item-active' : '' ">
