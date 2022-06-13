@@ -4,7 +4,7 @@
         <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
             <div class="checkout-tab">
                 <div class="checkout-tab-pill listing-active-cart">
-                    سبد خرید
+                          سبد خرید شما                  
                     <span class="checkout-tab-counter">{{$n(totalItems)}}</span>
                 </div>
                 
@@ -17,10 +17,10 @@
             <div class="page-content-cart">
                 <form @submit.prevent>
                     <div class="header-express">
-                        <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
+                        <!-- <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
                         <span class="header-extra-info">({{$n(totalItems)}}
-                            کالا)</span>
-                        <span class="checkout-header-delivery-cost">هزینه ارسال بر اساس شهر و استان محاسبه خواهد شد</span>
+                            کالا)</span> -->
+                        <span class="checkout-header-delivery-cost">{{$n(totalItems)}} کالا</span>
                     </div>
                     <div v-for="(product, i) in products"
                                 :key="cartGetters.getItemSku(product)"
@@ -35,17 +35,14 @@
                                 alt="img-slider"></a>
 
                         <div class="checkout-col-desc">
-                            <a href="#">
-                                <h3>{{productGetters.getName(product)}}
+                            <a :href="localePath(`/p/${cartGetters.getItemVariantId(product)}/${cartGetters.getItemSlug(product)}`)">
+                                <h3 style="font-size:17px;"><strong>{{productGetters.getName(product)}}</strong>
                                 </h3>
                             </a>
                             <div class="checkout-variant-color">
-                                <span class="checkout-variant-title">سفید</span>
-
-                                <div class="checkout-variant-shape"></div>
-                                <!-- <div class="checkout-guarantee"><i class="fa fa-check"></i>گارانتی ۱۸ ماهه
-                                    انفورماتیک گستر</div> -->
-                                <div class="checkout-dealer"><i class="fa fa-check"></i>بروکس</div>
+                                <!-- <span class="checkout-variant-title">سفید</span> -->
+                                <!-- <div class="checkout-variant-shape"></div> -->
+                                <div class="checkout-dealer" v-for="(option,name, j) in product.options" :key="j" ><i class="fa fa-check"></i>{{name}} : {{option}}</div>
    
                             </div>
                             <div class="quantity">
@@ -77,48 +74,56 @@
                 </form>
             </div>
 
-            <div class="checkout-to-shipping-sticky">
-                <a href="/checkout/shipping" class="selenium-next-step-shipping">ادامه فرآیند خرید</a>
-                <div class="checkout-to-shipping-price-report">
-                    <p>مبلغ قابل پرداخت</p>
-                    <div class="cart-item-product-price">
-                        {{$n(totals.subtotal)}}
-                        <span>
-                            ریال
-                        </span>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <div class="col-lg-3 col-md-3 col-xs-12 pull-left">
             <div class="page-aside">
                 <div class="checkout-summary">
                     <ul class="checkout-summary-summary">
                         <li>
-                            <span>مبلغ کل ({{$n(totalItems)}} کالا)</span>
+                            <span>قیمت کالاها ({{$n(totalItems)}} کالا)</span>
                             <span>{{$n(totals.subtotal)}} تومان</span>
                         </li>
                         <li>
-                            <span>جمع</span>
-                            <span>{{$n(totals.subtotal)}} ریال</span>
+                            <!-- <span>جمع</span>
+                            <span>{{$n(totals.subtotal)}} ریال</span> -->
+                            <span style="color: #05a0fa">سود شما</span>
+                            <span style="color: #05a0fa">{{$n(0)}} ریال</span>
                         </li>
                         <li>
-                            <span style="color: #424750; font-size:14px;">هزینه ارسال</span>
+                            <span style="color: #7d8182; font-size:12px;"> هزینه ارسال براساس آدرس و میزان خرید شما محاسبه می شود</span>
                             <span></span>
                         </li>
                         <li>
-                            <span><i class="fa fa-truck"></i>ارسال عادی</span>
-                            <span>براساس شهر واستان</span>
+                            <!-- <span><i class="fa fa-truck"></i>ارسال عادی</span>
+                            <span>براساس شهر واستان</span> -->
                         </li>
                         <li>
-                            <span>مبلغ قابل پرداخت</span>
+                            <span>جمع سبد خرید</span>
                             <span>{{$n(totals.subtotal)}} ریال</span>
                         </li>
 
                     </ul>
                 </div>
+                    <div class="checkout-to-shipping-sticky">
+                    <a href="/checkout/shipping" class="selenium-next-step-shipping">ادامه فرآیند خرید</a>
+                    <!-- <div class="checkout-to-shipping-price-report">
+                        <p>مبلغ قابل پرداخت</p>
+                        <div class="cart-item-product-price">
+                            {{$n(totals.subtotal)}}
+                            <span>
+                                ریال
+                            </span>
+                        </div>
+                    </div> -->
+                </div>
                 <div class="checkout-summary-content">
-                    <p>کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید.</p>
+                    <p>سفارش شما هنوز ثبت نشده است ، برای تکمیل فرآیند خرید  بر روی ادامه فرآیند خرید کلیک کنید</p>
+                </div>
+                <div class="checkout-summary">
+                  <ul class="checkout-summary-summary">
+                    <li><i class="fa fa-truck"></i>ارسال رایگان</li>
+                    <li>برای سفارش بالای {{$n(800000)}} تومان</li></ul>
                 </div>
             </div>
         </div>

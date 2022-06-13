@@ -12,7 +12,7 @@
                         onclick="document.getElementById('modal-search').style.display='none'">
                         <i class="fa fa-close"></i>
                     </button>
-                    <div class="remodal-page-header">لوازم جانبی </div>
+                    <div class="remodal-page-header">جستجوی پیشرفته </div>
                     <div class="remodal-page-main">
                         <div class="filter-bar">
                             <button class="js-listing-options-clear">پاک کردن همه</button>
@@ -57,89 +57,35 @@
                                     </label>
                                 </a>
                             </div>
-
-                            <div class="filter">
+                            <div  v-for="(facet, i) in facets" :key="i">
+                                <div class="filter"  v-if="facet.label!='Price'">
                                 <div class="toggle-box">
                                     <div class="toggle-box-active">
                                         <ul>
                                             <li class="has-sub">
-                                                <a href="#">برند</a>
+                                                <a href="#">{{facet.label}}</a>
                                                 <ul>
-                                                    <li>
-                                                        <a href="/c/lights" class="filter-label">
-                                                            <div class="form-auth-row">
-                                                                <label for="remember" class="ui-checkbox">
-                                                                    <input type="checkbox" value="1" name="login"
-                                                                        id="remember">
-                                                                    <span class="ui-checkbox-check"></span>
-                                                                </label>
-                                                                <label for="remember" href="/c/lights"
-                                                                    class="remember-me">بروکس</label>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-
-                                                    
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                                        <li v-for="option in facet.options">
+                                                            <a href="/c/lights" class="filter-label" >
+                                                                <div class="form-auth-row" >
+                                                                    <label for="remember" class="ui-checkbox">
+                                                                        <input type="checkbox" value="1" name="login"
+                                                                            id="remember">
+                                                                        <span class="ui-checkbox-check"></span>
+                                                                    </label>
+                                                                    <label for="remember" href="/c/lights"
+                                                                        class="remember-me">{{option.value}}</label>
+                                                                </div>
+                                                            </a>
+                                                        </li>                                                  
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="filter">
-                                <div class="toggle-box">
-                                    <div class="toggle-box-active">
-                                        <ul>
-                                            <li class="has-sub">
-                                                <a href="#">فروشنده</a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="filter-label">
-                                                            <div class="form-auth-row">
-                                                                <label for="remember" class="ui-checkbox">
-                                                                    <input type="checkbox" value="1" name="login"
-                                                                        id="remember">
-                                                                    <span class="ui-checkbox-check"></span>
-                                                                </label>
-                                                                <label for="remember"
-                                                                    class="remember-me">بروکس</label>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" class="filter-label">
-                                                            <div class="form-auth-row">
-                                                                <label for="remember" class="ui-checkbox">
-                                                                    <input type="checkbox" value="1" name="login"
-                                                                        id="remember">
-                                                                    <span class="ui-checkbox-check"></span>
-                                                                </label>
-                                                                <label for="remember"
-                                                                    class="remember-me">بروکس</label>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="filter-label">
-                                                            <div class="form-auth-row">
-                                                                <label for="remember" class="ui-checkbox">
-                                                                    <input type="checkbox" value="1" name="login"
-                                                                        id="remember">
-                                                                    <span class="ui-checkbox-check"></span>
-                                                                </label>
-                                                                <label for="remember"
-                                                                    class="remember-me">بروکس</label>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                                                
                         </div>
                     </div>
                 </nav>
@@ -187,39 +133,39 @@
     </div>
     <!--        responsive-sidebar----------------------->
     <div class="col-lg-3 col-md-4 col-xs-12 float-right sticky-sidebar">
+        
         <div class="sidebar-wrapper search-sidebar">
-            <div class="box-sidebar">
-                <button  @click="toggleFilterSidebar" class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
-                    data-target="#collapseExamplebrand" aria-expanded="false" aria-controls="collapseExamplebrand">
-                    <i class="fa fa-chevron-down arrow" ></i>برند
-                </button>
-                <div class="collapse" id="collapseExamplebrand">
-                    <div class="catalog">
-                        
-                        <form action="#">
-                            
-                            <input type="text" class="input-sidebar"
-                                placeholder="نام محصول یا برند مورد نظر را بنویسید…">
-                            <button class="btn-search-sidebar"><img
-                                        src="assets/images/search.png" alt="search"></button>
-                        </form>
-                        <ul>
-                            <li>
-                                <a href="/c/lights" class="filter-label">
-                                    <div class="form-auth-row">
-                                        <label for="remembersumsung" class="ui-checkbox">
-                                            <input type="checkbox" value="1" name="login" id="remembersumsung">
-                                            <span class="ui-checkbox-check"></span>
-                                        </label>
-                                        <label for="rememberBurux" class="remember-me">بروکس</label>
-                                    </div>
-                                </a>
-                            </li>
 
+            <div class="box-sidebar">
+                <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
+                data-target="#collapseExampleSeller" aria-expanded="false" aria-controls="collapseExampleSeller">
+                <i class="fa fa-chevron-down arrow"></i>فیلتر 
+                </button>
+                <div class="collapse show" id="collapseExampleSeller">
+                    <div class="catalog" v-for="(facet, i) in facets" :key="i">
+                        <ul v-if="facet.label!='Price'">
+                            <li>
+                                <div style=" font-size:15px; font-family: iranyekan;">{{facet.label}} : </div>
+                                <a href="#" class="filter-label" v-for="option in facet.options">
+                                    <div class="form-auth-row" >
+                                        <label for="rememberseller1" class="ui-checkbox">
+                                            <input type="checkbox" :value="i+1" name="login" id="rememberseller1">
+                                            <span  href="/" class="ui-checkbox-check"></span>
+                                        </label>
+                                        <label for="rememberseller1" class="remember-me">{{option.value}}</label>
+                                    </div>                                  
+                                </a>
+                                
+                            </li>
                         </ul>
                     </div>
+                    <!-- <div  class="checkout-to-shipping-sticky">
+                        <a  @click="applyFilters" class="selenium-next-step-shipping">اعمال فیلتر</a>                               
+                    </div> -->
+                    
                 </div>
             </div>
+        
             <div class="box-sidebar">
                 <button class="btn btn-light btn-box-sidebar" type="button">دسته‌بندی </button>
                 <div class="catalog" :class="{ 'loading--categories': loading }"
@@ -685,7 +631,7 @@ import {
   SfColor,
   SfProperty
 } from '@storefront-ui/vue';
-import { computed, onMounted, useContext, useRoute, watch } from '@nuxtjs/composition-api';
+import { ref, computed, onMounted, useContext, useRoute, watch } from '@nuxtjs/composition-api';
 import { useCart, useWishlist, productGetters, useFacet, facetGetters, useUser, wishlistGetters, useMenus } from '@vue-storefront/spree';
 
 import { useUiHelpers, useUiState } from '~/composables';
@@ -694,6 +640,9 @@ import LazyHydrate from 'vue-lazy-hydration';
 import cacheControl from './../helpers/cacheControl';
 import CategoryPageHeader from '~/components/CategoryPageHeader';
 import FiltersSidebar from '~/components/FiltersSidebar.vue';
+import FiltersNew from '~/components/FiltersNew.vue';
+import Vue from 'vue';
+
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
@@ -717,6 +666,8 @@ export default {
     const pagination = computed(() => facetGetters.getPagination(result.value));
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
     const { locale } = context.app.i18n;
+    const selectedPrice = ref({});
+    
     
 
     const getRoute = (category) => {
@@ -752,6 +703,46 @@ export default {
         await removeItemFromWishlist({ product });
       }
     };
+    const facets = computed(() => facetGetters.getGrouped(result.value, ['color', 'size']));
+    const selectedFilters = ref({});
+    const setSelectedFilters = () => {
+      if (!facets.value.length || Object.keys(selectedFilters.value).length) return;
+      selectedFilters.value = facets.value.reduce((prev, curr) => ({
+        ...prev,
+        [curr.id]: curr.options
+          .filter(o => o.selected)
+          .map(o => o.id)
+      }), {});
+    };
+    const isFilterSelected = (facet, option) => (selectedFilters.value[facet.id] || []).includes(option.id);
+
+    const selectFilter = (facet, option) => {
+      if (!selectedFilters.value[facet.id]) {
+        Vue.set(selectedFilters.value, facet.id, []);
+      }
+
+      if (selectedFilters.value[facet.id].find(f => f === option.id)) {
+        selectedFilters.value[facet.id] = selectedFilters.value[facet.id].filter(f => f !== option.id);
+        return;
+      }
+
+      selectedFilters.value[facet.id].push(option.id);
+    };
+
+    const clearFilters = () => {
+      toggleFilterSidebar();
+      selectedFilters.value = {};
+      changeFilters(selectedFilters.value);
+    };
+
+    const isPriceDefaultValue=false
+
+    const applyFilters = () => {
+      if (!isPriceDefaultValue) {
+        Vue.set(selectedFilters.value, 'price', []);
+        selectedFilters.value.price.push(selectedPrice.value);
+      }     
+    };
 
     onMounted(async () => {
       await loadMenu({menuType: 'header', menuName: 'Main menu', locale: locale});
@@ -779,6 +770,13 @@ export default {
       handleWishlistClick,
       isWishlistDisabled,
       getRoute,
+      FiltersNew,
+      facets,
+      applyFilters,
+      setSelectedFilters,
+      isFilterSelected,
+      selectFilter,
+      clearFilters,
       menu
     };
   },
