@@ -354,6 +354,9 @@ export default {
       } */
     })
     onSSR(() => {
+      if (isAuthenticated.value === false) {
+        router.replace('/login?returnUrl=/checkout/shipping')
+      }
       dataLoading.value = true
     })
     const selectShippingRate = (shipmentId, shippingRateId) => {
@@ -414,7 +417,7 @@ export default {
     onBeforeMount(async () => {
       dataLoading.value = true
       if (isAuthenticated.value === false) {
-        router.push('/login?returnUrl=/checkout/shipping')
+        router.replace('/login?returnUrl=/checkout/shipping')
       }
       await load();
       await loadSavedAddresses();
