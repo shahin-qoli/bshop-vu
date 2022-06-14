@@ -322,7 +322,16 @@
                 </div>
               </div>
             </section>
+            
           </div>
+          <div class="product-feature-body">
+            <div>
+                <img
+                src="../static/images/home/BrxContent.svg"
+                alt="contact-us"
+                style="align:center;width: 100%;" />
+            </div>
+          </div>   
         </article>
         <Product-Slider title="محصولات مرتبط" slug="lights/bulb" class="p-0" />
         <Product-Slider title="خانواده پرژکتور" slug="lights/projector" class="p-0" />
