@@ -5,7 +5,7 @@
             <button class="btn-filter btn-filter-advanced"
                 onclick="document.getElementById('modal-search').style.display='block'">جستجوی پیشرفته</button>
             <button class="btn-filter btn-filter-direction" data-toggle="modal"
-                data-target="#exampleModalCenter">پربازدیدترین</button>
+                data-target="#exampleModalCenter">مرتب سازی</button>
             <div class="remodal-search-advanced" id="modal-search">
                 <nav class="remodal-page-layout">
                     <button class="search-filter-remodal-close"
@@ -16,7 +16,7 @@
                     <div class="remodal-page-main">
                         <div class="filter-bar">
                             <button class="js-listing-options-clear">پاک کردن همه</button>
-                            <div class="js-box-content-items">
+                            <!-- <div class="js-box-content-items">
                                 <a href="#">
                                     <label for="switch3">
                                         <input type="checkbox" id="switch3" />
@@ -26,7 +26,7 @@
                                         <span class="toggle"></span>
                                     </label>
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="remodal-page-content">
                             <div class="filter">
@@ -37,7 +37,7 @@
                                 </label>
                             </div>
 
-                            <div class="filter">
+                            <!-- <div class="filter">
                                 <a href="#">
                                     <label for="switch4">
                                         <input type="checkbox" id="switch4" />
@@ -46,17 +46,9 @@
                                         <span class="toggle"></span>
                                     </label>
                                 </a>
-                            </div>
+                            </div> -->
 
-                            <div class="filter">
-                                <a href="#">
-                                    <label for="switch5">
-                                        <input type="checkbox" id="switch5" /><span class="switch"></span>
-                                        <h1 class="switch-title">فقط کالاهای آماده ارسال</h1>
-                                        <span class="toggle"></span>
-                                    </label>
-                                </a>
-                            </div>
+                            
                             <div  v-for="(facet, i) in facets" :key="i">
                                 <div class="filter"  v-if="facet.label!='Price'">
                                 <div class="toggle-box">
@@ -103,27 +95,18 @@
                     </button>
                 </div>
                 <div class="remodal-list-sort">
-                    <ul class="listing-sort nav nav-tabs" id="myTab" role="tablist" data-label="مرتب‌سازی بر اساس :">
-                        <li class="listing-active nav-item"><a class="nav-link active" id="mostvisited-tab"
-                                data-toggle="tab" href="#mostvisited" role="tab" aria-controls="mostvisited"
-                                aria-selected="true">پربازدید ترین</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" id="bestselling-tab" data-toggle="tab"
-                                href="#bestselling" role="tab" aria-controls="bestselling" aria-selected="false">پرفروش
-                                ترین</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" id="mostpopular-tab" data-toggle="tab"
-                                href="#mostpopular" role="tab" aria-controls="mostpopular" aria-selected="false">محبوب
-                                ترین</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab"
+                    <ul class="listing-sort nav nav-tabs" id="myTab" role="tablist" >                       
+                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == '-updated_at' ? 'active' : ''"
+                         id="news-tab" data-toggle="tab" href="#news" @click="changesort('-updated_at')" role="tab"
                                 aria-controls="news" aria-selected="false">جدید ترین</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" id="cheapest-tab" data-toggle="tab" href="#cheapest"
+                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == 'price' ? 'active' : ''" 
+                        id="cheapest-tab" data-toggle="tab" href="#cheapest" @click="changesort('price')"
                                 role="tab" aria-controls="cheapest" aria-selected="false">ارزان ترین</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" id="mostexpensive-tab" data-toggle="tab"
-                                href="#mostexpensive" role="tab" aria-controls="mostexpensive"
+                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == '-price' ? 'active' : ''" 
+                        id="mostexpensive-tab" data-toggle="tab"
+                                href="#mostexpensive" @click="changesort('-price')" role="tab" aria-controls="mostexpensive"
                                 aria-selected="false">گران ترین</a>
                         </li>
                     </ul>
@@ -143,26 +126,36 @@
                 </button>
                 <div class="collapse show" id="collapseExampleSeller">
                     <div class="catalog" v-for="(facet, i) in facets" :key="i">
-                        <ul v-if="facet.label!='Price'">
+                    <template v-if="facet.label!='Price'">
+                        <ul>
                             <li>
                                 <div style=" font-size:15px; font-family: iranyekan;">{{facet.label}} : </div>
                                 <a href="#" class="filter-label" v-for="option in facet.options">
                                     <div class="form-auth-row" >
                                         <label for="rememberseller1" class="ui-checkbox">
-                                            <input type="checkbox" :value="i+1" name="login" id="rememberseller1">
+                                            <input
+                                                @change="() => selectFilter(facet, option)"
+                                                :checked="isFilterSelected(facet, option)"
+                                                type="checkbox"
+                                                :value="i+1"
+                                                name="login"
+                                                :id="option.value"
+                                            >
                                             <span  href="/" class="ui-checkbox-check"></span>
                                         </label>
-                                        <label for="rememberseller1" class="remember-me">{{option.value}}</label>
+                                        <label :for="option.value" class="remember-me">{{option.value}}</label>
                                     </div>                                  
                                 </a>
                                 
                             </li>
                         </ul>
+                        <hr />
+                    </template>
+
                     </div>
-                    <!-- <div  class="checkout-to-shipping-sticky">
-                        <a  @click="applyFilters" class="selenium-next-step-shipping">اعمال فیلتر</a>                               
-                    </div> -->
-                    
+                    <div  class="checkout-to-shipping-sticky">
+                        <a  @click.prevent="applyFilters" class="selenium-next-step-shipping">اعمال فیلتر</a>                               
+                    </div>                  
                 </div>
             </div>
         
@@ -174,10 +167,10 @@
                         :open="activeCategory"
                         :show-chevron="true">
                         <li v-for="(cat, i) in ((menu && menu.items) || (categoryTree && categoryTree.items))"
-                            :key="i"
+                            :key="cat.id"
                             :header="cat.name || cat.label"><a :href="localePath(getRoute(cat))" class="catalog-link"><i class="fa fa-angle-left"></i>{{cat.name || cat.label}}</a>
                             <div class="show-more" v-for="(subCat, j) in cat.items"
-                            :key="j" :href="localePath(getRoute(subCat))" >
+                            :key="subCat.id" :href="localePath(getRoute(subCat))" >
                             <a :href="localePath(getRoute(subCat))">
                                 <span class="catalog-cat-item" :count="subCat.count || ''"
                                 :label="subCat.name || subCat.label" :href="localePath(getRoute(subCat))"><i class="fa fa-angle-left" ></i>{{subCat.name || subCat.label}}</span>
@@ -199,31 +192,8 @@
                     <button class="btn-search-sidebar"><img src="assets/images/search.png" alt="search"></button>
                 </form>
             </div>
-            <div class="box-sidebar">
-                <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
-                data-target="#collapseExampleSeller" aria-expanded="false" aria-controls="collapseExampleSeller">
-                <i class="fa fa-chevron-down arrow"></i>فروشنده
-                </button>
-                <div class="collapse show" id="collapseExampleSeller">
-                    <div class="catalog">
-                        <ul>
-                            <li>
-                                <a href="#" class="filter-label">
-                                    <div class="form-auth-row">
-                                        <label for="rememberseller1" class="ui-checkbox">
-                                            <input type="checkbox" value="1" name="login" id="rememberseller1">
-                                            <span class="ui-checkbox-check"></span>
-                                        </label>
-                                        <label for="rememberseller1" class="remember-me">بروکس</label>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="box-sidebar">
+            
+            <!-- <div class="box-sidebar">
                 <div class="filter-switch">
                     <div class="switch-box">
                         <div class="centered hidden-xs">
@@ -241,36 +211,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="box-sidebar">
-                <div class="filter-switch">
-                    <div class="switch-box">
-                        <div class="centered hidden-xs">
-                            <div class="card">
-                                <a href="#">
-                                    <label for="switch2">
-                                        <input type="checkbox" id="switch2"><span class="switch">
-                                            <h1 class="switch-title">فقط کالای آماده ارسال</h1>
-                                        </span>
-                                        <span class="toggle"></span>
-                                    </label>
-                                </a>
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!--   adplacement -------------------->
-            <div class="adplacement">
+            <!-- <div class="adplacement">
                 <div class="col-12 col-lg-12 pull-right" style="padding:0;">
                     <a href="#" class="item-adplacement">
                         <img src="assets/images/post-adplacement/1000012860.jpg" title="صوتی و تصویری" alt="صوتی و تصویری">
                     </a>
                 </div>
-            </div>
+            </div> -->
             <!--   adplacement -------------------->
 
         </div>
@@ -288,32 +239,22 @@
             </nav>
 
             <div class="listing-listing">
-                <div class="listing-counter">۱۹۲,۷۳۲ کالا</div>
+                <div class="listing-counter">{{$n(products.length)}} کالا</div>
                 <div class="listing-header">
                     <span class="mdi mdi-sort-variant"></span>
-                    <ul class="listing-sort nav nav-tabs" id="myTab2" role="tablist" data-label="مرتب‌سازی بر اساس :">
-                        <li class="listing-active nav-item"><a class="nav-link active" id="mostvisited-tab"
-                                data-toggle="tab" href="#mostvisited" role="tab" aria-controls="mostvisited"
-                                aria-selected="true">پربازدید ترین</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" id="bestselling-tab" data-toggle="tab"
-                                href="#bestselling" role="tab" aria-controls="bestselling" aria-selected="false">پرفروش
-                                ترین</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" id="mostpopular-tab" data-toggle="tab"
-                                href="#mostpopular" role="tab" aria-controls="mostpopular" aria-selected="false">محبوب
-                                ترین</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab"
+                    <ul class="listing-sort nav nav-tabs" id="myTab2" data-label="مرتب‌سازی بر اساس :" >
+                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == '-updated_at' ? 'active' : ''"  
+                                href="javascript:void(0)" @click="changesort('-updated_at')" role="tab"
                                 aria-controls="news" aria-selected="false">جدید ترین</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" id="cheapest-tab" data-toggle="tab" href="#cheapest"
+                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == 'price' ? 'active' : ''"   
+                                href="javascript:void(0)" @click="changesort('price')"
                                 role="tab" aria-controls="cheapest" aria-selected="false">ارزان ترین</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" id="mostexpensive-tab" data-toggle="tab"
-                                href="#mostexpensive" role="tab" aria-controls="mostexpensive"
+                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == '-price' ? 'active' : ''" 
+                                href="javascript:void(0)" @click="changesort('-price')" role="tab" aria-controls="mostexpensive"
                                 aria-selected="false">گران ترین</a>
-                        </li>
+                        </li>                                     
                     </ul>
                 </div>
 
@@ -326,7 +267,7 @@
                                 > 
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                              v-for="(product, i) in products"
-                                            :key="productGetters.getSlug(product)"
+                                            :key="product.id"
                                             :style="{ '--index': i }"
                                             :title="productGetters.getName(product)"
                                             
@@ -348,19 +289,7 @@
     
                                             <div class="product-box-content">
                                                 <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="product-box-title"> {{productGetters.getName(product)}}</a>
-                                            </div>
-    
-                                            <div class="product-box-rate">
-                                                
-    
-                                                <div class="product-star mb-3">
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                </div>
-                                            </div>
+                                            </div>                                          
     
                                             <div class="product-box-row">
                                                 <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}} </span>
@@ -376,7 +305,7 @@
                                 <li>
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                             v-for="(product, i) in products"
-                                            :key="productGetters.getSlug(product)"
+                                            :key="product.id"
                                             :style="{ '--index': i }"
                                             :title="productGetters.getName(product)"
                                             
@@ -396,21 +325,9 @@
                                             </a>
     
                                             <div class="product-box-content">
-                                                <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="product-box-title"> {{productGetters.getName(product)}}</a>
-                                            </div>
-    
-                                            <div class="product-box-rate">
-                                               
-    
-                                                <div class="product-star mb-3">
-                                                     <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                </div>
-                                            </div>
-    
+                                                <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" 
+                                                class="product-box-title"> {{productGetters.getName(product)}}</a>
+                                            </div>                                           
                                             <div class="product-box-row">
                                                 <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}} </span>
                                                 <span class="price-currency">ریال </span>
@@ -424,7 +341,7 @@
                             <ul class="listing-item">
                                 <li>
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0" v-for="(product, i) in products"
-                                            :key="productGetters.getSlug(product)"
+                                            :key="product.id"
                                             :style="{ '--index': i }"
                                             :title="productGetters.getName(product)"
                                             
@@ -444,21 +361,9 @@
                                             </a>
     
                                             <div class="product-box-content">
-                                                <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="product-box-title"> {{productGetters.getName(product)}}</a>
-                                            </div>
-    
-                                            <div class="product-box-rate">
-                                               
-    
-                                                <div class="product-star mb-3">
-                                                     <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                </div>
-                                            </div>
-    
+                                                <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" 
+                                                class="product-box-title"> {{productGetters.getName(product)}}</a>
+                                            </div>                                            
                                             <div class="product-box-row">
                                                 <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}} </span>
                                                 <span class="price-currency">ریال </span>
@@ -473,37 +378,36 @@
                         <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">
                             <ul class="listing-item">
                                 <li>
-                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0">
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"  
+                                            v-for="(product, i) in products"
+                                            :key="product.id"
+                                            :style="{ '--index': i }"
+                                            :title="productGetters.getName(product)"
+                                            
+                                            :image="productGetters.getCoverImage(product)"
+                                            :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                                            :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                                            :is-in-wishlist="isInWishlist({ product })"
+                                            :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)">
                                         <div class="promotion-box">
                                             <div class="product-seller-details">
-                                                <span class="product-main-seller">فروشنده : ای جی</span>
+                                                <span class="product-main-seller">فروشنده : بروکس</span>
                                             </div>
     
-                                            <a href="#" class="promotion-box-image">
-                                                <img src="assets/images/search/product-2.jpg" alt="product">
+                                            <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
+                                                <img :src="productGetters.getCoverImage(product)" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
-                                                <a href="#" class="product-box-title">شارژر همراه شیاومی مدل PLM09ZM ظرفیت
-                                                    10000
-                                                    میلی آمپر ساعت</a>
+                                                 <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" 
+                                                    class="product-box-title">
+                                                  {{productGetters.getName(product)}}</a>
                                             </div>
-    
-                                            <div class="product-box-rate">
-                                                <span>۲,۶۵۰ نفر</span>
-    
-                                                <div class="product-star mb-3">
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
+                                              
     
                                             <div class="product-box-row">
-                                                <span class="price-value-wrapper">۱۸۹,۷۰۰ </span>
-                                                <span class="price-currency">تومان </span>
+                                                <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}}</span>
+                                                <span class="price-currency">ریال </span>
                                             </div>
                                         </div>
                                     </div>
@@ -513,37 +417,36 @@
                         <div class="tab-pane fade" id="cheapest" role="tabpanel" aria-labelledby="cheapest-tab">
                             <ul class="listing-item">
                                 <li>
-                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0">
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"  
+                                            v-for="(product, i) in products"
+                                            :key="product.id"
+                                            :style="{ '--index': i }"
+                                            :title="productGetters.getName(product)"
+                                            
+                                            :image="productGetters.getCoverImage(product)"
+                                            :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                                            :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                                            :is-in-wishlist="isInWishlist({ product })"
+                                            :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)">
                                         <div class="promotion-box">
                                             <div class="product-seller-details">
-                                                <span class="product-main-seller">فروشنده : ای جی</span>
+                                                <span class="product-main-seller">فروشنده : بروکس</span>
                                             </div>
     
-                                            <a href="#" class="promotion-box-image">
-                                                <img src="assets/images/search/product-1.jpg" alt="product">
+                                           <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
+                                                <img :src="productGetters.getCoverImage(product)" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
-                                                <a href="#" class="product-box-title">شارژر همراه شیاومی مدل PLM09ZM ظرفیت
-                                                    10000
-                                                    میلی آمپر ساعت</a>
+                                               <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" 
+                                                    class="product-box-title">
+                                                  {{productGetters.getName(product)}}</a>
                                             </div>
-    
-                                            <div class="product-box-rate">
-                                                <span>۲,۶۵۰ نفر</span>
-    
-                                                <div class="product-star mb-3">
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
+                                             
     
                                             <div class="product-box-row">
-                                                <span class="price-value-wrapper">۱۸۹,۷۰۰ </span>
-                                                <span class="price-currency">تومان </span>
+                                               <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}}</span>
+                                                <span class="price-currency">ریال </span>
                                             </div>
                                         </div>
                                     </div>
@@ -554,24 +457,32 @@
                             aria-labelledby="mostexpensive-tab">
                             <ul class="listing-item">
                                 <li>
-                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0">
+                                    <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
+                                        v-for="(product, i) in products"
+                                                :key="product.id"
+                                                :style="{ '--index': i }"
+                                                :title="productGetters.getName(product)"
+                                                
+                                                :image="productGetters.getCoverImage(product)"
+                                                :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                                                :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                                                :is-in-wishlist="isInWishlist({ product })"
+                                                :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)">
                                         <div class="promotion-box">
                                             <div class="product-seller-details">
-                                                <span class="product-main-seller">فروشنده : ای جی</span>
+                                                <span class="product-main-seller">فروشنده : بروکس</span>
                                             </div>
     
-                                            <a href="#" class="promotion-box-image">
-                                                <img src="assets/images/search/product-2.jpg" alt="product">
+                                            <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
+                                                <img :src="productGetters.getCoverImage(product)" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
-                                                <a href="#" class="product-box-title">شارژر همراه شیاومی مدل PLM09ZM ظرفیت
-                                                    10000
-                                                    میلی آمپر ساعت</a>
+                                                <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="product-box-title"> {{productGetters.getName(product)}}</a>
                                             </div>
     
                                             <div class="product-box-rate">
-                                                <span>۲,۶۵۰ نفر</span>
+                                                
     
                                                 <div class="product-star mb-3">
                                                     <i class="fa fa-star active"></i>
@@ -583,8 +494,8 @@
                                             </div>
     
                                             <div class="product-box-row">
-                                                <span class="price-value-wrapper">۱۸۹,۷۰۰ </span>
-                                                <span class="price-currency">تومان </span>
+                                                <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}} </span>
+                                                <span class="price-currency">ریال</span>
                                             </div>
                                         </div>
                                     </div>
@@ -631,7 +542,7 @@ import {
   SfColor,
   SfProperty
 } from '@storefront-ui/vue';
-import { ref, computed, onMounted, useContext, useRoute, watch } from '@nuxtjs/composition-api';
+import { ref, computed, onMounted, useContext, useRoute, watch, onBeforeMount } from '@nuxtjs/composition-api';
 import { useCart, useWishlist, productGetters, useFacet, facetGetters, useUser, wishlistGetters, useMenus } from '@vue-storefront/spree';
 
 import { useUiHelpers, useUiState } from '~/composables';
@@ -653,6 +564,7 @@ export default {
   }),
   setup() {
     const th = useUiHelpers();
+    const { changeFilters, isFacetColor, isFacetPrice, getSearchPriceFromUrl, getFiltersFromURL } = useUiHelpers();
     const { toggleFilterSidebar, isCategoryGridView, changeToCategoryGridView, changeToCategoryListView, uiState } = useUiState();
     const context = useContext();
     const route = useRoute()
@@ -676,8 +588,13 @@ export default {
       // }
       //return "";
     };
+    const changesort = async(sort) => {
+        th.changeSorting(sort)
+        // await search(th.getFacetsFromURL());
+        if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
+        setTimeout(() => { location.reload() });
+    };
     watch(() => route.query, async () => {
-        console.log("hey")
       await search(th.getFacetsFromURL());
       if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
     })
@@ -719,6 +636,7 @@ export default {
     const selectFilter = (facet, option) => {
       if (!selectedFilters.value[facet.id]) {
         Vue.set(selectedFilters.value, facet.id, []);
+        console.log("Selected!");
       }
 
       if (selectedFilters.value[facet.id].find(f => f === option.id)) {
@@ -727,6 +645,7 @@ export default {
       }
 
       selectedFilters.value[facet.id].push(option.id);
+      console.log("Pushed!");
     };
 
     const clearFilters = () => {
@@ -734,20 +653,26 @@ export default {
       selectedFilters.value = {};
       changeFilters(selectedFilters.value);
     };
-
-    const isPriceDefaultValue=false
-
-    const applyFilters = () => {
-      if (!isPriceDefaultValue) {
+    const applyFilters = async() => {
+      
         Vue.set(selectedFilters.value, 'price', []);
         selectedFilters.value.price.push(selectedPrice.value);
-      }     
+        changeFilters(selectedFilters.value);
+        await search(th.getFacetsFromURL());    
+       
     };
+    const sortBy = computed(() => facetGetters.getSortOptions(result.value));
 
     onMounted(async () => {
+
       await loadMenu({menuType: 'header', menuName: 'Main menu', locale: locale});
     });
-
+    onBeforeMount(() => {
+        const filters = getFiltersFromURL()
+        for (const key in filters) {
+            Vue.set(selectedFilters.value, key, filters[key])
+        }
+    })
     onSSR(async () => {
       await search(th.getFacetsFromURL());
       if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
@@ -776,8 +701,11 @@ export default {
       setSelectedFilters,
       isFilterSelected,
       selectFilter,
+      selectedFilters,
       clearFilters,
-      menu
+      menu,
+      sortBy,
+      changesort
     };
   },
   components: {

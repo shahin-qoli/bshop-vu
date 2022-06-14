@@ -26,6 +26,24 @@ const getOptionTypeFiltersFromURL = (): SearchParamsOptionTypeFilter[] => {
     }, []);
 };
 
+const getFiltersFromURL = (): any => {
+  const instance = getInstance();
+  const { query } = instance.$route;
+  const filters = {}
+  for (const key in query) {
+    const val = query[key]
+    if (val instanceof Array) {
+      filters[key] = val.map((v) => {
+        return Number(v)
+      })
+    }
+    else {
+      filters[key] = [Number(val)]
+    }
+  }
+  return filters
+};
+
 const getProductPropertyFiltersFromURL = (): SearchParamsProductPropertyFilter[] => {
   const instance = getInstance();
   const { query } = instance.$route;
@@ -112,7 +130,8 @@ const useUiHelpers = () => {
     isFacetPrice,
     isFacetCheckbox,
     getSearchTermFromUrl,
-    getSearchPriceFromUrl
+    getSearchPriceFromUrl,
+    getFiltersFromURL
   };
 };
 

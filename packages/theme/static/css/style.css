@@ -5541,7 +5541,7 @@ ul.listing-sort li a.nav-link.active {
 
 .js-products .listing-listing ul.listing-item li .promotion-box .promotion-box-image img {
     width: 60%;
-    height: 200px;
+    height: auto;
 }
 
 .js-products .listing-listing ul.listing-item li .promotion-box .product-box-content {
