@@ -1507,6 +1507,9 @@ import MainSlider from '~/components/Home/MainSlider.vue'
 import AmazingSection from '../components/AmazingSection.vue';
 import ShowTaxons from '~/components/Home/showTaxons.vue';
 import campaign from '~/components/Home/campaign.vue';
+import { onMounted } from '@nuxtjs/composition-api'
+import { useContent } from '@vue-storefront/spree';
+
 export default {
   components: {
     AppHeader,
@@ -1519,7 +1522,13 @@ export default {
 
   },
   setup() {
-    
+    const { search, content } = useContent()
+    onMounted(() => {
+      search()
+    })
+    return {
+      content
+    }
   },
 }
 </script>
