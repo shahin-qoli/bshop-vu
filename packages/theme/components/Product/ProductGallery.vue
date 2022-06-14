@@ -34,7 +34,10 @@
       </ul> 
     </div>
     <div class="gallery-item">
-      <ul class="gallery-options">
+      
+      <!-- Gallary Options://add to wishlist - Share-inform to some body-Compair products -->
+
+      <!-- <ul class="gallery-options">
         <li class="option-wishes">
           <button class="btn-option btn-option-wishes">
             <i class="mdi mdi-heart-outline"></i>
@@ -70,7 +73,7 @@
             <span class="tooltip-short">مقایسه</span>
           </a>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </template>
