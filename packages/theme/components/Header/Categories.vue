@@ -38,21 +38,19 @@
 </template>
 <script>
 
-import {categoryTree} from '../AppHeader.vue';
+
 
 export default {
   props: {
     categoryTree: {
       required: true
     }
-  },  
+  },
   transition: 'fade',
 
   setup(props) {
-    const categoryTree  = props.categoryTree
+
   },
-  components: {
-    categoryTree
-  }
+
 };
 </script>
