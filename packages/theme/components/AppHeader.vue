@@ -45,7 +45,7 @@
                 <i class="mdi mdi-menu"></i>
                 دسته بندی محصولات
               </a>
-              <Categories :categoryTree="categoryTree" />
+              <Categories v-if="categoryTree" :categoryTree="categoryTree" />
             </li>
             <li class="item-list-menu megamenu-1">
               <a href="#" class="list-category first after">
@@ -83,7 +83,7 @@
             /></a>
           </div>
         </div>
-        <categories-responsive :categoryTree="categoryTree" />
+        <categories-responsive v-if="categoryTree" :categoryTree="categoryTree" />
         <!-- <ul class="nav-categories ul-base">
           <li 
            v-for="(cat_lev_1, i) in categoryTree.items"
