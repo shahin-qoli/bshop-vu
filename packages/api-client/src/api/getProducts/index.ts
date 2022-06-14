@@ -37,8 +37,8 @@ export default async function getProducts({ client, config }: ApiContext, params
           name: term
         },
         fields: {
-          product: 'name,slug,sku,description,primary_variant,default_variant,variants,option_types,taxons',
-          variant: 'sku,price,display_price,in_stock,product,images,option_values,is_master'
+          product: 'name,slug,sku,description,compare_at_price,primary_variant,default_variant,variants,option_types,taxons',
+          variant: 'sku,price,display_price,in_stock,product,compare_at_price,images,option_values,is_master'
         },
         include,
         page,

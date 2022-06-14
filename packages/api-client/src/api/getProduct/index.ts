@@ -18,8 +18,8 @@ export default async function getProduct({ client, config }: ApiContext, { slug 
     undefined,
     {
       fields: {
-        product: 'name,slug,sku,description,primary_variant,default_variant,variants,option_types,product_properties,taxons',
-        variant: 'sku,price,display_price,in_stock,product,images,option_values,is_master'
+        product: 'name,slug,sku,description,primary_variant,compare_at_price,default_variant,variants,option_types,product_properties,taxons',
+        variant: 'sku,price,display_price,in_stock,product,compare_at_price,images,option_values,is_master'
       },
       include,
       currency
