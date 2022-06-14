@@ -334,72 +334,20 @@
                   </div>
                 </div>
               </div>
-              <div class="product-feature-body">
-                <div class="product-feature">
-                  <div class="row">
-                    <div class="product-feature-col">
-                      <a href="#" class="product-feature-item">
-                        <img
-                          src="/footer-svg/delivery.svg"
-                          alt="delivery"
-                        />
-                        <span
-                          >امکان تحویل
-                          <br />
-                          اکسپرس
-                        </span>
-                      </a>
-                    </div>
+              
 
-                    <div class="product-feature-col">
-                      <a href="#" class="product-feature-item">
-                        <img
-                          src="/footer-svg/contact-us.svg"
-                          alt="contact-us"
-                          style="width: 35px"
-                        />
-                        <span
-                          >۷ روز هفته
-                          <br />
-                          ۲۴ ساعته
-                        </span>
-                      </a>
-                    </div>
-
-                    <div class="product-feature-col">
-                      <a href="#" class="product-feature-item">
-                        <img
-                          src="/footer-svg/payment-terms.svg"
-                          alt="payment-terms"
-                          style="width: 35px"
-                        />
-                        <span
-                          >امکان
-                          <br />
-                          پرداخت در محل
-                        </span>
-                      </a>
-                    </div>
-
-                    <div class="product-feature-col">
-                      <a href="#" class="product-feature-item">
-                        <img
-                          src="/footer-svg/origin-guarantee.svg"
-                          alt="origin-guarantee"
-                          style="width: 35px"
-                        />
-                        <span
-                          >ضمانت
-                          <br />
-                          اصل بودن کالا
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
             </section>
+            
           </div>
+          <div class="product-feature-body">
+            <div>
+                <img
+                src="../static/images/home/BrxContent.svg"
+                alt="contact-us"
+                style="align:center;width: 100%;" />
+            </div>
+          </div>   
         </article>
         <Product-Slider title="محصولات مرتبط" slug="lights/bulb" class="p-0" />
         <Product-Slider title="خانواده پرژکتور" slug="lights/projector" class="p-0" />
