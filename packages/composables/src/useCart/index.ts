@@ -31,6 +31,8 @@ const params: UseCartFactoryParams<Cart, LineItem, ProductVariant> = {
   removeItem: async (context: Context, { currentCart, product }) => {
     const token = await loadOrCreateCartToken(context, currentCart);
     const cart = await context.$spree.api.removeFromCart({ lineItemId: product.id, token });
+    const index = cart.lineItems.findIndex(li => li.id == product.id)
+    cart.lineItems.splice(index, 1)
     return cart;
   },
 

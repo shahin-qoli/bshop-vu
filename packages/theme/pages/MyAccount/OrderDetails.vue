@@ -181,33 +181,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, i) in orderGetters.getItems(order)" :key="i">
-
-
-
-                              <!-- <SfTableRow v-for="(item, i) in orderGetters.getItems(order)" :key="i">
-          <SfTableData class="products__name">
-            <nuxt-link :to="'/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item)">
-              {{orderGetters.getItemName(item)}}
-            </nuxt-link>
-          </SfTableData>
-          <SfTableData>{{orderGetters.getItemQty(item)}}</SfTableData>
-          <SfTableData>{{$n(orderGetters.getItemPrice(item), 'currency')}}</SfTableData>
-        </SfTableRow> -->
+                            <tr v-for="(item, i) in lineItems" :key="i">
                                 <td :href="'/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item)">
-                                <!-- <img  style="width:100px; float:right;" alt="profile"> -->
-                                       
-                                    <h3 >{{orderGetters.getItemName(item)}}
+                                <img  :src="item.image" style="width:100px; float:right;" alt="profile">
+                                    <h3 >{{item.name}}
                                     </h3>
                                 </td>
-                                <td class="order-code">{{orderGetters.getItemQty(item)}}</td>
+                                <td class="order-code">{{item.qty}}</td>
                                 <td>{{$n(orderGetters.getItemPrice(item))}} ریال</td>
                                 <td>{{$n(orderGetters.getItemQty(item)*orderGetters.getItemPrice(item))}} ریال</td>
                                 <td>0</td>
                                 <td>{{$n(orderGetters.getItemQty(item)*orderGetters.getItemPrice(item))}} ریال</td>
                                 <td class="detail">
                                 <a :href="'/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item)" class="w-100 h-100 d-inline-block">
-                                <i class="fa fa-angle-left"></i>
+                                <i class="fa fa-angle-left" :href="'/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item)"></i>
                                 </a>
                                 </td>
                             </tr>
@@ -215,20 +202,21 @@
                     </table>
                 </div>
             </div>
-            <div class="col-lg-12 col-md-12 col-xs-12" style="padding:0;">
+            <div class="col-lg-12 col-md-12 col-xs-12" style="padding:0;" v-for="(item, i) in lineItems" :key="i">
                 <div class="product-box-profile">
                     <div class="product-box-content-profile">
-                        <div class="product-box-count">1</div>
-                        <a href="#" class="product-box-img">
-                            <img src="assets/images/product-slider-2/111460776.jpg" alt="profile">
+                        <div class="product-box-count">{{item.qty}}</div>
+                        <a :href="'/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item)" class="product-box-img">
+                            <img :src="item.image" alt="profile">
                         </a>
                         <div class="product-box-title">{{orderGetters.getItemName(item)}}</div>
-                        <div class="product-box-seller"><span>فروشنده: </span><span
-                                class="product-box-seller-name">بروکس</span></div>
+                        <div class="product-box-seller" v-for="(option,name, j) in item.options" :key="j"><span>{{name}}: </span><span
+                                class="product-box-seller-name">{{option}}</span>
+                        </div>
                        
                         <div class="price-profile">
                             <div class="price-value-profile">
-                                {{$n(orderGetters.getItemQty(item)*orderGetters.getItemPrice(item))}} ریال
+                                {{$n(orderGetters.getItemQty(item)*orderGetters.getItemPrice(item))}} 
                                 <span class="price-currency"> ریال</span>
                             </div>
                         </div>
@@ -275,6 +263,16 @@ export default {
     const getFaDate = (date) => {
       return moment(date).format('jYYYY/jM/jD HH:mm')
     }
+    const lineItems=computed(()=> {
+      if (!order.value) {
+        return {}
+          }
+      else {
+        const lineItems=order.value.lineItems;
+        return lineItems
+      }
+
+    });
 
     const Sippingaddress= computed(()=>{
           if (!order.value) {
@@ -296,7 +294,8 @@ export default {
       Sippingaddress,
       getFaDate,
       displayOrderHistory,
-      order
+      order,
+      lineItems,
     };
   }
 };

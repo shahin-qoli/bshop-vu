@@ -83,21 +83,21 @@
         <div class="page-profile">
             <div class="page-navigation">
                 <div class="page-navigation-title">سفارش‌های من</div>
-                <a href="#" class="page-navigation-btn-back">بازگشت <i class="fa fa-angle-left"></i></a>
+                <a href="/" class="page-navigation-btn-back">بازگشت <i class="fa fa-angle-left"></i></a>
             </div>
             <div v-if="orders.length === 0" class="no-orders">
                 <p class="no-orders__title">{{ $t('You currently have no orders') }}</p>
                 <SfButton class="no-orders__button">{{ $t('Start shopping') }}</SfButton>
             </div>
             <div v-else class="profile-orders">
-                <div class="collapse">
+                <div class="collapse"  v-for="order in orders" :key="orderGetters.getId(order)">
                     <div class="profile-orders-item">
-                        <div class="profile-orders-header" v-for="order in orders" :key="orderGetters.getId(order)">
-                            <a href="profile-order-2.html" class="profile-orders-header-details">
+                        <div class="profile-orders-header" >
+                            <a :href="`/my-account/order-details/${orderGetters.getId(order)}`" class="profile-orders-header-details">
                                 <div class="profile-orders-header-summary">
-                                    <div class="profile-orders-header-row">
-                                        <span class="profile-orders-header-id">{{ orderGetters.getId(order) }}</span>
-                                        <span class="profile-orders-header-state">{{ orderGetters.getStatus(order) }}</span>
+                                    <div class="profile-orders-header-row" >
+                                        <span class="profile-orders-header-id" dir="rtl">سفارش {{ orderGetters.getId(order) }} </span>
+                                       
                                     </div>
                                 </div>
                             </a>
@@ -108,12 +108,21 @@
                                     <div class="profile-info-value">{{ getFaDate(order.completedAt) }}</div>
                                 </div>
                                 <div class="profile-info-row">
-                                    <div class="profile-info-label">مبلغ قابل پرداخت</div>
-                                    <div class="profile-info-value">{{ $n(orderGetters.getPrice(order))}}</div>
+                                    <div class="profile-info-label">مبلغ کل</div>
+                                    <div class="profile-info-value" dir="rtl"> {{$n(order.itemTotalAmount)}} ریال</div>
                                 </div>
                                 <div class="profile-info-row">
-                                    <div class="profile-info-label">مبلغ کل</div>
-                                    <div class="profile-info-value">{{ $n(orderGetters.getPrice(order))}}</div>
+                                    <div class="profile-info-label">هزینه ارسال</div>
+                                    <div class="profile-info-value" dir="rtl"> {{$n(order.shipTotalAmount)}} ریال </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-label">مبلغ قابل پرداخت</div>
+                                    <div class="profile-info-value" dir="rtl"><strong>{{$n(order.totalAmount)}} ریال</strong></div>
+                                </div>
+                                
+                                <div class="profile-info-row">
+                                    <div class="profile-info-label">وضعیت</div>
+                                    <div class="profile-info-value" dir="rtl">{{ orderGetters.getStatus(order) }}</div>
                                 </div>
                             </div>
                         </div>
