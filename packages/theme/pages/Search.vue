@@ -1,5 +1,5 @@
 <template>
-  <div id="category">
+<div id="category">
         <div class="col-12">
         <div class="header-filters">
             <button class="btn-filter btn-filter-advanced"
@@ -35,20 +35,7 @@
                                     <input type="text" value="" name="searchInput" id="search"
                                         placeholder="نام محصول مورد نظر را بنویسید ...">
                                 </label>
-                            </div>
-
-                            <!-- <div class="filter">
-                                <a href="#">
-                                    <label for="switch4">
-                                        <input type="checkbox" id="switch4" />
-                                        <span class="switch"></span>
-                                            <h1 class="switch-title">فقط کالاهای اصل </h1>
-                                        <span class="toggle"></span>
-                                    </label>
-                                </a>
-                            </div> -->
-
-                            
+                            </div>                                                     
                             <div  v-for="(facet, i) in facets" :key="i">
                                 <div class="filter"  v-if="facet.label!='Price'">
                                 <div class="toggle-box">
@@ -76,8 +63,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                                                
+                            </div>                                       
                         </div>
                     </div>
                 </nav>
@@ -96,15 +82,15 @@
                 </div>
                 <div class="remodal-list-sort">
                     <ul class="listing-sort nav nav-tabs" id="myTab" role="tablist" >                       
-                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == '-updated_at' ? 'active' : ''"
+                        <li class="nav-item"><a class="nav-link"
                          id="news-tab" data-toggle="tab" href="#news" @click="changesort('-updated_at')" role="tab"
                                 aria-controls="news" aria-selected="false">جدید ترین</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == 'price' ? 'active' : ''" 
+                        <li class="nav-item"><a class="nav-link" 
                         id="cheapest-tab" data-toggle="tab" href="#cheapest" @click="changesort('price')"
                                 role="tab" aria-controls="cheapest" aria-selected="false">ارزان ترین</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == '-price' ? 'active' : ''" 
+                        <li class="nav-item"><a class="nav-link"  
                         id="mostexpensive-tab" data-toggle="tab"
                                 href="#mostexpensive" @click="changesort('-price')" role="tab" aria-controls="mostexpensive"
                                 aria-selected="false">گران ترین</a>
@@ -159,7 +145,7 @@
                 </div>
             </div>
         
-            <div class="box-sidebar">
+            <!-- <div class="box-sidebar">
                 <button class="btn btn-light btn-box-sidebar" type="button">دسته‌بندی </button>
                 <div class="catalog" :class="{ 'loading--categories': loading }"
                     :loading="loading">
@@ -191,7 +177,7 @@
 
                     <button class="btn-search-sidebar"><img src="assets/images/search.png" alt="search"></button>
                 </form>
-            </div>
+            </div> -->
             
             <!-- <div class="box-sidebar">
                 <div class="filter-switch">
@@ -229,13 +215,13 @@
     <div class="col-lg-9 col-md-8 col-xs-12 pull-left">
         <div class="js-products">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
+                <!-- <ol class="breadcrumb">
                     <SfBreadcrumbs
                       class="breadcrumb-item"
                       :breadcrumbs="breadcrumbs"
                       />
                     
-                </ol>
+                </ol> -->
             </nav>
 
             <div class="listing-listing">
@@ -247,11 +233,11 @@
                                 href="javascript:void(0)" @click="changesort('-updated_at')" role="tab"
                                 aria-controls="news" aria-selected="false">جدید ترین</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == 'price' ? 'active' : ''"   
+                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == 'price' ? 'active' : ''"    
                                 href="javascript:void(0)" @click="changesort('price')"
                                 role="tab" aria-controls="cheapest" aria-selected="false">ارزان ترین</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == '-price' ? 'active' : ''" 
+                        <li class="nav-item"><a class="nav-link" :class="sortBy.selected == '-price' ? 'active' : ''"
                                 href="javascript:void(0)" @click="changesort('-price')" role="tab" aria-controls="mostexpensive"
                                 aria-selected="false">گران ترین</a>
                         </li>                                     
@@ -480,19 +466,7 @@
                                             <div class="product-box-content">
                                                 <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="product-box-title"> {{productGetters.getName(product)}}</a>
                                             </div>
-    
-                                            <div class="product-box-rate">
-                                                
-    
-                                                <div class="product-star mb-3">
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star active"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-    
+                                              
                                             <div class="product-box-row">
                                                 <span class="price-value-wrapper">{{$n(productGetters.getPrice(product).regular)}} </span>
                                                 <span class="price-currency">ریال</span>
@@ -506,13 +480,6 @@
                 <!-- </ul> -->
                 <div class="pager">
                     <ul class="page-item">
-                        <!-- <li 
-                        class="pagination-item"><a :href="'?page='" class="pager-item-active">1</a></li>
-                        <li 
-                        v-for="(num,i) in Math.floor(products.length/10)"
-                        :key="i"
-                        :number="i+2"
-                        class="pagination-item"><a :href="'?page='+(i+2) " @click="document.getElementByClassName('pager-item-active')">{{i+2}}</a></li> -->
                         
                         <li 
                             v-for="(num,i) in pagination.totalPages"
@@ -523,17 +490,7 @@
                             <a :href="'?page='+(i+1)"  :class=" pagination.currentPage===i+1 ? 'pager-item-active' : '' ">
                                 {{i+1}}
                             </a>
-                        </li>
-
-                        <!-- <li 
-                        v-for="(num,i) in Math.floor(products.length/10)+1"
-                        :key="i"
-                        class="pagination-item"><a :href="'?page='+(i+2)" @click="document.getElementByClassName('pager-item-active')">{{i+1}}</a></li>
- -->
-
-                        <!-- <li class="pagination-item"><a href="#">3</a></li>
-                        <li class="pagination-item"><a href="#">4</a></li>
-                        <li class="pagination-item"><a href="#">5</a></li> -->
+                        </li>                      
                         <li class="pagination-item">
                             <div class="pager-items-partition"></div>
                         </li>
@@ -545,7 +502,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import {
   SfSidebar,
@@ -577,7 +533,6 @@ import FiltersSidebar from '~/components/FiltersSidebar.vue';
 import FiltersNew from '~/components/FiltersNew.vue';
 import Vue from 'vue';
 
-
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
   transition: 'fade',
@@ -599,9 +554,10 @@ export default {
     const products = computed(() => facetGetters.getProducts(result.value));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value).map(e => ({...e, link: context.localePath(e.link)})));
     const pagination = computed(() => facetGetters.getPagination(result.value));
-    const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
+    
     const { locale } = context.app.i18n;
     const lengthProduct = products.length
+    const sortBy = computed(() => facetGetters.getSortOptions(result.value));
 
     const getRoute = (category) => {
       // if (menu.value.isDisabled) {
@@ -619,16 +575,7 @@ export default {
       await search(th.getFacetsFromURL());
       if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
     })
-    const activeCategory = computed(() => {
-      const items = categoryTree.value.items;
-
-      if (!items || !items.length) {
-        return '';
-      }
-
-      const category = items.find(({ isCurrent, items }) => isCurrent || items.find(({ isCurrent }) => isCurrent));
-      return category?.label || items[0]?.label;
-    });
+    
 
     const isWishlistDisabled = computed(() => wishlistGetters.isWishlistDisabled(wishlist.value));
 
@@ -683,7 +630,6 @@ export default {
         await search(th.getFacetsFromURL());    
        
     };
-    const sortBy = computed(() => facetGetters.getSortOptions(result.value));
 
     onMounted(async () => {
 
@@ -695,6 +641,7 @@ export default {
             Vue.set(selectedFilters.value, key, filters[key])
         }
     })
+    
     onSSR(async () => {
       await search(th.getFacetsFromURL());
       if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
@@ -707,11 +654,17 @@ export default {
       route,
       th,
       products,
-      categoryTree,
+      
       loading,
       productGetters,
       pagination,
-      activeCategory,
+      setSelectedFilters,
+      clearFilters,
+      applyFilters,
+      isFilterSelected,
+      selectFilter,
+
+ 
       breadcrumbs,
       addItemToCart,
       isInWishlist,
@@ -721,15 +674,15 @@ export default {
       getRoute,
       FiltersNew,
       facets,
-      applyFilters,
-      setSelectedFilters,
-      isFilterSelected,
-      selectFilter,
-      selectedFilters,
-      clearFilters,
-      menu,
+      changesort,
       sortBy,
-      changesort
+      
+      
+      
+      
+      menu,
+     
+      
     };
   },
   components: {
@@ -754,160 +707,5 @@ export default {
     FiltersSidebar
   }
 };
-</script>
 
-<style lang="scss" scoped>
-#category {
-  box-sizing: border-box;
-  @include for-desktop {
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-}
-.main {
-  &.section {
-    padding: var(--spacer-xs);
-    @include for-desktop {
-      padding: 0;
-    }
-  }
-}
-.breadcrumbs {
-  margin: var(--spacer-base) auto var(--spacer-lg);
-}
-.navbar {
-  position: relative;
-  display: flex;
-  border: 1px solid var(--c-light);
-  border-width: 0 0 1px 0;
-  @include for-desktop {
-    border-width: 1px 0 1px 0;
-  }
-  &.section {
-    padding: var(--spacer-sm);
-    @include for-desktop {
-      padding: 0;
-    }
-  }
-  &__aside {
-    display: flex;
-    align-items: center;
-    padding: var(--spacer-sm) 0;
-    flex: 0 0 15%;
-    padding: var(--spacer-sm) var(--spacer-sm);
-    border: 1px solid var(--c-light);
-    border-width: 0 1px 0 0;
-  }
-  &__title {
-    --heading-title-font-weight: var(--font-weight--semibold);
-    --heading-title-font-size: var(--font-size--xl);
-  }
-}
-.main {
-  display: flex;
-}
-.list {
-  --menu-item-font-size: var(--font-size--sm);
-  &__item {
-    &:not(:last-of-type) {
-      --list-item-margin: 0 0 var(--spacer-sm) 0;
-    }
-    .nuxt-link-exact-active {
-      text-decoration: underline;
-    }
-  }
-}
-.products {
-  box-sizing: border-box;
-  flex: 1;
-  margin: 0;
-  &__grid {
-    justify-content: center;
-    @include for-desktop {
-      justify-content: flex-start;
-    }
-  }
-  &__grid,
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  &__product-card {
-    --product-card-title-margin: var(--spacer-base) 0 0 0;
-    --product-card-title-font-weight: var(--font-weight--medium);
-    --product-card-title-margin: var(--spacer-xs) 0 0 0;
-    flex: 1 1 50%;
-    @include for-desktop {
-      --product-card-title-font-weight: var(--font-weight--normal);
-      --product-card-add-button-bottom: var(--spacer-base);
-      --product-card-title-margin: var(--spacer-sm) 0 0 0;
-    }
-  }
-  &__product-card-horizontal {
-    flex: 0 0 100%;
-    @include for-mobile {
-      ::v-deep .sf-image {
-        --image-width: 5.3125rem;
-        --image-height: 7.0625rem;
-      }
-    }
-  }
-  &__slide-enter {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  &__slide-enter-active {
-    transition: all 0.2s ease;
-    transition-delay: calc(0.1s * var(--index));
-  }
-  @include for-desktop {
-    &__grid {
-      margin: var(--spacer-sm) 0 0 var(--spacer-sm);
-    }
-    &__pagination {
-      display: flex;
-      justify-content: flex-start;
-      margin: var(--spacer-xl) 0 0 0;
-    }
-    &__product-card-horizontal {
-      margin: var(--spacer-lg) 0;
-    }
-    &__product-card {
-      flex: 1 1 25%;
-    }
-    &__list {
-      margin: 0 0 0 var(--spacer-sm);
-    }
-  }
-  &__show-on-page {
-    display: flex;
-    justify-content: flex-end;
-    align-items: baseline;
-    &__label {
-      font-family: var(--font-family--secondary);
-      font-size: var(--font-size--sm);
-    }
-  }
-}
-.sidebar {
-  flex: 0 0 15%;
-  padding: var(--spacer-sm);
-  border: 1px solid var(--c-light);
-  border-width: 0 1px 0 0;
-}
-.loading {
-  margin: var(--spacer-3xl) auto;
-  @include for-desktop {
-    margin-top: 6.25rem;
-  }
-  &--categories {
-    @include for-desktop {
-      margin-top: 3.75rem;
-    }
-  }
-}
-.wishlist__button{
-  margin: 0 0 1rem auto;
-  display: block;
-}
-</style>
+</script>
