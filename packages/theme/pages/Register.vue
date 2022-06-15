@@ -9,7 +9,7 @@
         <label for="email-phone"
           >پست الکترونیک خود را وارد کنید</label
         >
-        <input
+        <input style="border-radius: 15px; background-color: #EFF0F6;"
           v-model="form.email"
           dir="ltr"
           type="text"
@@ -19,7 +19,7 @@
           placeholder=""
         />
         <label for="password">رمز عبور</label>
-        <input
+        <input style="border-radius: 15px; background-color: #EFF0F6;"
           v-model="form.password"
           dir="ltr"
           type="password"
@@ -27,16 +27,20 @@
           class="input-password"
           placeholder=""
         />
-
+        <label v-if="iswrong" for="Wrong" style="color: #fc0303 ;">{{error.register}}</label>
         <div class="parent-btn">
           <button type='submit' class="dk-btn dk-btn-info">
-            ثبت نام
-            <i class="mdi mdi-account-plus-outline sign-in"></i>
+            <span v-if="!flag" class="btn-add-to-cart-txt">
+              ثبت نام  
+            </span>
+            <div v-else-if="flag" class="spinner-border spinner-border-sm" role="status"></div>
+            <i class="mdi mdi-account-plus-outline sign-in"></i>                                   
           </button>
         </div>
         <div class="form-auth-row">
           <label for="remember" class="ui-checkbox">
             <input
+              v-model="form.checkbox" 
               type="checkbox"
               value="1"
               name="login"
@@ -50,6 +54,7 @@
             سرویس های سایت بروکس را مطالعه نموده و با کلیه موارد آن
             موافقم.</label
           >
+          <label v-if="!isckecked" class="remember-me" style="color: #fc0303">لطفا حریم خصوصی و شرایط و قوانین را مطالعه کرده و پس از تایید مجددا تلاش کنید</label>
         </div>
       </form>
     </div>
@@ -106,6 +111,14 @@ export default {
     const { register, login, loading, error: userError } = useUser();
     const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
     const currentScreen = ref(SCREEN_REGISTER);
+    const flag = ref(false);
+    const iswrong = ref(false)
+    const isckecked = ref(true)
+
+    if(form.value.checkbox){
+        isckecked=false;
+        return;
+      }
 
     const error = reactive({
       login: null,
@@ -143,11 +156,17 @@ export default {
     const handleForm = (fn) => async () => {
       resetErrorValues();
       await fn({ user: form.value });
+      
+      
+    
 
       const hasUserErrors = userError.value.register || userError.value.login;
       if (hasUserErrors) {
+        flag.value=true;
         error.login = userError.value.login?.message;
         error.register = userError.value.register?.message;
+        iswrong.value=true
+        flag.value=false;
         return;
       }
       else {
@@ -162,9 +181,17 @@ export default {
       toggleLoginModal();
     };
 
-    const handleRegister = async () => handleForm(register)();
+    const handleRegister = async () =>  {
+      flag.value=true
+      handleForm(register)();
+      flag.value=false
+      }
 
-    const handleLogin = async () => handleForm(login)();
+    const handleLogin = async () => {
+      flag.value=true
+      handleForm(login)();
+      flag.value=false
+      }
 
     const handleForgotten = async () => {
       userEmail.value = form.value.username;
@@ -177,6 +204,9 @@ export default {
 
     return {
       form,
+      flag,
+      iswrong,
+      isckecked,
       error,
       userError,
       loading,
