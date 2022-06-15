@@ -134,13 +134,30 @@
                     </div>
                   </header>
                 </a>
+
                 <div class="collapse float-right" id="collapseExample">
+                              <div v-if="cart" class="product-box-compact" style="display:flex;overflow-x: auto;">
+                                <div
+                                  v-for="item in cart.lineItems"
+                                  :key="item._id"
+                                  class="box">
+                                  <div
+                                    class="col-lg-3 col-md-6 col-xs-12"
+                                    
+                                  >
+                                    <CartItem :item="item"  />
+                                  </div>
+                                </div>
+                              </div>
                   <div class="checkout-order-summary-content">
                     <section class="swiper-order-summary">
                       <div class="swiper-container">
+                        
                         <div class="col-lg-5 col-md-6 col-xs-12">
                           <div class="product-box-container">
-                            <div class="product-box-compact">
+
+                           
+                            <!-- <div class="product-box-compact">
                               <a href="#">
                                 <img
                                   src="assets/images/product-slider-2/111460776.jpg"
@@ -154,7 +171,7 @@
                               <div class="checkout-order-summary-tagline">
                                 <span>تعداد : 1 عدد</span>
                               </div>
-                            </div>
+                            </div> -->
                           </div>
                         </div>
                       </div>
@@ -455,6 +472,7 @@ import {
   orderGetters,
 } from '@vue-storefront/spree';
 import axios from 'axios';
+import CartItem from '~/components/Shopping/CartItem.vue'
 
 export default {
   name: 'Payment',
@@ -470,6 +488,7 @@ export default {
     SfProperty,
     SfAccordion,
     SfLink,
+    CartItem,
     VsfPaymentProvider: () =>
       import('~/components/Checkout/VsfPaymentProvider'),
   },
@@ -517,7 +536,6 @@ export default {
       }
       //router.push(root.localePath(`/checkout/thank-you?order=${orderId}`));
     };
-
     return {
       router,
       isPaymentReady,
@@ -529,6 +547,7 @@ export default {
       cartGetters,
       processOrder,
       handlePaymentChange,
+      cart,
     };
   },
 };
