@@ -281,40 +281,40 @@
                   <div class="row">
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
-                        <img src="/footer-svg/delivery.svg" alt="delivery" />
-                        <span>امکان تحویل
+                        <img src="../static/images/home/SavePayment.svg" alt="delivery" />
+                        <span>خرید و پردخت
                           <br />
-                          اکسپرس
+                          مطمئن
                         </span>
                       </a>
                     </div>
 
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
-                        <img src="/footer-svg/contact-us.svg" alt="contact-us" style="width: 35px" />
-                        <span>۷ روز هفته
+                        <img src="../static/images/home/ProductWarrantee.svg" alt="contact-us" style="width: 35px" />
+                        <span>۷ ضمانت تعویض
                           <br />
-                          ۲۴ ساعته
+                          محصولات
                         </span>
                       </a>
                     </div>
 
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
-                        <img src="/footer-svg/payment-terms.svg" alt="payment-terms" style="width: 35px" />
-                        <span>امکان
+                        <img src="../static/images/home/FastSending.svg" alt="payment-terms" style="width: 35px" />
+                        <span>ارسال سریع
                           <br />
-                          پرداخت در محل
+                          و رایگان
                         </span>
                       </a>
                     </div>
 
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
-                        <img src="/footer-svg/origin-guarantee.svg" alt="origin-guarantee" style="width: 35px" />
-                        <span>ضمانت
+                        <img src="../static/images/home/SupportAvailable.svg" alt="origin-guarantee" style="width: 35px" />
+                        <span>پشتیبانی  
                           <br />
-                          اصل بودن کالا
+                          در دسترس
                         </span>
                       </a>
                     </div>
@@ -324,14 +324,7 @@
             </section>
             
           </div>
-          <div class="product-feature-body">
-            <div>
-                <img
-                src="../static/images/home/BrxContent.svg"
-                alt="contact-us"
-                style="align:center;width: 100%;" />
-            </div>
-          </div>   
+ 
         </article>
         <Product-Slider title="محصولات مرتبط" slug="lights/bulb" class="p-0" />
         <Product-Slider title="خانواده پرژکتور" slug="lights/projector" class="p-0" />
