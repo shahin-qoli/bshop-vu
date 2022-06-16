@@ -291,32 +291,6 @@
             </div>
           </div>
         </div>
-
-        <footer class="footer-light">
-          <div class="container">
-            <div class="footer-checkout-col">
-              <div class="footer-checkout-col-phone">
-                <span class="mdi mdi-phone"></span>شماره تماس :
-                <a href="#">۶۱۹۳۰۰۰۰ - ۰۲۱</a>
-              </div>
-            </div>
-
-            <div class="footer-checkout-col">
-              <div class="footer-checkout-col-phone">
-                <span class="mdi mdi-email-outline"></span>شماره تماس :
-                <a href="#">info@digistore.com</a>
-              </div>
-            </div>
-
-            <p class="title-footer">
-              استفاده از کارت هدیه یا کد تخفیف، درصفحه ی پرداخت امکان پذیر است.
-            </p>
-
-            <p class="copy-right-footer-light">
-              Copyright © 2006 - 2019 DigiStore.com
-            </p>
-          </div>
-        </footer>
       </div>
     </div>
     <template v-if="false">
