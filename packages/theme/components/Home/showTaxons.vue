@@ -45,12 +45,68 @@
     </div>
 
     <div class="product-feature-body">
-      <div>
-          <img          
-           src="images/home/BrxContent.svg"
-          alt="contact-us"
-          style="align:center;" />
-      </div>
+    <div class="product-feature">
+        <div class="row">
+        <div class="product-feature-col">
+            <a href="#" class="product-feature-item">
+            <img
+                src="images/home/SavePayment.svg"
+                alt="delivery"
+            />
+            <span
+                >خرید و پرداخت
+                <br />
+                مطمئن
+            </span>
+            </a>
+        </div>
+
+        <div class="product-feature-col">
+            <a href="#" class="product-feature-item">
+            <img
+                src="images/home/ProductWarrantee.svg"
+                alt="contact-us"
+                style="width: 35px"
+            />
+            <span
+                >ضمانت تعویض
+                <br />
+                محصولات
+            </span>
+            </a>
+        </div>
+
+        <div class="product-feature-col">
+            <a href="#" class="product-feature-item">
+            <img
+                src="images/home/FastSending.svg"
+                alt="payment-terms"
+                style="width: 35px"
+            />
+            <span
+                >ارسال سریع
+                <br />
+                و رایگان
+            </span>
+            </a>
+        </div>
+
+        <div class="product-feature-col">
+            <a href="#" class="product-feature-item">
+            <img
+                src="images/home/SupportAvailable.svg"
+                alt="origin-guarantee"
+                style="width: 35px"
+            />
+            <span
+                >پشتیبانی 
+                <br />
+                در دسترس
+            </span>
+            </a>
+        </div>
+        </div>
+    </div>
     </div>   
 </div>
 </template>
