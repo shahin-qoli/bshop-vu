@@ -129,26 +129,36 @@ const buildBreadcrumbs = (included, product) => {
 
 const partialDeserializeProductVariant = (
   product, variant, attachments: JsonApiDocument[]
-): Omit<ProductVariant, 'images'> => ({
-  _id: variant.id,
-  _productId: product.id,
-  _variantId: variant.id,
-  description: variant.attributes.description || product.attributes.description,
-  _categoriesRef: product.relationships.taxons.data.map((taxon) => taxon.id),
-  name: product.attributes.name,
-  slug: product.attributes.slug,
-  sku: product.attributes.sku,
-  optionTypes: deserializeOptionTypes(attachments, product),
-  optionValues: deserializeOptionValues(attachments, variant),
-  breadcrumbs: buildBreadcrumbs(attachments, product),
-  properties: deserializeProperties(attachments, product),
-  displayPrice: variant.attributes.display_price,
-  price: {
-    original: variant.attributes.price,
-    current: variant.attributes.price
-  },
-  inStock: variant.attributes.in_stock
-});
+): Omit<ProductVariant, 'images'> => {
+  var compare_at_price = Number(variant.attributes.compare_at_price)
+  var price = Number(variant.attributes.price)
+  if (compare_at_price == NaN) {
+    compare_at_price = variant.attributes.compare_at_price
+  }
+  if (price == NaN) {
+    price = variant.attributes.price
+  }
+  return ({
+    _id: variant.id,
+    _productId: product.id,
+    _variantId: variant.id,
+    description: variant.attributes.description || product.attributes.description,
+    _categoriesRef: product.relationships.taxons.data.map((taxon) => taxon.id),
+    name: product.attributes.name,
+    slug: product.attributes.slug,
+    sku: product.attributes.sku,
+    optionTypes: deserializeOptionTypes(attachments, product),
+    optionValues: deserializeOptionValues(attachments, variant),
+    breadcrumbs: buildBreadcrumbs(attachments, product),
+    properties: deserializeProperties(attachments, product),
+    displayPrice: variant.attributes.display_price,
+    price: {
+      original: compare_at_price,
+      current: price
+    },
+    inStock: variant.attributes.in_stock
+  }) 
+};
 
 const maybePrimaryVariantId = (product: ProductAttr): RelationType['id'] | undefined =>
   // primary_variant may not exist if an older version of Spree is used. Only use primary_variant if available.
