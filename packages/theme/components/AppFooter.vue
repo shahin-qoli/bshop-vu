@@ -37,6 +37,7 @@
     <div class="container">
 
     </div>
+    <div class="row">
     <div class="col-12">
       <div class="middle-bar-footer" style="background: #FFFFFF;">
         <div class="col-lg-6 col-xs-12 pull-right">
@@ -72,11 +73,14 @@
         </div>
       </div>
     </div>
-    <div class="about-site" style="background:#FFFFFF">
+    </div>
+
+    <div class="row p-3" style="background:#FFFFFF; font-family: iranyekan; ">
+    <div class="col-9 col-xl-9 col-lg-9 col-md-9">
       <P style="font-weight: 900;align-items: center;font-size:25px;font-style: normal;font-weight: 500;font-size: 18px;">
        درباره فروشگاه بروکس</P>
-      <p style="width:1200px">
-        بروکس به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش
+      <p>
+        بروکس به عنوان یکی از معتبرترین فروشگاه های اینترنتی با بیش
         از یک دهه تجربه، با پایبندی به سه اصل، پرداخت در محل، 7 روز ضمانت
         بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با فروشگاه‌های
         معتبر جهان، به بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض
@@ -85,6 +89,11 @@
         کرد.
       </p>
     </div>
+      <div class="col-3 text-left" style="background:#FFFFFF">
+        <img src="../static/images/home/ENamad.svg" />
+      </div>
+    </div>
+
 
   <SfFooter v-if="false && !menu.isDisabled" :column="parseInt(menuSize)" multiple class="footer">
     <SfFooterColumn
