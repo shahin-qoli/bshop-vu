@@ -121,7 +121,7 @@
                     <div class="checkout-order-summary-row">
                       <div class="checkout-order-summary-col-post-time">
                         مرسوله 1 از 1
-                        <span>(۱ کالا)</span>
+                        <span>({{cart.itemCount}} کالا)</span>
                       </div>
                       <div class="checkout-order-summary-col-post-time">
                         زمان ارسال
