@@ -29,7 +29,7 @@
         />
          <label v-if="iswrong" for="Wrong" style="color: #fc0303 ;">نام کاربری یا رمز عبور اشتباه است!</label>
         <div class="parent-btn">        
-          <button  class="dk-btn dk-btn-info">
+          <button  class="dk-btn dk-btn-info" :disabled="flag">
             <span v-if="!flag" class="btn-add-to-cart-txt">
               ورود  
             </span>

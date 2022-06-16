@@ -29,8 +29,8 @@
         />
         <label v-if="iswrong" for="Wrong" style="color: #fc0303 ;">{{error.register}}</label>
         <div class="parent-btn">
-          <button type='submit' class="dk-btn dk-btn-info">
-            <span v-if="!flag" class="btn-add-to-cart-txt">
+          <button type='submit' class="dk-btn dk-btn-info" :disabled="flag">
+            <span v-if="!flag" class="btn-add-to-cart-txt" >
               ثبت نام  
             </span>
             <div v-else-if="flag" class="spinner-border spinner-border-sm" role="status"></div>
@@ -154,6 +154,7 @@ export default {
     };
 
     const handleForm = (fn) => async () => {
+      flag.value=true
       resetErrorValues();
       await fn({ user: form.value });
       
@@ -184,7 +185,7 @@ export default {
     const handleRegister = async () =>  {
       flag.value=true
       handleForm(register)();
-      flag.value=false
+      //flag.value=false
       }
 
     const handleLogin = async () => {
