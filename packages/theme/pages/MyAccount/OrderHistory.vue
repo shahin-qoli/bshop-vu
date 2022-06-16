@@ -67,7 +67,7 @@
                             <td dir="ltr">{{ getFaDate(order.completedAt) }}</td>
                             <td>{{ $n(orderGetters.getPrice(order))}}</td>
                             <td>{{ $n(orderGetters.getPrice(order))}} ریال</td>
-                            <td :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</td>
+                            <td :class="getStatusTextClass(order)">{{ getorderstatus(order) }}</td>
                             <td class="detail" >
                               <a :href="`/my-account/order-details/${orderGetters.getId(order)}`" class="w-100 h-100 d-inline-block">
                                 <i class="fa fa-angle-left"></i>
@@ -188,6 +188,19 @@ export default {
       }
     };
 
+    const getorderstatus=(order)=>{
+    const status = orderGetters.getStatus(order)
+    if (status == 'complete') {
+      return 'اتمام'
+    }
+    if (status =='returned') {
+      return 'مرجوع شد'
+    }
+    else{
+      return orderGetters.getStatus(order); 
+    }   
+  }
+
     return {
       tableHeaders,
       orders,
@@ -195,7 +208,8 @@ export default {
       getStatusTextClass,
       orderGetters,
       displayOrderDetails,
-      getFaDate
+      getFaDate,
+      getorderstatus
     };
   }
 };

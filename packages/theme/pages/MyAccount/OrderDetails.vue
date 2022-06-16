@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
                         <div class="profile-stats-col">
-                            <p><span>وضعیت سفارش:</span>{{orderGetters.getStatus(order)}}</p>
+                            <p><span>وضعیت سفارش:</span>{{getorderstatus(order)}}</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
@@ -193,8 +193,8 @@
                                 <td>0</td>
                                 <td>{{$n(orderGetters.getItemQty(item)*orderGetters.getItemPrice(item))}} ریال</td>
                                 <td class="detail">
-                                <a :href="'/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item)" class="w-100 h-100 d-inline-block">
-                                <i class="fa fa-angle-left" :href="'/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item)"></i>
+                                <a :href="'/p/'+item.id+'/'+item.slug" class="w-100 h-100 d-inline-block">
+                                <i class="fa fa-angle-left" ></i>
                                 </a>
                                 </td>
                             </tr>
@@ -283,7 +283,18 @@ export default {
            return adress.shipping
           }
     })
-  
+  const getorderstatus=(order)=>{
+    const status = orderGetters.getStatus(order)
+    if (status == 'complete') {
+      return 'اتمام'
+    }
+    if (status =='returned') {
+      return 'مرجوع شد'
+    }
+    else{
+      return orderGetters.getStatus(order); 
+    }   
+  }
     onSSR(async () => {
       if (orderId) await search({ orderId });
       
@@ -291,6 +302,7 @@ export default {
 
     return {
       orderGetters,
+      getorderstatus,
       Sippingaddress,
       getFaDate,
       displayOrderHistory,
