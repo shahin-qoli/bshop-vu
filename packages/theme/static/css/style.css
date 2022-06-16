@@ -7495,14 +7495,17 @@ form#shipping-data-form {
 .checkout-pack-row .swiper-products-compact {
     width: 100%;
     padding: 10px 15px;
+    display:flex;
+    overflow-x: auto;
 }
 
 .product-box-container {
-    width: 100%;
     height: auto;
     float: right;
     margin: 10px 15px;
     text-align: center;
+    background: #43464e0d;
+    width: 160px;
 }
 
 .product-box-container .product-box-compact {

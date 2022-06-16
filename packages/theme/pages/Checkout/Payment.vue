@@ -121,11 +121,11 @@
                     <div class="checkout-order-summary-row">
                       <div class="checkout-order-summary-col-post-time">
                         مرسوله 1 از 1
-                        <span>(۱ کالا)</span>
+                        <span>({{cart.itemCount}} کالا)</span>
                       </div>
                       <div class="checkout-order-summary-col-post-time">
                         زمان ارسال
-                        <span>بازه جمعه ۸ تیر - سه‌شنبه ۱۲ تیر</span>
+                        <span>بازه 48 تا 72 ساعت بعد از تکمیل فرایند خرید</span>
                       </div>
                       <div class="checkout-order-summary-col-shipping-cost">
                         مبلغ مرسوله
@@ -134,13 +134,28 @@
                     </div>
                   </header>
                 </a>
-                <div class="collapse float-right" id="collapseExample">
+                <div class="collapse" id="collapseExample">
+                              <div v-if="cart" class="product-box-compact" style="display:flex;overflow-x: auto;">
+                                <div
+                                  v-for="item in cart.lineItems"
+                                  :key="item._id"
+                                  class="box">
+                                  <div
+                                    class="col-lg-3 col-md-6 col-xs-12"
+                                  >
+                                    <CartItem :item="item"  />
+                                  </div>
+                                </div>
+                              </div>
                   <div class="checkout-order-summary-content">
                     <section class="swiper-order-summary">
                       <div class="swiper-container">
+                        
                         <div class="col-lg-5 col-md-6 col-xs-12">
                           <div class="product-box-container">
-                            <div class="product-box-compact">
+
+                           
+                            <!-- <div class="product-box-compact">
                               <a href="#">
                                 <img
                                   src="assets/images/product-slider-2/111460776.jpg"
@@ -154,7 +169,7 @@
                               <div class="checkout-order-summary-tagline">
                                 <span>تعداد : 1 عدد</span>
                               </div>
-                            </div>
+                            </div> -->
                           </div>
                         </div>
                       </div>
@@ -276,32 +291,6 @@
             </div>
           </div>
         </div>
-
-        <footer class="footer-light">
-          <div class="container">
-            <div class="footer-checkout-col">
-              <div class="footer-checkout-col-phone">
-                <span class="mdi mdi-phone"></span>شماره تماس :
-                <a href="#">۶۱۹۳۰۰۰۰ - ۰۲۱</a>
-              </div>
-            </div>
-
-            <div class="footer-checkout-col">
-              <div class="footer-checkout-col-phone">
-                <span class="mdi mdi-email-outline"></span>شماره تماس :
-                <a href="#">info@digistore.com</a>
-              </div>
-            </div>
-
-            <p class="title-footer">
-              استفاده از کارت هدیه یا کد تخفیف، درصفحه ی پرداخت امکان پذیر است.
-            </p>
-
-            <p class="copy-right-footer-light">
-              Copyright © 2006 - 2019 DigiStore.com
-            </p>
-          </div>
-        </footer>
       </div>
     </div>
     <template v-if="false">
@@ -455,6 +444,7 @@ import {
   orderGetters,
 } from '@vue-storefront/spree';
 import axios from 'axios';
+import CartItem from '~/components/Shopping/CartItem.vue'
 
 export default {
   name: 'Payment',
@@ -470,6 +460,7 @@ export default {
     SfProperty,
     SfAccordion,
     SfLink,
+    CartItem,
     VsfPaymentProvider: () =>
       import('~/components/Checkout/VsfPaymentProvider'),
   },
@@ -517,7 +508,6 @@ export default {
       }
       //router.push(root.localePath(`/checkout/thank-you?order=${orderId}`));
     };
-
     return {
       router,
       isPaymentReady,
@@ -529,6 +519,7 @@ export default {
       cartGetters,
       processOrder,
       handlePaymentChange,
+      cart,
     };
   },
 };
