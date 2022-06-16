@@ -59,12 +59,12 @@
             <li class="item-list-menu megamenu-1 item-set">
               <a href="#" class="list-category first after">فروش سازمانی</a>
             </li>
-            <li class="map-city-item">
+            <!-- <li class="map-city-item">
               <a href="#" class="map-city"
                 >لطفا شهر و استان خود را انتخاب کنید
                 <span class="mdi mdi-map-marker-outline"></span>
               </a>
-            </li>
+            </li> -->
           </ul>
         </nav>
       </div>
