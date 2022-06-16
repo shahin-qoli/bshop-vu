@@ -224,7 +224,7 @@
                 </ol> -->
             </nav>
 
-            <div class="listing-listing">
+            <div class="listing-listing w-100">
                 <div class="listing-counter">{{$n(products.length)}} کالا</div>
                 <div class="listing-header">
                     <span class="mdi mdi-sort-variant"></span>
@@ -487,7 +487,7 @@
 
                             class="pagination-item"
                         >
-                            <a :href="'?page='+(i+1)"  :class=" pagination.currentPage===i+1 ? 'pager-item-active' : '' ">
+                            <a href="javascript:void(0)" @click="handlePageClick(i + 1)" :class=" pagination.currentPage===i+1 ? 'pager-item-active' : '' ">
                                 {{i+1}}
                             </a>
                         </li>                      
@@ -521,7 +521,7 @@ import {
   SfColor,
   SfProperty
 } from '@storefront-ui/vue';
-import { ref, computed, onMounted, useContext, useRoute, watch, onBeforeMount } from '@nuxtjs/composition-api';
+import { ref, computed, onMounted, useContext, useRoute, useRouter, watch, onBeforeMount } from '@nuxtjs/composition-api';
 import { useCart, useWishlist, productGetters, useFacet, facetGetters, useUser, wishlistGetters, useMenus } from '@vue-storefront/spree';
 
 import { useUiHelpers, useUiState } from '~/composables';
@@ -545,6 +545,7 @@ export default {
     const { changeFilters, isFacetColor, isFacetPrice, getSearchPriceFromUrl, getFiltersFromURL } = useUiHelpers();
     const { toggleFilterSidebar, isCategoryGridView, changeToCategoryGridView, changeToCategoryListView, uiState } = useUiState();
     const context = useContext();
+    const router = useRouter();
     const route = useRoute()
     const { addItem: addItemToCart, isInCart } = useCart();
     const { result, search, loading, error } = useFacet();
@@ -616,7 +617,17 @@ export default {
       selectedFilters.value[facet.id].push(option.id);
       console.log("Pushed!");
     };
-
+    const handlePageClick = (n) => {
+        router.push({
+            query: {
+                ...route.value.query,
+                page: n
+            }
+        })
+        setTimeout(() => {
+            location.reload()
+        })
+    }
     const clearFilters = () => {
       toggleFilterSidebar();
       selectedFilters.value = {};
@@ -654,7 +665,7 @@ export default {
       route,
       th,
       products,
-      
+      handlePageClick,
       loading,
       productGetters,
       pagination,

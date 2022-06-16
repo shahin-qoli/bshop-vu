@@ -238,7 +238,7 @@
                 </ol>
             </nav>
 
-            <div class="listing-listing">
+            <div class="listing-listing w-100">
                 <div class="listing-counter">{{$n(products.length)}} کالا</div>
                 <div class="listing-header">
                     <span class="mdi mdi-sort-variant"></span>
