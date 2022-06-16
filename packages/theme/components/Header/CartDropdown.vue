@@ -1,7 +1,7 @@
 <template>
   <div class="mini-cart-dropdown">
     <div class="header-cart-info-header">
-      <div class="header-cart-info-count">{{totalItems}} کالا</div>
+      <div class="header-cart-info-count">{{$n(totalItems)}} کالا</div>
       <a href="/cart" class="header-cart-info-link">
         <span>مشاهده سبد خرید</span>
       </a>
@@ -31,7 +31,7 @@
                     {{productGetters.getName(product)}}
                   </h1>
                   <span
-                    class="header-basket-list-item-shipping-type"
+                    class="header-basket-list-item-shipping-type" 
                     >موجود در انبار </span
                   >
                   <div class="header-basket-list-item-footer">
@@ -70,7 +70,7 @@
     </div>
     <div class="header-cart-info-footer">
       <div class="header-cart-info-total">
-        <span class="header-cart-info-total-text"
+        <span class="header-cart-info-total-text" 
           >مبلغ قابل پرداخت</span
         >
         <p class="header-cart-info-total-amount">
