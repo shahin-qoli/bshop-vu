@@ -11,12 +11,14 @@
       class="section-slider amazing-section mb-3 mt-4"
       style="background: rgb(0, 148, 212);height: 95px;"
       >
-      <li class="Right" 
+      <!-- <li class="Right" 
         style="position: absolute ;height: 34.14px;color: white;font-size:50px; padding: 30px 0; "
         dir="rtl"
         >
         بروکس
-      </li>
+      </li> -->
+      <img src="../static/images/home/BuruxFaText.svg" 
+      style="position: absolute ; padding: 28px 0;right: 91px; "/>
       <li 
         style="position: absolute ; padding: 27px 0;right: 203px;display: -webkit-box;color: white;">
         فروشگاه 
