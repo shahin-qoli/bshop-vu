@@ -155,19 +155,7 @@
               <div class="product-headline">
                 <div class="product-title-container">
                   <div class="product-directory">
-                    <ul class="mb-0">
-                      <li v-for="(breadcrumb, i) in breadcrumbs" :key="i" :text="breadcrumb.text"
-                        :link="breadcrumb.link">
-                        <a href='#' class="link-border">{{ breadcrumb.text }}
-                          <span>/</span>
-                        </a>
-
-                      </li>
-                      <!-- <li>
-                        <a href="#" class="link-border">گوشی موبایل شیائومی</a>
-                      </li> -->
-
-                    </ul>
+                    
                     <h1 class="product-title">
                       {{ productGetters.getName(product) }}
                     </h1>
@@ -177,6 +165,21 @@
               <div class="product-attributes">
                 <div class="col-lg-8 col-md-8 col-xs-12 pull-right pr-0">
                   <div class="product-config">
+                    <div class="product-params">
+                        <ul>
+                          <li  class="title-product-features">
+                            ویژگی‌های محصول
+                          </li>
+                          <li v-for="(property, i) in slicedproperties" :key="i" :name="property.name" :value="property.value"
+                            class="sf-property--full-width product__property">
+
+                            <span>{{ property.name }}: </span>
+                            <span>{{ property.value }}</span>
+                          </li>
+
+                        </ul>
+
+                      </div>
 
                     <div class="product-config-wrapper">
                       <div v-for="(optionTypeValue, i) in optionTypeValues" :key="i" :name="optionTypeValue.name"
@@ -190,21 +193,7 @@
                           @input="updateFilter({ [optionTypeValue.id]: $event })"
                           :options="options[optionTypeValue.name]" />
                       </div>
-                      <div class="product-params">
-                        <ul>
-                          <li class="title-product-features">
-                            ویژگی‌های محصول
-                          </li>
-                          <li v-for="(property, i) in properties" :key="i" :name="property.name" :value="property.value"
-                            class="sf-property--full-width product__property">
-
-                            <span>{{ property.name }}: </span>
-                            <span>{{ property.value }}</span>
-                          </li>
-
-                        </ul>
-
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -219,20 +208,24 @@
                           <span class="js-seller-count u-text-bold">بروکس</span>
                         </a>
                       </div>
-                      <div class="product-seller-row product-seller-row-guarantee">
+                      <div class="product-seller-row product-seller-row-guarantee">                      
                         <div class="js-guarantee-text">
-                          گارانتی شرکتی بروکس
-                          <i class="mdi mdi-check"></i>
+                          <img src="/images/svg/guarantee.svg" />
+                          36 ماه گارانتی شرکتی معتبر                                   
                         </div>
                       </div>
+                      
                       <div class="product-seller-row js-seller-info-shipment">
+                        <div class="product-delivery-warehouse">                   
+                          ارسال سریع از انبار بروکس
+                        </div>
+                      </div>
+
+                      <div class="product-seller-row product-seller-row-guarantee">                      
                         <div class="js-guarantee-text">
                           <a v-if="product.inStock">موجود در انبار فروشنده</a>
-                          <a v-else>موجود نیست!</a>
+                          <a v-else style="color:#fa0000 ; "><strong>عدم موجودی</strong></a>
                           <i class="mdi mdi-content-save-outline"></i>
-                        </div>
-                        <div class="product-delivery-warehouse">
-                          ارسال سریع از انبار بروکس
                         </div>
                       </div>
 
@@ -262,7 +255,7 @@
                               @input="updateQuantity({ product: { id: isInCart.id }, quantity: Number($event.currentTarget.value) })"
                               type="number" min="1" max="10" step="1" :value="isInCart.qty">
                             <div class="quantity-nav">
-                              <div class="quantity-button quantity-up" @click="updateQuantity({ product: { id: isInCart.id }, 
+                              <div  class="quantity-button quantity-up" @click="updateQuantity({ product: { id: isInCart.id }, 
                                     quantity: isInCart.qty+1 })">+</div>
                               <div v-if="isInCart.qty>1" class="quantity-button quantity-down" @click="updateQuantity({ product: { id: isInCart.id }, 
                                     quantity: isInCart.qty-1 })">-</div>
@@ -339,10 +332,10 @@
           <div class="col-lg-9 col-md-12 col-xs-12 pull-right p-0 res-w">
             <div class="box-tabs-main">
               <ul class="box-tabs">
-                <li class="box-tabs-tab active-tabs">
+                <li  class="box-tabs-tab active-tabs">
                   <a href="#"> درباره محصول</a>
                 </li>
-                <li class="box-tabs-tab">
+                <li  class="box-tabs-tab">
                   <a href="#"> مشخصات</a>
                 </li>
 
@@ -350,7 +343,7 @@
             </div>
             <div class="tabs-content">
               <div class="tab-active-content">
-                <div class="tab content-expert" style="display: block">
+                <div  class="tab content-expert" style="display: block">
                   <article>
                     <h2 class="params-headline">
 
@@ -372,7 +365,7 @@
                     </section>
                   </article>
                 </div>
-                <div class="tab params" style="display: none">
+                <div  class="tab params" style="display: none">
                   <article>
                     <h2 class="params-headline">
                       مشخصات فنی
@@ -512,6 +505,10 @@ export default {
       productGetters.getDescription(product)
     );
 
+    const slicedproperties= computed(() =>
+    productGetters.getProperties(product.value).slice(0,3)
+    );
+
 
     const cartproducts = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
@@ -600,6 +597,7 @@ export default {
 
     return {
       updateFilter,
+      slicedproperties,
       removeItem,
       flag,
       variant,

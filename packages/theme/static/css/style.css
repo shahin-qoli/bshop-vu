@@ -5485,7 +5485,8 @@ ul.listing-sort li a.nav-link.active {
     width: 100%;
     height: 100%;
     background: #fff;
-    padding: 30px 12px 46px;
+    padding: 5px 5px 8px;
+    /* padding: 30px 12px 46px; */
     border: 1px solid #ececec;
     float: right;
     position: relative;
@@ -8291,7 +8292,7 @@ form#shipping-data-form {
 }
 
 .product-attributes .product-seller-info .product-seller-row .product-delivery-warehouse {
-    color: #00bfd6;
+    color: #605E5C;
 }
 
 .product-attributes .product-seller-info .js-seller-info-shipment>i {
@@ -8354,7 +8355,7 @@ form#shipping-data-form {
 .product-attributes .product-seller-info .product-seller-row .product-delivery-warehouse:before {
     content: "";
     font-size: 1.4rem;
-    background: url(../images/svg/single-product-1.svg) no-repeat 50% 50%;
+    background: url(../images/svg/minitruck.svg) no-repeat 50% 50%;
     width: 30px;
     height: 30px;
     float: right;
