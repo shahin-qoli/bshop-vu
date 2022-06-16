@@ -125,7 +125,7 @@
                       </div>
                       <div class="checkout-order-summary-col-post-time">
                         زمان ارسال
-                        <span>بازه جمعه ۸ تیر - سه‌شنبه ۱۲ تیر</span>
+                        <span>بازه 48 تا 72 ساعت بعد از تکمیل فرایند خرید</span>
                       </div>
                       <div class="checkout-order-summary-col-shipping-cost">
                         مبلغ مرسوله
@@ -134,8 +134,7 @@
                     </div>
                   </header>
                 </a>
-
-                <div class="collapse float-right" id="collapseExample">
+                <div class="collapse" id="collapseExample">
                               <div v-if="cart" class="product-box-compact" style="display:flex;overflow-x: auto;">
                                 <div
                                   v-for="item in cart.lineItems"
@@ -143,7 +142,6 @@
                                   class="box">
                                   <div
                                     class="col-lg-3 col-md-6 col-xs-12"
-                                    
                                   >
                                     <CartItem :item="item"  />
                                   </div>

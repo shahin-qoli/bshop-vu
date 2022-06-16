@@ -101,7 +101,7 @@
                           class="checkout-additional-options-action-container"
                         >
                           <div class="action-title">
-                            زمان تقریبی تحویل از ۸ تیر تا ۱۲ تیر
+                            زمان تقریبی تحویل 48 تا 72 ساعت بعد از تکمیل فرایند خرید
                           </div>
                           <ul class="action-description">
                             <li>پست پیشتاز با ظرفیت اختصاصی برای بروکس</li>
