@@ -1,27 +1,14 @@
 <template>
-  <ul>
-    <li
+    <div class="option-type-container">
+    <input
+      type="button"
       v-for="option in options"
       :key="option.value"
-      class="js-c-ui-variant"
-    >
-      <label class="ui-variant-color">
-        <span
-          class="ui-variant-shape"
-          :style="{ backgroundColor: option.value }"
-        ></span>
-        <input
-          :value="option.value"
-          v-model="model"
-          type="radio"
-          name="color"
-          class="js-variant-selector"
-          checked=""
-        />
-        <span class="ui-variant-check"></span>
-      </label>
-    </li>
-  </ul>
+      :class="option.value===model? 'option-type-item active':'option-type-item'"
+      :value="option.value"
+      @click="event => model = event.target.value"
+    />
+  </div>
 </template>
 <script>
 export default {
@@ -41,3 +28,16 @@ export default {
   }
 }
 </script>
+<style lang="css">
+.option-type-item{
+  padding: 3px 6px;
+  margin: 0 3px;
+  outline: none;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+.option-type-item.active{
+  color: dodgerblue;
+  border: 1px solid dodgerblue;
+}
+</style>

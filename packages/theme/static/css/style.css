@@ -8449,6 +8449,8 @@ form#shipping-data-form {
     width: 100%;
     float: right;
     font: 12px iranyekan;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-variants span {
