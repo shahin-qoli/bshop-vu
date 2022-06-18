@@ -28,7 +28,7 @@
             :key="cat_lev3.id"
             class="item-megamenu-item">
             <a :href="'/c/'+cat_lev1.slug" class="list-category-megamenu-3"
-              ><span>{{cat_lev3.name}}</span>
+              ><span style="color:grey">{{cat_lev3.name}}</span>
             </a>
           </li>
         </template>
