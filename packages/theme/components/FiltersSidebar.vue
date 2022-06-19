@@ -213,7 +213,7 @@ export default {
       }
       toggleFilterSidebar();
       changeFilters(selectedFilters.value);
-      console.log("Hi")
+ 
     };
 
     onMounted(() => {

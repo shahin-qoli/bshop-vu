@@ -4,18 +4,15 @@
       <div class="product-page">
         <article class="js-product">
           <div class="product-nav-container">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb px-0">
-                <SfBreadcrumbs class="breadcrumb-item" :breadcrumbs="breadcrumbs" />
+            <nav aria-label="breadcrumb" >
+              <ol class="breadcrumb px-0" >
+                 <li class="breadcrumb-item" v-for="(breadcrumb,i) in breadcrumbs" :key="i">
+                 <a :href="breadcrumb.link">{{breadcrumb.text}}</a></li>
               </ol>
             </nav>
-            <!-- <div class="product-ext-links">
-              <a href="#" class="product-ext-link"
-                >کالای خود را در دیجی‌استور بفروشید
-                <i class="mdi mdi-storefront"></i
-              ></a>
-            </div> -->
+            
           </div>
+
           <div class="col-lg-4 col-md-12 col-xs-12 pull-right">
             <Product-Gallery :images="productGallery" />
           </div>
@@ -229,7 +226,7 @@
                         </div>
                       </div>
 
-                      <div class="product-seller-row">
+                      <div v-if="product.inStock" class="product-seller-row">
                         <div class="product-seller-row-price">
                           <div class="product-seller-price-label">
                             قیمت فروشنده

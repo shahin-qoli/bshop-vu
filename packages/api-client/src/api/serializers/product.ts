@@ -102,7 +102,7 @@ const deserializeOptionValues = (included, variant): OptionValue[] => {
 
 const buildBreadcrumbs = (included, product) => {
   const taxons = extractRelationships(included, 'taxon', 'taxons', product);
-  const breadcrumbs = [{ text: 'Home', link: '/' }];
+  const breadcrumbs = [{ text: 'فروشگاه اینترنتی بروکس', link: '/' }];
 
   if (taxons.length > 0) {
     const addTaxonToBreadcrumbs = (item) => {

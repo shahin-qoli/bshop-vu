@@ -1,70 +1,55 @@
-import { getCurrentInstance } from '@nuxtjs/composition-api';
+import { getCurrentInstance, onMounted } from '@nuxtjs/composition-api';
 import type { AgnosticGroupedFacet } from '@vue-storefront/core';
 import type { Category } from '@vue-storefront/spree-api';
 import type { SearchParams, SearchParamsOptionTypeFilter, SearchParamsProductPropertyFilter } from '@vue-storefront/spree';
 
 const getInstance = () => {
   const vm = getCurrentInstance();
+  
   return vm.root.proxy as any;
 };
 
-const getOptionTypeFiltersFromURL = (): SearchParamsOptionTypeFilter[] => {
-  const instance = getInstance();
-  const { query } = instance.$route;
 
-  return Object
-    .entries(query)
-    .filter(([key]) => key.startsWith('o.'))
-    .reduce((filters, [key, value]: [string, string]) => {
-      const optionTypeName = key.substring(2);
 
-      if (Array.isArray(value)) {
-        return [...filters, ...value.map(e => ({ optionTypeName, optionValueId: parseInt(e, 10) }))];
-      } else {
-        return [...filters, { optionTypeName, optionValueId: parseInt(value, 10) }];
-      }
-    }, []);
-};
 
-const getFiltersFromURL = (): any => {
-  const instance = getInstance();
-  const { query } = instance.$route;
-  const filters = {}
-  for (const key in query) {
-    const val = query[key]
-    if (val instanceof Array) {
-      filters[key] = val.map((v) => {
-        return Number(v)
-      })
-    }
-    else {
-      filters[key] = [Number(val)]
-    }
-  }
-  return filters
-};
-
-const getProductPropertyFiltersFromURL = (): SearchParamsProductPropertyFilter[] => {
-  const instance = getInstance();
-  const { query } = instance.$route;
-  return Object
-    .entries(query)
-    .filter(([key]) => key.startsWith('p.'))
-    .reduce((filters, [key, value]: [string, string]) => {
-      const productPropertyName = key.substring(2);
-
-      if (Array.isArray(value)) {
-        return [...filters, ...value.map(e => ({ productPropertyName, productPropertyValue: e }))];
-      } else {
-        return [...filters, { productPropertyName, productPropertyValue: value }];
-      }
-    }, []);
-};
 
 const useUiHelpers = () => {
   const instance = getInstance();
   const { query, path } = instance.$router.history.current;
-
+  const getProductPropertyFiltersFromURL = (): SearchParamsProductPropertyFilter[] => {
+    
+    const { query } = instance.$route;
+    return Object
+      .entries(query)
+      .filter(([key]) => key.startsWith('p.'))
+      .reduce((filters, [key, value]: [string, string]) => {
+        const productPropertyName = key.substring(2);
+  
+        if (Array.isArray(value)) {
+          return [...filters, ...value.map(e => ({ productPropertyName, productPropertyValue: e }))];
+        } else {
+          return [...filters, { productPropertyName, productPropertyValue: value }];
+        }
+      }, []);
+  };
+  const getOptionTypeFiltersFromURL = (): SearchParamsOptionTypeFilter[] => {
+    const { query } = instance.$route;
+  
+    return Object
+      .entries(query)
+      .filter(([key]) => key.startsWith('o.'))
+      .reduce((filters, [key, value]: [string, string]) => {
+        const optionTypeName = key.substring(2);
+  
+        if (Array.isArray(value)) {
+          return [...filters, ...value.map(e => ({ optionTypeName, optionValueId: parseInt(e, 10) }))];
+        } else {
+          return [...filters, { optionTypeName, optionValueId: parseInt(value, 10) }];
+        }
+      }, []);
+  };
+  
+  
   const getFacetsFromURL = (): SearchParams => {
     const categorySlug = path.split('/c/')[1];
 
@@ -94,6 +79,10 @@ const useUiHelpers = () => {
     );
 
     instance.$router.push({ query: { ...queryWithoutFilters, ...filters }});
+    setTimeout(() => {   
+      location.reload(); 
+    });
+    
   };
 
   const changeItemsPerPage = (itemsPerPage: number) => {
@@ -118,7 +107,39 @@ const useUiHelpers = () => {
   const isFacetCheckbox = (facet: AgnosticGroupedFacet): boolean => !isFacetColor(facet);
 
   const getSearchTermFromUrl = () => getFacetsFromURL().term;
+  const getFiltersFromURL = (): any => {
+    const { query } = instance.$route;
+    const filters = {}
+    for (const key in query) {
+      const val = query[key]
+      console.log("val is:",val)
+      if (val instanceof Array) {
+        filters[key] = val.map((v) => {
+          const result=Number(v)
+          if(isNaN(result)){
+            return v;
+          }
+          else{
+            return result
 
+          }
+          
+        })
+      }
+      else {
+       
+        const result=Number(val);
+          if(isNaN(result)){
+            filters[key] = [val]
+          }
+          else{           
+            filters[key] = [result]
+          }
+        
+      }
+    }
+    return filters
+  };
   return {
     getFacetsFromURL,
     getCatLink,

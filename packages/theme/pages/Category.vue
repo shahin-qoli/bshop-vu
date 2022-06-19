@@ -117,20 +117,15 @@
     <!--        responsive-sidebar----------------------->
     <div class="col-lg-3 col-md-4 col-xs-12 float-right sticky-sidebar">
         
-        <div class="sidebar-wrapper search-sidebar">
+    <div class="sidebar-wrapper search-sidebar">
 
-            <div class="box-sidebar">
-                <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
-                data-target="#collapseExampleSeller" aria-expanded="false" aria-controls="collapseExampleSeller">
-                <i class="fa fa-chevron-down arrow"></i>فیلتر 
-                </button>
-                <div class="collapse show" id="collapseExampleSeller">
-                    <div class="catalog" v-for="(facet, i) in facets" :key="i">
-                    <template v-if="facet.label!='Price'">
-                        <ul>
-                            <li>
-                                <div style=" font-size:15px; font-family: iranyekan;">{{facet.label}} : </div>
-                                <a href="#" class="filter-label" v-for="option in facet.options">
+        <div  v-for="(facet, i) in facets" :key="i">
+            <div class="box-sidebar" v-if="facet.label!='Price'">      
+                <div class="collapse show" id="collapseExampleSeller"  >
+                    <div class="catalog" >
+                    <template>                        
+                                <div style=" font-size:15px; font-family: iranyekan;">{{facet.label}}</div>
+                                <label href="#" class="filter-label" v-for="option in facet.options">
                                     <div class="form-auth-row" >
                                         <label for="rememberseller1" class="ui-checkbox">
                                             <input
@@ -145,18 +140,12 @@
                                         </label>
                                         <label :for="option.value" class="remember-me">{{option.value}}</label>
                                     </div>                                  
-                                </a>
-                                
-                            </li>
-                        </ul>
-                        <hr />
+                                </label>   
                     </template>
-
-                    </div>
-                    <div  class="checkout-to-shipping-sticky">
-                        <a  @click.prevent="applyFilters" class="selenium-next-step-shipping">اعمال فیلتر</a>                               
-                    </div>                  
                 </div>
+                                    
+            </div>
+            </div>
             </div>
         
             <div class="box-sidebar">
@@ -230,10 +219,10 @@
         <div class="js-products">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <SfBreadcrumbs
-                      class="breadcrumb-item"
-                      :breadcrumbs="breadcrumbs"
-                      />
+                   <li class="breadcrumb-item" v-for="(breadcrumb,i) in breadcrumbs" :key="i">
+                 <a :href="breadcrumb.link">{{breadcrumb.text}}</a></li>                
+              </ol>
+            </nav>
                     
                 </ol>
             </nav>
@@ -658,16 +647,18 @@ export default {
     const selectFilter = (facet, option) => {
       if (!selectedFilters.value[facet.id]) {
         Vue.set(selectedFilters.value, facet.id, []);
-        console.log("Selected!");
+     
       }
 
       if (selectedFilters.value[facet.id].find(f => f === option.id)) {
         selectedFilters.value[facet.id] = selectedFilters.value[facet.id].filter(f => f !== option.id);
+        applyFilters();
         return;
       }
 
       selectedFilters.value[facet.id].push(option.id);
-      console.log("Pushed!");
+      applyFilters();
+    
     };
 
     const clearFilters = () => {
@@ -680,6 +671,7 @@ export default {
         Vue.set(selectedFilters.value, 'price', []);
         
         changeFilters(selectedFilters.value);
+    
         await search(th.getFacetsFromURL());    
        
     };
