@@ -4677,12 +4677,14 @@ ul.catalog-list li .show-more ul li a.catalog-link {
     transition: all 500ms ease;
 }
 
-.sidebar-wrapper .box-sidebar .catalog a.filter-label {
+.sidebar-wrapper .box-sidebar .catalog label.filter-label {
     display: block;
-    height: 33px;
+    height: 22px;
     padding: 0 15px;
     font: 14px iranyekan;
-    margin-bottom: -15px;
+   
+
+   
 }
 
 .sidebar-wrapper .box-sidebar .filter-switch {
@@ -6574,11 +6576,13 @@ a.add-address:hover {
     color: #424750;
     font-weight: 500;
     display: inline-block;
+    font: 14px iranyekan;
 }
 
 .profile-address-item .ui-more {
     position: relative;
     float: left;
+    
 }
 
 .profile-address-item .ui-more .btn-remove-address {
@@ -6587,23 +6591,27 @@ a.add-address:hover {
     padding: 5px 10px;
     background: #ff7373;
     border-color: #ff7373;
+    font: iranyekan;
 }
 
 .profile-address-item .profile-address-content .profile-address-info li {
     margin-top: 10px;
     display: block;
+    font: iranyekan;
 }
 
 .profile-address-item .profile-address-content .profile-address-info li .profile-address-info-item {
     font-size: 12px;
     line-height: 1.833;
     color: #81858b;
+    font: iranyekan;
 }
 
 .profile-address-item .profile-address-content .profile-address-info li .profile-address-info-item i {
     font-size: 14px;
     vertical-align: middle;
     margin-left: 10px;
+    font: iranyekan;
 }
 
 .profile-address-item .profile-address-content .profile-address-info li.location-link {
@@ -6611,6 +6619,7 @@ a.add-address:hover {
     display: block;
     border-top: 1px solid #ededed;
     padding-top: 10px;
+    font: iranyekan;
 }
 
 .profile-address-item .profile-address-content .profile-address-info li.location-link .edit-address-link {
@@ -6619,6 +6628,7 @@ a.add-address:hover {
     font-weight: 500;
     border-bottom: 1px dashed #00bfd6;
     padding: 5px 0;
+    font: iranyekan;
 }
 
 .edit-address-btn {

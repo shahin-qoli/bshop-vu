@@ -81,10 +81,7 @@
             </div>
         </div> -->
 
-        <div class="headline-profile order-end" style="margin-top:0;">
-            <span>آخرین سفارش ها</span>
-        </div>
-        <order-history />
+        
         
         
     </div>

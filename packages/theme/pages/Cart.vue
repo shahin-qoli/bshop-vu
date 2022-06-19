@@ -194,7 +194,7 @@ export default {
     const { wishlist, addItem: addItemToWishlist, isInWishlist } = useWishlist();
     const isWishlistDisabled = computed(() => wishlistGetters.isWishlistDisabled(wishlist.value));
     const updateQuantity = debounce(async ({ product, quantity }) => {
-      console.log({ product, quantity })
+ 
       await updateItemQty({ product, quantity });
     }, 500);
 
