@@ -102,7 +102,7 @@
         <!--        responsive-sidebar----------------------->
         <div class="col-lg-3 col-md-4 col-xs-12 float-right sticky-sidebar">
 
-            <div class="sidebar-wrapper search-sidebar">
+            <div v-if="haveproduct" class="sidebar-wrapper search-sidebar">
 
                 <div class="box-sidebar">
                     <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
@@ -205,10 +205,8 @@
 
             </div>
         </div>
-        <div class="col-lg-9 col-md-8 col-xs-12 pull-left">
+        <div v-if="haveproduct" class="col-lg-9 col-md-8 col-xs-12 pull-left">
             <div class="js-products">
-
-
                 <div class="listing-listing w-100">
                     <div class="listing-counter">{{ $n(products.length) }} کالا</div>
                     <div class="listing-header">
@@ -232,10 +230,10 @@
                     </div>
 
                     <!-- <ul class="listing-item"> -->
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="mostvisited" role="tabpanel"
-                            aria-labelledby="mostvisited-tab">
-                            <ul class="listing-item">
+                    <div  class="tab-content" id="myTabContent">
+                        <div  class="tab-pane fade show active" id="mostvisited" role="tabpanel"
+                            aria-labelledby="mostvisited-tab">                                               
+                            <ul  class="listing-item">
                                 <li>
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                         v-for="(product, i) in products" :key="product.id" :style="{ '--index': i }"
@@ -479,6 +477,20 @@
                 </div>
             </div>
         </div>
+        <div v-else class="col-lg-12 col-md-12 col-xs-12 pull-left">
+            <div class="js-products" style="text-align: center;">                                      
+                    <img
+                    src="/images/product/Frame-75.svg" 
+                    width="629"
+                    alt="img-slider"
+                />  
+            </div>
+            
+            
+               
+           
+            
+        </div>
     </div>
 </template>
 <script>
@@ -538,6 +550,15 @@ export default {
         const { locale } = context.app.i18n;
         const lengthProduct = products.length
         const sortBy = computed(() => facetGetters.getSortOptions(result.value));
+
+        const haveproduct = computed(() => {
+        if (products.value.length<1) {
+            return false
+        }
+        else {
+            return true
+        }
+        });
 
         const getRoute = (category) => {
             // if (menu.value.isDisabled) {
@@ -662,9 +683,7 @@ export default {
             isFilterSelected,
             selectFilter,
             selectedFilters,
-
-
-
+            haveproduct,
             addItemToCart,
             isInWishlist,
             isInCart,
