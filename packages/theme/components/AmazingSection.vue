@@ -11,8 +11,8 @@
           <a href="#">
             <img src="images/home/amazing.png" alt="amazing" />
           </a>
-          <a href="/c/lights" class="view-all-amazing-btn">
-            تخفیف ویژه
+          <a :href="`/c/${taxon.attributes.permalink}`" class="view-all-amazing-btn">
+            {{ taxon.attributes.name }}
             <i class="uil uil-angle-left"></i>
           </a>
         </div>
@@ -90,19 +90,14 @@
   
 </template>
 <script>
-import { useFacet, facetGetters, productGetters } from '@vue-storefront/spree';
-import { computed } from '@nuxtjs/composition-api';
+import { useProduct, productGetters } from '@vue-storefront/spree';
 import { onSSR } from '@vue-storefront/core';
 
 
 export default {
   props: {
-    title: {
-      type: String,
-      required: true
-    },
-    slug: { 
-      type: String,
+    section: { 
+      type: Object,
       required: true
     }
   },
@@ -110,27 +105,26 @@ export default {
     return {}
   },
   setup(props) {
-    const { result, search } = useFacet(props.slug);
-    const products = computed(() => { return facetGetters.getProducts(result.value) })
+    const { products, search, error } = useProduct(props.section.id);
+    // const products = computed(() => { return facetGetters.getProducts(result.value) })
     const getProductLink = (product) => {
       return `/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`
     }
-
+    // const linked_resource = props.section.relationships.linked_resource.data || { id: 1 }
+    const taxon = props.section.taxon || {
+      attributes: {}
+    }
     onSSR(async () => {
       await search({
-        categorySlug: props.slug,
+        categoryId: taxon.id,
         page: 1,
-        itemsPerPage: 10,
-        selectedOptionTypeFilters: [],
-        selectedProductPropertyFilters: [],
-        priceFilter: [],
-        sort: 'updated_at',
-        term: ''
+        itemsPerPage: 10
       })
     })
     return {
-      result,
       products,
+      error,
+      taxon,
       productGetters,
       getProductLink
     }
