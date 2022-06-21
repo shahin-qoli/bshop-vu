@@ -162,12 +162,12 @@ export default {
         link: '/my-account/order-history',
         icon: 'mdi-basket'
       },
-      {
-        title: 'درخواست مرجوعی',
-        name: 'Return',
-        link: 'return',
-        icon: 'mdi mdi-autorenew'
-      },
+      // {
+      //   title: 'درخواست مرجوعی',
+      //   name: 'Return',
+      //   link: 'return',
+      //   icon: 'mdi mdi-autorenew'
+      // },
       {
         title: 'آدرس ها',
         name: 'SavedAdresses',

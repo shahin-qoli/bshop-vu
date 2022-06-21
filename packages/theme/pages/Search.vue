@@ -44,7 +44,7 @@
                                                     <li class="has-sub">
                                                         <a href="#">{{ facet.label }}</a>
                                                         <ul>
-                                                            <li v-for="option in facet.options">
+                                                            <li v-for="(option,t) in facet.options" :key="t">
                                                                 <a href="/c/lights" class="filter-label">
                                                                     <div class="form-auth-row">
                                                                         <label for="remember" class="ui-checkbox">
@@ -116,7 +116,7 @@
                                 <ul>
                                     <li>
                                         <div style=" font-size:15px; font-family: iranyekan;">{{ facet.label }} : </div>
-                                        <label  class="filter-label" v-for="option in facet.options">
+                                        <label  class="filter-label" v-for="(option,j) in facet.options" :key="j">
                                             <div class="form-auth-row">
                                                 <label for="rememberseller1" class="ui-checkbox">
                                                     <input @input="() => selectFilter(facet, option)"

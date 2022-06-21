@@ -2,6 +2,7 @@
   <div id="product">
     <div class="col-12">
       <div class="product-page">
+      <div>
         <article class="js-product">
           <div class="product-nav-container">
             <nav aria-label="breadcrumb" >
@@ -265,14 +266,17 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="product-feature-body">
+              </div>             
+            </section>                   
+          </div>
+        </article>
+        <div class="product-feature-body">
                 <div class="product-feature">
                   <div class="row">
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
                         <img src="../static/images/home/SavePayment.svg" alt="delivery" />
-                        <span>خرید و پردخت
+                        <span>خرید و پرداخت
                           <br />
                           مطمئن
                         </span>
@@ -311,11 +315,9 @@
                   </div>
                 </div>
               </div>
-            </section>
-            
-          </div>
- 
-        </article>
+              </div>
+
+        
         <Product-Slider title="محصولات مرتبط" slug="lights/bulb" class="p-0" />
         <Product-Slider title="خانواده پرژکتور" slug="lights/projector" class="p-0" />
         <div class="p-tabs">

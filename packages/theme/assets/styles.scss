@@ -1,3 +1,10 @@
 #__nuxt {
   @include SfProductCard;
+  
+}
+@media print {
+  .header-main-page, .box-sidebar , footer{
+    display: none !important;
+  }
+  
 }
