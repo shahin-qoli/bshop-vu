@@ -45,7 +45,7 @@
                 <i class="mdi mdi-menu"></i>
                 دسته بندی محصولات
               </a>
-              <Categories v-if="categoryTree" :categoryTree="categoryTree" />
+              <Categories v-if="categoryTree" :categoryTree="menu" />
             </li>
             <li class="item-list-menu megamenu-1">
               <a href="#" class="list-category first after">
@@ -83,7 +83,7 @@
             /></a>
           </div>
         </div>
-        <categories-responsive v-if="categoryTree" :categoryTree="categoryTree" />
+        <categories-responsive v-if="categoryTree" :categoryTree="menu" />
         <!-- <ul class="nav-categories ul-base">
           <li 
            v-for="(cat_lev_1, i) in categoryTree.items"
@@ -225,8 +225,8 @@ export default {
       }
     };
 
-    onMounted(async () => {
-      await loadMenu({menuType: 'header', menuName: 'Main menu', locale: locale});
+    onSSR(async () => {
+      await loadMenu({menuType: 'header', menuName: 'Main Menu', locale: locale});
     });
 const searchParams = {
   categorySlug: "mhswlt-rwshnyy"
