@@ -700,6 +700,7 @@ export default {
       products,
       categoryTree,
       loading,
+      result,
       productGetters,
       pagination,
       activeCategory,

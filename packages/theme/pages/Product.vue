@@ -15,7 +15,40 @@
           </div>
 
           <div class="col-lg-4 col-md-12 col-xs-12 pull-right">
-            <Product-Gallery :images="productGallery" />
+            <Product-Gallery v-if="haveimage" :images="productGallery" />
+            <div v-else class="product-gallery">
+              <img
+                class="zoom-img"
+                id="img-product-zoom"
+                src="/images/product/Panel-18w-min-1.png"
+                width="350"
+                alt="img-slider"             
+              />
+              <div id="gallery_01f" style="width: 420px; float: right">
+                <ul
+                  class="gallery-items owl-carousel owl-theme"
+                  id="gallery-slider"
+                >
+                  <li v-for="j in 4"
+                  :key="j"              
+                  class="item"
+                  >
+                    <a
+                      href="#"
+                      class="elevatezoom-gallery active"
+                      data-update=""                  
+                    >
+                      <img
+                        src="/images/product/Panel-18w-min-1.png" 
+                        width="100"
+                        alt="img-slider"
+                    /></a>
+                  </li>
+                </ul> 
+              </div>        
+              <div class="gallery-item">                        
+              </div>
+            </div>
           </div>
 
           <!-- Modal social-->
@@ -501,7 +534,6 @@ export default {
     productGetters.getProperties(product.value).slice(0,3)
     );
 
-
     const cartproducts = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
@@ -538,6 +570,15 @@ export default {
 
 
     );
+
+    const haveimage = computed(() => {
+      if (productGallery.value.length<1) {
+        return false
+      }
+      else {
+        return true
+      }
+    });
 
     const variant = product.inStock;
 
@@ -589,6 +630,7 @@ export default {
 
     return {
       updateFilter,
+      haveimage,
       slicedproperties,
       removeItem,
       flag,
