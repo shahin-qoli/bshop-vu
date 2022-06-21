@@ -8,8 +8,8 @@
       </a>
     </div>
     <section
-      class="section-slider amazing-section mb-3 mt-4"
-      style="background: rgb(0, 148, 212);height: 95px;"
+      class="burux-banner"
+      
       >
       <!-- <li class="Right" 
         style="position: absolute ;height: 34.14px;color: white;font-size:50px; padding: 30px 0; "
@@ -18,20 +18,20 @@
         بروکس
       </li> -->
       <img src="../static/images/home/BuruxFaText.svg" 
-      style="position: absolute ; padding: 28px 0;right: 91px; "/>
-      <li 
-        style="position: absolute ; padding: 27px 0;right: 203px;display: -webkit-box;color: white;">
-        فروشگاه 
-      </li>
-      <li 
-        style="position: absolute ; padding: 48px 0;right: 200px;display: -webkit-box;color: white;">
-       آنلاین
-      </li>
-      <i class="fa fa-phone" style="position: absolute ; padding: 37px 0;right: 340px;display: -webkit-box;color: white;" ></i>
-      <li 
-        style="position: absolute ; padding: 35px 0;right: 365px;display: -webkit-box;color: white;">
-       021-75116
-      </li>      
+      />
+      <ul>   
+        <li>فروشگاه</li>
+        <li>آنلاین</li>
+      </ul>
+      <div style="width: 48px;">
+
+      </div>
+      <div class="phone-number">
+        <div class="fa fa-phone"></div>
+        <div style="width:6px"></div>
+        <div>021-77541</div>
+      </div>
+      
     </section>
 
     <div class="container">
@@ -76,7 +76,7 @@
     </div>
 
     <div class="row p-3" style="background:#FFFFFF; font-family: iranyekan; ">
-    <div class="col-9 col-xl-9 col-lg-9 col-md-9">
+    <div class="col-12 col-xl-9 col-lg-9 col-md-9">
       <P style="font-weight: 900;align-items: center;font-size:25px;font-style: normal;font-weight: 500;font-size: 18px;">
        درباره فروشگاه بروکس</P>
       <p>
@@ -89,7 +89,7 @@
         کرد.
       </p>
     </div>
-      <div class="col-3 text-left" style="background:#FFFFFF">
+      <div class="col-auto mr-auto text-left" style="background:#FFFFFF">
         <img src="../static/images/home/ENamad.svg" />
       </div>
     </div>
@@ -250,4 +250,24 @@ export default {
     }
   }
 }
+.burux-banner{
+  height: 72px;
+    background: #0094D4;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+}
+.burux-banner ul{
+  color: #fff;
+    margin: 0;
+    padding: 0 12px;
+}
+.burux-banner div {
+  color:#fff
+}
+.burux-banner .phone-number{
+      display: flex;
+    align-items: center;
+}
 </style>
+
