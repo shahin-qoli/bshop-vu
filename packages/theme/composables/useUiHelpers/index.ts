@@ -51,6 +51,7 @@ const useUiHelpers = () => {
   
   
   const getFacetsFromURL = (): SearchParams => {
+    const { query, path } = instance.$router.history.current;
     const categorySlug = path.split('/c/')[1];
 
     return {
@@ -79,9 +80,6 @@ const useUiHelpers = () => {
     );
 
     instance.$router.push({ query: { ...queryWithoutFilters, ...filters }});
-    setTimeout(() => {   
-      location.reload(); 
-    });
     
   };
 

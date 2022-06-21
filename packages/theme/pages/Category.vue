@@ -564,6 +564,7 @@ import cacheControl from './../helpers/cacheControl';
 import CategoryPageHeader from '~/components/CategoryPageHeader';
 import FiltersSidebar from '~/components/FiltersSidebar.vue';
 import FiltersNew from '~/components/FiltersNew.vue';
+import useLoader from '~/composables/useLoader'
 import Vue from 'vue';
 
 
@@ -578,6 +579,7 @@ export default {
     const th = useUiHelpers();
     const { changeFilters, isFacetColor, isFacetPrice, getSearchPriceFromUrl, getFiltersFromURL } = useUiHelpers();
     const { toggleFilterSidebar, isCategoryGridView, changeToCategoryGridView, changeToCategoryListView, uiState } = useUiState();
+    const { isLoaderOpen } = useLoader()
     const context = useContext();
     const route = useRoute()
     const { addItem: addItemToCart, isInCart } = useCart();
@@ -589,6 +591,8 @@ export default {
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value).map(e => ({...e, link: context.localePath(e.link)})));
     const pagination = computed(() => facetGetters.getPagination(result.value));
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
+    const sortBy = ref(facetGetters.getSortOptions(result.value))
+    console.log({ sortBy })
     const { locale } = context.app.i18n;
     const lengthProduct = products.length
 
@@ -598,16 +602,19 @@ export default {
       // }
       //return "";
     };
+    const loadProducts = async () => {
+        isLoaderOpen.value = true
+        await search(th.getFacetsFromURL());    
+        setTimeout(() => {
+            sortBy.value = facetGetters.getSortOptions(result.value)
+        }, 100)
+        isLoaderOpen.value = false
+    }
     const changesort = async(sort) => {
         th.changeSorting(sort)
         // await search(th.getFacetsFromURL());
-        if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
-        setTimeout(() => { location.reload() });
+        setTimeout(loadProducts)
     };
-    watch(() => route.query, async () => {
-      await search(th.getFacetsFromURL());
-      if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
-    })
     const activeCategory = computed(() => {
       const items = categoryTree.value.items;
 
@@ -671,11 +678,9 @@ export default {
         Vue.set(selectedFilters.value, 'price', []);
         
         changeFilters(selectedFilters.value);
-    
-        await search(th.getFacetsFromURL());    
+        setTimeout(loadProducts)
        
     };
-    const sortBy = computed(() => facetGetters.getSortOptions(result.value));
 
     onMounted(async () => {
 
@@ -710,6 +715,8 @@ export default {
       isInCart,
       handleWishlistClick,
       isWishlistDisabled,
+      result,
+      facetGetters,
       getRoute,
       FiltersNew,
       facets,
