@@ -134,26 +134,7 @@
             </div>
           </div>
 
-          <div class="checkout-to-shipping-sticky">
-            <a
-              @click.prevent="handleFormSubmit"
-              class="selenium-next-step-shipping"
-              :class="{ dispabled: loading }"
-            >
-              <span v-if="!loading">
-                ادامه فرآیند خرید
-              </span>
-              <div v-else class="spinner-border spinner-border-sm" role="status"></div>
-              
-            </a>
-            <div class="checkout-to-shipping-price-report">
-              <p>مبلغ قابل پرداخت</p>
-              <div class="cart-item-product-price">
-                {{ $n(cartGetters.getTotals(cart).total +300000) }}
-                <span>ریال</span>
-              </div>
-            </div>
-          </div>
+          
 
           <div class="checkout-actions">
             <a href="/cart" class="btn-link-spoiler">
@@ -199,6 +180,20 @@
                   <span>{{$n(cartGetters.getTotals(cart).total+300000) }} ریال</span>
                 </li>
               </ul>
+              <div class="checkout-to-shipping-sticky">
+            <a
+              @click.prevent="handleFormSubmit"
+              class="selenium-next-step-shipping"
+              :class="{ dispabled: loading }"
+            >
+              <span style="color:#FFFFFF" v-if="!loading">
+                ادامه فرآیند خرید
+              </span>
+              <div v-else class="spinner-border spinner-border-sm" role="status"></div>
+              
+            </a>
+            
+          </div>
             </div>
             <div class="checkout-summary-content">
               <p>

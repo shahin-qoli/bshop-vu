@@ -176,19 +176,7 @@
                     </section>
                   </div>
                 </div>
-              </div>
-              <div class="checkout-to-shipping-sticky">
-                <a @click="processOrder" class="selenium-next-step-shipping"
-                  >پرداخت</a
-                >
-                <div class="checkout-to-shipping-price-report">
-                  <p>مبلغ قابل پرداخت</p>
-                  <div class="cart-item-product-price">
-                    {{ $n(totals.subtotal + 300000) }}
-                    <span>ریال</span>
-                  </div>
-                </div>
-              </div>
+              </div>           
             </div>
           </div>
 
@@ -275,12 +263,17 @@
                 </li>
                 <li>
                   <span><i class="fa fa-truck"></i>ارسال عادی</span>
-                  <span>{{ $n(300000) }} ریال</span>
+                  <span>{{ $n(cart.shipTotalAmount) }} ریال</span>
                 </li>
                 <li>
                   <span>مبلغ قابل پرداخت</span>
-                  <span>{{ $n(totals.subtotal + 300000) }} ریال</span>
+                  <span>{{ $n(totals.subtotal + cart.shipTotalAmount) }} ریال</span>
                 </li>
+                <div class="checkout-to-shipping-sticky">
+                <a @click="processOrder" class="selenium-next-step-shipping" style="color:#FFFFFF"
+                  >پرداخت</a
+                >         
+              </div>
               </ul>
             </div>
             <div class="checkout-summary-content">
@@ -486,7 +479,7 @@ export default {
       const orderId = orderGetters.getId(cart.value);
       try {
         const cartId = cart.value._id;
-        const cartamount = cart.value.totalAmount + 300000;
+        const cartamount = cart.value.totalAmount + cart.value.shipTotalAmount;
 
         const res2 = await axios.get(
           'http://bshop.burux.com/paymenturl/' + cartId + '/' + cartamount + ''
