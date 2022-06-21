@@ -32,7 +32,7 @@
                   <div class="item">
                     <a :href="localePath(getProductLink(product))">
                       <img
-                        :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-1.png'"
+                        :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                         class="img-fluid"
                         alt="img-slider"
                       />
