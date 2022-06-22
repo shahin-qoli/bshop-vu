@@ -294,6 +294,7 @@
                                     <i class="fa fa-trash"></i></div>
                             </div>
                           </div>
+                                <label v-if="hasCartErrors" for="Wrong" style="color: #fc0303 ;"> افزودن به سبد خرید ناموفق بود :(</label>
                         </template>
                       </div>
                     </div>
@@ -492,8 +493,10 @@ export default {
       search: searchRelatedProducts,
       loading: relatedLoading,
     } = useProduct('relatedProducts');
-    const { addItem, loading, cart, updateItemQty, removeItem } = useCart();
+    const { addItem, loading, cart, updateItemQty, removeItem, error: cartError } = useCart();
     const { slug } = route.value.params;
+    const hasCartErrors=ref(false);
+    
 
     const product = computed(() =>
       productGetters.getFiltered(products.value, {
@@ -544,11 +547,18 @@ export default {
         .map((e) => ({ ...e, link: context.localePath(e.link) }))
     );
     const addToCart = async () => {
+      hasCartErrors.value=false
       flag.value = true
       await addItem({ product: product.value, quantity: 1 })
+      const CartError = cartError.value.addItem;
+      if(CartError){
+        hasCartErrors.value=true
+      }
+      else{
+        hasCartErrors.value=false
+      }
       flag.value = false
-      isClicked.value = true
-      
+      isClicked.value = true     
     }
 
     const isInStock = computed(() => productGetters.getInStock(product.value));
@@ -567,8 +577,6 @@ export default {
       })
 
     }
-
-
     );
 
     const haveimage = computed(() => {
@@ -584,6 +592,7 @@ export default {
 
     //debugger
 
+ 
 
     onSSR(async () => {
       await search({ slug });
@@ -595,6 +604,7 @@ export default {
 
     const updateFilter = (filter) => {
       const keys = Object.keys(filter)
+      hasCartErrors.value=false
       const conf = {}
       if (keys.length) {
         const key = keys[0]
@@ -631,6 +641,7 @@ export default {
     return {
       updateFilter,
       haveimage,
+      hasCartErrors,
       slicedproperties,
       removeItem,
       flag,
