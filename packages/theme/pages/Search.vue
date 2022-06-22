@@ -102,41 +102,36 @@
         <!--        responsive-sidebar----------------------->
         <div class="col-lg-3 col-md-4 col-xs-12 float-right sticky-sidebar">
 
-            <div v-if="haveproduct" class="sidebar-wrapper search-sidebar">
-
-                <div class="box-sidebar">
-                    <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
-                        data-target="#collapseExampleSeller" aria-expanded="false"
-                        aria-controls="collapseExampleSeller">
-                        <i class="fa fa-chevron-down arrow"></i>فیلتر
-                    </button>
-                    <div class="collapse show" id="collapseExampleSeller">
-                        <div class="catalog" v-for="(facet, i) in facets" :key="i">
-                            <template v-if="facet.label != 'Price'">
-                                <ul>
-                                    <li>
-                                        <div style=" font-size:15px; font-family: iranyekan;">{{ facet.label }} : </div>
-                                        <label  class="filter-label" v-for="(option,j) in facet.options" :key="j">
-                                            <div class="form-auth-row">
-                                                <label for="rememberseller1" class="ui-checkbox">
-                                                    <input @input="() => selectFilter(facet, option)"
-                                                        :checked="isFilterSelected(facet, option)" type="checkbox"
-                                                        :value="option.id" name="login" :id="option.value">
-                                                    <span class="ui-checkbox-check"></span>
-                                                </label>
-                                                <label :for="option.value" class="remember-me">{{ option.value }}</label>
-                                            </div>
-                                        </label>
-
-                                    </li>
-                                </ul>
-                                <hr />
-                            </template>
-
+            <div v-if="haveproduct" class="sidebar-wrapper search-sidebar">           
+                <div  v-for="(facet, i) in facets" :key="i">
+                    <div class="box-sidebar" v-if="facet.label!='Price'">      
+                        <div class="collapse show" id="collapseExampleSeller"  >
+                            <div class="catalog" >
+                                <template>                        
+                                            <div style=" font-size:15px; font-family: iranyekan;">{{facet.label}}</div>
+                                            <label href="#" class="filter-label" v-for="(option,j) in facet.options" :key="j">
+                                                <div class="form-auth-row" >
+                                                    <label for="rememberseller1" class="ui-checkbox">
+                                                        <input
+                                                            @change="() => selectFilter(facet, option)"
+                                                            :checked="isFilterSelected(facet, option)"
+                                                            type="checkbox"
+                                                            :value="i+1"
+                                                            name="login"
+                                                            :id="option.value"
+                                                        >
+                                                        <span  href="/" class="ui-checkbox-check"></span>
+                                                    </label>
+                                                    <label :for="option.value" class="remember-me">{{option.value}}</label>
+                                                </div>                                  
+                                            </label>   
+                                </template>
+                            </div>
+                                                
                         </div>
-                        
                     </div>
                 </div>
+                
 
                 <!-- <div class="box-sidebar">
                 <button class="btn btn-light btn-box-sidebar" type="button">دسته‌بندی </button>
