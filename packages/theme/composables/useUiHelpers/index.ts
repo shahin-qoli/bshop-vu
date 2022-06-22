@@ -61,7 +61,7 @@ const useUiHelpers = () => {
       priceFilter: Array.isArray(query.price) ? query.price[0] : query.price,
       term: query.term || '',
       page: parseInt(query.page, 10) || 1,
-      itemsPerPage: parseInt(query.itemsPerPage, 10) || 10,
+      itemsPerPage: parseInt(query.itemsPerPage, 12) || 12,
       sort: query.sort || 'updated_at'
     };
   };
