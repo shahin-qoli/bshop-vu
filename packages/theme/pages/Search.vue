@@ -510,6 +510,7 @@ import cacheControl from './../helpers/cacheControl';
 import CategoryPageHeader from '~/components/CategoryPageHeader';
 import FiltersSidebar from '~/components/FiltersSidebar.vue';
 import FiltersNew from '~/components/FiltersNew.vue';
+import useLoader from '~/composables/useLoader'
 import Vue from 'vue';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
@@ -525,6 +526,7 @@ export default {
         const { toggleFilterSidebar, isCategoryGridView, changeToCategoryGridView, changeToCategoryListView, uiState } = useUiState();
         const context = useContext();
         const router = useRouter();
+        const { isLoaderOpen } = useLoader()
         const route = useRoute()
         const { addItem: addItemToCart, isInCart } = useCart();
         const { result, search, loading, error } = useFacet();
@@ -537,7 +539,7 @@ export default {
 
         const { locale } = context.app.i18n;
         const lengthProduct = products.length
-        const sortBy = computed(() => facetGetters.getSortOptions(result.value));
+        const sortBy = ref(facetGetters.getSortOptions(result.value))
 
         const getRoute = (category) => {
             // if (menu.value.isDisabled) {
@@ -545,11 +547,19 @@ export default {
             // }
             //return "";
         };
+        const loadProducts = async () => {
+        isLoaderOpen.value = true
+        await search(th.getFacetsFromURL());    
+        setTimeout(() => {
+            sortBy.value = facetGetters.getSortOptions(result.value)
+        }, 100)
+        isLoaderOpen.value = false
+    }
         const changesort = async (sort) => {
             th.changeSorting(sort)
             // await search(th.getFacetsFromURL());
             if (error?.value?.search) context.app.nuxt.error({ statusCode: 404 });
-            setTimeout(() => { location.reload() });
+            setTimeout(loadProducts)
         };
         watch(() => route.query, async () => {
             await search(th.getFacetsFromURL());
