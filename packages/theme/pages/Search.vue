@@ -634,7 +634,7 @@ export default {
             Vue.set(selectedFilters.value, 'price', []);
 
             changeFilters(selectedFilters.value);
-            await search(th.getFacetsFromURL());
+            setTimeout(loadProducts)
 
         };
 
