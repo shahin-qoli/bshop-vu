@@ -140,7 +140,7 @@
             <a href="/cart" class="btn-link-spoiler">
               « بازگشت به سبد خرید
             </a>
-            <a @click.prevent="handleFormSubmit" href="javascript(void)" class="save-shipping-data">
+            <a @click.prevent="handleFormSubmit" href="javascript:void(0)" class="save-shipping-data">
               تایید و ادامه ثبت سفارش »
             </a>
           </div>
