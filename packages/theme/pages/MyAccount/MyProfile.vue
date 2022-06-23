@@ -18,28 +18,15 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
                         <div class="profile-stats-col">
-                            <p><span>شماره تلفن همراه :</span>*******0991</p>
+                            <p><span>شماره تلفن همراه :</span>{{mainAddress.phone || '-'}}</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
                         <div class="profile-stats-col">
-                            <p><span>کد ملی :</span>-</p>
+                            <p><span>کد پستی :</span>{{mainAddress.postalCode || '-'}}</p>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
-                        <div class="profile-stats-col">
-                            <p><span>دریافت خبرنامه :</span>بله</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
-                        <div class="profile-stats-col">
-                            <p><span>شماره کارت :</span>-</p>
-                        </div>
-                    </div>
-                    <div class="profile-stats-action">
-                        <a href="profile-additional-info.html" class="link-spoiler-edit"><i
-                                class="fa fa-pencil"></i>ویرایش اطلاعات شخصی</a>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -144,7 +131,7 @@ export default {
 
     const { shipping, load: loadUserShipping } = useUserShipping();
     const addresses = computed(() => userShippingGetters.getAddresses(shipping.value));
-    const mainAddress = computed(() => addresses.value ? addresses.value[0] : null);
+    const mainAddress = computed(() => addresses.value ? addresses.value[0] : {});
 
     const formHandler = async (fn, onComplete, onError) => {
       try {

@@ -4,7 +4,7 @@
       <div class="header-profile-dropdown-user">
         <div class="header-profile-dropdown-user-img">
           <img
-            src="assets/images/svg/user-profile.svg"
+            src="/images/svg/user-profile.svg"
             alt="profile"
           />
         </div>
@@ -12,7 +12,7 @@
           <p class="header-profile-dropdown-user-name">
             {{userGetters.getEmailAddress(user)}}
             <span
-              class="header-profile-dropdown-user-profile-link"
+               @click="displayProfile()" class="header-profile-dropdown-user-profile-link"
               >مشاهده حساب کاربری</span
             >
           </p>
@@ -37,25 +37,7 @@
               ریال
             </div>
           </div>
-          <div class="header-profile-dropdown-account-item">
-            <span
-              class="header-profile-dropdown-account-item-title"
-              > باشگاه مشتریان    </span
-            >
-            <div
-              class="
-                header-profile-dropdown-account-item-amount
-              "
-            >
-              <span
-                class="
-                  header-profile-dropdown-account-item-amount-number
-                "
-                >۰
-              </span>
-              امتیاز
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -65,11 +47,11 @@
           >سفارش‌های من</span
         >
       </div>
-      <div class="header-profile-dropdown-action-container">
+      <!-- <div class="header-profile-dropdown-action-container">
         <span class="header-profile-dropdown-action-link"
           >جوایز بروکس</span
         >
-      </div>
+      </div> -->
       <div @click="handleLogout('Log Out')" class="header-profile-dropdown-action-container">
         <span class="header-profile-dropdown-action-link"
           >خروج از حساب کاربری</span
@@ -123,12 +105,18 @@ export default {
       router.push(localeTransformedPath);
      
     };
+    const displayProfile = () => {
+      const TransformedPath = context.root.localePath('/my-account/profile');
+      router.push(TransformedPath);
+     
+    };
     return {
       userGetters,
       user,
       isAuthenticated,
       handleLogout,
-      displayOrderHistory
+      displayOrderHistory,
+      displayProfile
     };
     
     

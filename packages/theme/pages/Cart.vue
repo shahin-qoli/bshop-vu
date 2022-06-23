@@ -22,7 +22,7 @@
                             کالا)</span> -->
                         <span class="checkout-header-delivery-cost">{{$n(totalItems)}} کالا</span>
                     </div>
-                    <div v-for="(product, i) in products"
+                    <div v-for="(product) in products"
                                 :key="cartGetters.getItemSku(product)"
                                 :name="product.name"
                                 :qty="cartGetters.getItemQty(product)"
