@@ -7,44 +7,43 @@
         >
       </a>
     </div>
+    <section
+      class="section-slider amazing-section mb-3 mt-4"
+      style="background: rgb(0, 148, 212);height: 95px;"
+      >
+      <!-- <li class="Right" 
+        style="position: absolute ;height: 34.14px;color: white;font-size:50px; padding: 30px 0; "
+        dir="rtl"
+        >
+        بروکس
+      </li> -->
+      <img src="../static/images/home/BuruxFaText.svg" 
+      style="position: absolute ; padding: 28px 0;right: 91px; "/>
+      <li 
+        style="position: absolute ; padding: 27px 0;right: 203px;display: -webkit-box;color: white;">
+        فروشگاه 
+      </li>
+      <li 
+        style="position: absolute ; padding: 48px 0;right: 200px;display: -webkit-box;color: white;">
+       آنلاین
+      </li>
+      <i class="fa fa-phone" style="position: absolute ; padding: 37px 0;right: 340px;display: -webkit-box;color: white;" ></i>
+      <li 
+        style="position: absolute ; padding: 35px 0;right: 365px;display: -webkit-box;color: white;">
+       021-75116
+      </li>      
+    </section>
 
     <div class="container">
-      <div class="footer-inner-box">
-        <a href="#" class="footer-badge">
-          <img src="/footer-svg/delivery.svg" alt="badge" />
-          <span class="item-feature">تحویل اکسپرس</span>
-        </a>
 
-        <a href="#" class="footer-badge">
-          <img src="/footer-svg/contact-us.svg" alt="badge" />
-          <span class="item-feature">پشتیبانی 24 ساعته</span>
-        </a>
-
-        <a href="#" class="footer-badge">
-          <img src="/footer-svg/payment-terms.svg" alt="badge" />
-          <span class="item-feature">پرداخت در منزل</span>
-        </a>
-
-        <a href="#" class="footer-badge">
-          <img src="/footer-svg/return-policy.svg" alt="badge" />
-          <span class="item-feature">7 روز ضمانت برگشت</span>
-        </a>
-
-        <a href="#" class="footer-badge">
-          <img
-            src="/footer-svg/origin-guarantee.svg"
-            alt="badge"
-          />
-          <span class="item-feature">ضمانت اصل بودن کالا</span>
-        </a>
-      </div>
     </div>
+    <div class="row">
     <div class="col-12">
-      <div class="middle-bar-footer">
+      <div class="middle-bar-footer" style="background: #FFFFFF;">
         <div class="col-lg-6 col-xs-12 pull-right">
           <div class="footer-links">
             <div class="links-col">
-              <a href="#" class="head-line">راهنمای خرید از بروکس</a>
+              <a href="#" class="head-line">دسته بندی ها</a>
               <ul class="links-ul">
                 <li><a href="#">نحوه ثبت سفارش</a></li>
                 <li><a href="#">رویه ارسال سفارش</a></li>
@@ -52,50 +51,16 @@
               </ul>
             </div>
 
-            <div class="links-col">
-              <a href="#" class="head-line">خدمات مشتریان</a>
-              <ul class="links-ul">
-                <li><a href="#">پرسش یه پاسخ های متداول</a></li>
-                <li><a href="#">رویه های بازگرداندن کالا</a></li>
-                <li><a href="#">شرایط استفاده</a></li>
-                <li><a href="#">حریم خصوصی</a></li>
-                <li><a href="#">گزارش باگ</a></li>
-              </ul>
-            </div>
-
-            <div class="links-col">
-              <a href="#" class="head-line">با بروکس</a>
-              <ul class="links-ul">
-                <li><a href="#">اتاق خبر بروکس</a></li>
-                <li><a href="#">فروش در بروکس</a></li>
-                <li><a href="#">فرصت های شغلی</a></li>
-                <li><a href="#">تماس با بروکس</a></li>
-                <li><a href="#">درباره ما بروکس</a></li>
-              </ul>
-            </div>
           </div>
         </div>
 
+
         <div class="col-lg-4 col-xs-12 pull-left">
-          <div class="footer-form">
-            <span class="newslitter-form"
-              >از تخفیف‌ها و جدیدترین‌های بروکس باخبر شوید:
-            </span>
 
-            <form action="#">
-              <input
-                type="text"
-                class="input-footer"
-                placeholder="آدرس ایمیل خود را وارد کنید"
-              />
-
-              <button class="btn-footer-post">ارسال</button>
-            </form>
-          </div>
 
           <div class="footer-social">
             <span class="newslitter-form-social"
-              >بروکس را در شبکه‌های اجتماعی دنبال کنید:</span
+              >ما را در شبکه‌های اجتماعی دنبال کنید:</span
             >
 
             <div class="social-links">
@@ -108,98 +73,28 @@
         </div>
       </div>
     </div>
+    </div>
 
-    <div class="col-12">
-      <div class="footer-address">
-        <div class="footer-contact">
-          <ul>
-            <li>هفت روز هفته ، ۲۴ ساعت شبانه‌روز پاسخگوی شما هستیم</li>
-            <li style="float: right">
-              شماره تماس :
-              <a href="#" class="phone-contact"
-                >75116 - 021 ، ۹۵۱۱۹۰۹۵ - ۰۲۱</a
-              >
-            </li>
-            <li class="email-title">
-              آدرس ایمیل : <a href="#">info@Burux.com</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="address-images">
-          <a href="#">
-            <img src="assets/images/footer-img/1090a120.png" alt="address" />
-            <img src="assets/images/footer-img/71abe5c9.png" alt="address" />
-          </a>
-        </div>
+    <div class="row p-3" style="background:#FFFFFF; font-family: iranyekan; ">
+    <div class="col-9 col-xl-9 col-lg-9 col-md-9">
+      <P style="font-weight: 900;align-items: center;font-size:25px;font-style: normal;font-weight: 500;font-size: 18px;">
+       درباره فروشگاه بروکس</P>
+      <p>
+        بروکس به عنوان یکی از معتبرترین فروشگاه های اینترنتی با بیش
+        از یک دهه تجربه، با پایبندی به سه اصل، پرداخت در محل، 7 روز ضمانت
+        بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با فروشگاه‌های
+        معتبر جهان، به بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض
+        ورود به سایت بروکس با دنیایی از کالا رو به رو می‌شوید! هر
+        آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید
+        کرد.
+      </p>
+    </div>
+      <div class="col-3 text-left" style="background:#FFFFFF">
+        <img src="../static/images/home/ENamad.svg" />
       </div>
     </div>
 
-    <div class="more-info">
-      <div class="col-12">
-        <div class="about-site">
-          <h1>فروشگاه اینترنتی بروکس بررسی، انتخاب و خرید آنلاین</h1>
-          <p>
-            بروکس به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش
-            از یک دهه تجربه، با پایبندی به سه اصل، پرداخت در محل، 7 روز ضمانت
-            بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با فروشگاه‌های
-            معتبر جهان، به بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض
-            ورود به سایت بروکس با دنیایی از کالا رو به رو می‌شوید! هر
-            آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید
-            کرد.
-          </p>
 
-          <div class="footer-inner-box">
-            <a href="#" class="footer-badge">
-              <img
-                src="assets/images/footer-svg/footer-1.svg"
-                style="width: 130px !important"
-                alt="badge"
-              />
-            </a>
-
-            <a href="#" class="footer-badge">
-              <img
-                src="assets/images/footer-svg/footer-2.svg"
-                style="width: 130px !important"
-                alt="badge"
-              />
-            </a>
-
-            <a href="#" class="footer-badge">
-              <img
-                src="assets/images/footer-svg/footer-3.svg"
-                style="width: 130px !important"
-                alt="badge"
-              />
-            </a>
-
-            <a href="#" class="footer-badge">
-              <img
-                src="assets/images/footer-svg/footer-4.svg"
-                style="width: 130px !important"
-                alt="badge"
-              />
-            </a>
-            <a href="#" class="footer-badge">
-              <img
-                src="assets/images/footer-svg/footer-5.svg"
-                style="width: 130px !important"
-                alt="badge"
-              />
-            </a>
-          </div>
-        </div>
-
-        <div class="copy-right-footer">
-          <p>
-            استفاده از مطالب فروشگاه اینترنتی بروکس فقط برای مقاصد
-            غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به
-            شرکت نوآوران فن آوازه (فروشگاه آنلاین بروکس) می‌باشد.
-          </p>
-        </div>
-      </div>
-    </div>
   <SfFooter v-if="false && !menu.isDisabled" :column="parseInt(menuSize)" multiple class="footer">
     <SfFooterColumn
       v-for="(column, i) in menu && menu.items"

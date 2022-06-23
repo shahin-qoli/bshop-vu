@@ -1,8 +1,8 @@
 <template>
   <ul class="list-menu-level-2">
     <li
-      v-for="(cat_lev1,i) in categoryTree.items"
-      :key="i"
+      v-for="(cat_lev1) in categoryTree.items"
+      :key="cat_lev1.id"
       class="item-menu-2"
     >
       <a :href="'/c/'+cat_lev1.slug" class="list-category-menu-2"
@@ -15,17 +15,17 @@
           >
         </li>
         <template 
-        v-for="(cat_lev2, j) in cat_lev1.items">
+        v-for="(cat_lev2) in cat_lev1.items">
           <li
-            :key="j"
+            :key="cat_lev2.id"
             class="item-megamenu-title">
             <a :href="'/c/'+cat_lev1.slug" class="list-category-megamenu-3"
               ><span>{{cat_lev2.name}}<i class="fa fa-angle-left"></i></span
             ></a>
           </li>
           <li
-            v-for="(cat_lev3, k) in cat_lev2.items"
-            :key="k"
+            v-for="(cat_lev3) in cat_lev2.items"
+            :key="cat_lev3.id"
             class="item-megamenu-item">
             <a :href="'/c/'+cat_lev1.slug" class="list-category-megamenu-3"
               ><span>{{cat_lev3.name}}</span>
@@ -38,21 +38,19 @@
 </template>
 <script>
 
-import {categoryTree} from '../AppHeader.vue';
+
 
 export default {
   props: {
     categoryTree: {
       required: true
     }
-  },  
+  },
   transition: 'fade',
 
   setup(props) {
-    const categoryTree  = props.categoryTree
+
   },
-  components: {
-    categoryTree
-  }
+
 };
 </script>

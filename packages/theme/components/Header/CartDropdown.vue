@@ -1,7 +1,7 @@
 <template>
   <div class="mini-cart-dropdown">
     <div class="header-cart-info-header">
-      <div class="header-cart-info-count">{{totalItems}} کالا</div>
+      <div class="header-cart-info-count">{{$n(totalItems)}} کالا</div>
       <a href="/cart" class="header-cart-info-link">
         <span>مشاهده سبد خرید</span>
       </a>
@@ -17,20 +17,21 @@
                                 :displayTotal="product.displayTotal"
                                 :image="cartGetters.getItemImage(product)"
                                 :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')" 
-            class="js-mini-cart-item">
-              <a href="#" class="header-basket-list-item">
-                <div class="header-basket-list-item-image">
+            class="js-mini-cart-item" :href="localePath(`/p/${cartGetters.getItemVariantId(product)}/${cartGetters.getItemSlug(product)}`)">
+              <a  class="header-basket-list-item" >
+                <div class="header-basket-list-item-image"  >
                   <img
                     :src="cartGetters.getItemImage(product)"
+                    
                     alt="img-slider"
                   />
                 </div>
-                <div class="header-basket-list-item-content">
+                <div class="header-basket-list-item-content" >
                   <h1 class="header-basket-list-item-title">
                     {{productGetters.getName(product)}}
                   </h1>
                   <span
-                    class="header-basket-list-item-shipping-type"
+                    class="header-basket-list-item-shipping-type" 
                     >موجود در انبار </span
                   >
                   <div class="header-basket-list-item-footer">
@@ -54,7 +55,7 @@
                       </span> -->
                       <span
                         class="header-basket-list-item-remove"
-                      >
+                       @click="removeItem({ product: { id: product.id } })">
                         <i class="mdi mdi-delete"></i>
                       </span>
                     </div>
@@ -69,7 +70,7 @@
     </div>
     <div class="header-cart-info-footer">
       <div class="header-cart-info-total">
-        <span class="header-cart-info-total-text"
+        <span class="header-cart-info-total-text" 
           >مبلغ قابل پرداخت</span
         >
         <p class="header-cart-info-total-amount">

@@ -43,19 +43,20 @@
         />
     </a>
     </div>
+
     <div class="product-feature-body">
     <div class="product-feature">
         <div class="row">
         <div class="product-feature-col">
             <a href="#" class="product-feature-item">
             <img
-                src="/footer-svg/delivery.svg"
+                src="images/home/SavePayment.svg"
                 alt="delivery"
             />
             <span
-                >امکان تحویل
+                >خرید و پرداخت
                 <br />
-                اکسپرس
+                مطمئن
             </span>
             </a>
         </div>
@@ -63,14 +64,14 @@
         <div class="product-feature-col">
             <a href="#" class="product-feature-item">
             <img
-                src="/footer-svg/contact-us.svg"
+                src="images/home/ProductWarrantee.svg"
                 alt="contact-us"
                 style="width: 35px"
             />
             <span
-                >۷ روز هفته
+                >ضمانت تعویض
                 <br />
-                ۲۴ ساعته
+                محصولات
             </span>
             </a>
         </div>
@@ -78,14 +79,14 @@
         <div class="product-feature-col">
             <a href="#" class="product-feature-item">
             <img
-                src="/footer-svg/payment-terms.svg"
+                src="images/home/FastSending.svg"
                 alt="payment-terms"
                 style="width: 35px"
             />
             <span
-                >امکان
+                >ارسال سریع
                 <br />
-                پرداخت در محل
+                و رایگان
             </span>
             </a>
         </div>
@@ -93,14 +94,14 @@
         <div class="product-feature-col">
             <a href="#" class="product-feature-item">
             <img
-                src="/footer-svg/origin-guarantee.svg"
+                src="images/home/SupportAvailable.svg"
                 alt="origin-guarantee"
                 style="width: 35px"
             />
             <span
-                >ضمانت
+                >پشتیبانی 
                 <br />
-                اصل بودن کالا
+                در دسترس
             </span>
             </a>
         </div>

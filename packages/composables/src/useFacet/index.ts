@@ -13,7 +13,7 @@ const factoryParams = {
       term: searchParams.term,
       optionTypeFilters: searchParams.selectedOptionTypeFilters,
       productPropertyFilters: searchParams.selectedProductPropertyFilters,
-      priceFilter: searchParams.priceFilter,
+      // priceFilter: searchParams.priceFilter,
       page: searchParams.page,
       itemsPerPage: searchParams.itemsPerPage,
       sort: searchParams.sort

@@ -14,8 +14,8 @@
                     <div class="profile-address-info-item location">
                         <i class="mdi mdi-map-outline"></i>
                         {{ address.countryName }}
-                        <p v-if="address.company">{{ address.company }}</p>
-                        <p>{{ address.addressLine1 }}</p>
+                        <p  v-if="address.company">{{ address.company }}</p>
+                        <p style="font: iranyekan;">{{ address.addressLine1 }}</p>
                         <p v-if="address.addressLine2">{{ address.addressLine2 }}</p>
                     </div>
                 </li>

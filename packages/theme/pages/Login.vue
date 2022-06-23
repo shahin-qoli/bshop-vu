@@ -9,7 +9,7 @@
         <label for="email-phone"
           >شماره موبایل یا پست الکترونیک خود را وارد کنید</label
         >
-        <input
+        <input style="border-radius: 15px; background-color: #EFF0F6;"
           v-model="form.username"
           type="text"
           id="email-phone"
@@ -20,20 +20,25 @@
           >رمز خود را فراموش کرده ام</a
         >
         <label for="password">رمز عبور</label>
-        <input
+        <input style="border-radius: 15px; background-color: #EFF0F6;"          
           v-model="form.password"
           type="password"
           id="password"
           class="input-password"
           placeholder=""
         />
-        <div class="parent-btn">
-          <button class="dk-btn dk-btn-info">
-            ورود به بروکس
+         <label v-if="iswrong" for="Wrong" style="color: #fc0303 ;">نام کاربری یا رمز عبور اشتباه است!</label>
+        <div class="parent-btn">        
+          <button  class="dk-btn dk-btn-info" :disabled="flag">
+            <span v-if="!flag" class="btn-add-to-cart-txt">
+              ورود  
+            </span>
+            <div v-else-if="flag" class="spinner-border spinner-border-sm" role="status"></div>
             <i class="fa fa-sign-in sign-in"></i>
           </button>
         </div>
         <div class="form-auth-row">
+          
           <label for="remember" class="ui-checkbox">
             <input
               type="checkbox"
@@ -104,6 +109,8 @@ export default {
     const { register, login, loading, error: userError } = useUser();
     const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
     const currentScreen = ref(SCREEN_REGISTER);
+    const flag = ref(false)
+    const iswrong = ref(false)
 
     const error = reactive({
       login: null,
@@ -147,6 +154,8 @@ export default {
       if (hasUserErrors) {
         error.login = userError.value.login?.message;
         error.register = userError.value.register?.message;
+        iswrong.value=true
+        flag.value=false;
         return;
       }
       router.replace('/')
@@ -159,9 +168,18 @@ export default {
       toggleLoginModal();
     };
 
-    const handleRegister = async () => handleForm(register)();
+    const handleRegister = async () => {
+      iswrong.value=false
+      flag.value=true;
+      handleForm(register)();
+      flag.value=false;
+    }
 
-    const handleLogin = async () => handleForm(login)();
+    const handleLogin = async () => {
+      flag.value=true
+      handleForm(login)();
+      
+    }
 
     const handleForgotten = async () => {
       userEmail.value = form.value.username;
@@ -174,7 +192,9 @@ export default {
 
     return {
       form,
+      flag,
       error,
+      iswrong,
       userError,
       loading,
       createAccount,

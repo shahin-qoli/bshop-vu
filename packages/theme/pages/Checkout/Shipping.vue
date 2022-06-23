@@ -101,7 +101,7 @@
                           class="checkout-additional-options-action-container"
                         >
                           <div class="action-title">
-                            زمان تقریبی تحویل از ۸ تیر تا ۱۲ تیر
+                            زمان تقریبی تحویل 48 تا 72 ساعت بعد از تکمیل فرایند خرید
                           </div>
                           <ul class="action-description">
                             <li>پست پیشتاز با ظرفیت اختصاصی برای بروکس</li>
@@ -198,7 +198,6 @@
                   <span>مبلغ قابل پرداخت</span>
                   <span>{{$n(cartGetters.getTotals(cart).total+300000) }} ریال</span>
                 </li>
-                
               </ul>
             </div>
             <div class="checkout-summary-content">
@@ -209,32 +208,6 @@
             </div>
           </div>
         </div>
-
-        <footer class="footer-light">
-          <div class="container">
-            <div class="footer-checkout-col">
-              <div class="footer-checkout-col-phone">
-                <span class="mdi mdi-phone"></span>شماره تماس :
-                <a href="#">۶۱۹۳۰۰۰۰ - ۰۲۱</a>
-              </div>
-            </div>
-
-            <div class="footer-checkout-col">
-              <div class="footer-checkout-col-phone">
-                <span class="mdi mdi-email-outline"></span>شماره تماس :
-                <a href="#">info@digistore.com</a>
-              </div>
-            </div>
-
-            <p class="title-footer">
-              استفاده از کارت هدیه یا کد تخفیف، درصفحه ی پرداخت امکان پذیر است.
-            </p>
-
-            <p class="copy-right-footer-light">
-              Copyright © 2006 - 2019 DigiStore.com
-            </p>
-          </div>
-        </footer>
       </div>
     </div>
   </div>
@@ -354,6 +327,9 @@ export default {
       } */
     })
     onSSR(() => {
+      if (isAuthenticated.value === false) {
+        router.replace('/login?returnUrl=/checkout/shipping')
+      }
       dataLoading.value = true
     })
     const selectShippingRate = (shipmentId, shippingRateId) => {
@@ -414,7 +390,7 @@ export default {
     onBeforeMount(async () => {
       dataLoading.value = true
       if (isAuthenticated.value === false) {
-        router.push('/login?returnUrl=/checkout/shipping')
+        router.replace('/login?returnUrl=/checkout/shipping')
       }
       await load();
       await loadSavedAddresses();

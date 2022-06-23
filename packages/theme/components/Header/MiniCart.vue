@@ -2,7 +2,7 @@
   <div class="mini-cart-header">
     <a href="/cart" style="color: #4a5f73">
       <span class="mdi mdi-basket"></span>
-      <span class="cart-count">{{$n(totalItems)}}</span>
+      <span v-if="totalItems!==0" class="cart-count">{{$n(totalItems)}}</span>
     </a>
     <Cart-Dropdown />
   </div>

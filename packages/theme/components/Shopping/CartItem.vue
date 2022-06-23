@@ -10,6 +10,11 @@
       <div class="product-box-title">
         {{ cartGetters.getItemName(item) }}
       </div>
+      <div class="product-box-title">
+        <span>تعداد:</span>
+        {{ cartGetters.getItemQty(item) }}
+        <span> عدد </span>
+      </div>      
     </div>
   </div>
 </template>
@@ -20,6 +25,8 @@ export default {
     item: {}
   },
   setup () {
+    const cartGetters1 = cartGetters
+
     return {
       cartGetters
     }

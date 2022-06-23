@@ -1,5 +1,5 @@
 <template>
-  <div id="filters">
+  <!-- <div id="filters">
     <SfSidebar
       :visible="isFilterSidebarOpen"
       title="Filters"
@@ -11,7 +11,7 @@
           <SfHeading
             :level="4"
             :title="facet.label"
-            class="filters__title sf-heading--right"
+            class="filters__title sf-heading--left"
             :key="`filter-title-${facet.id}`"
           />
           <div
@@ -52,36 +52,7 @@
           </div>
         </div>
       </div>
-      <SfAccordion v-if="facets.length > 0" class="filters smartphone-only">
-        <div v-for="(facet, i) in facets" :key="i">
-          <SfAccordionItem
-            :key="`filter-title-${facet.id}`"
-            :header="facet.label"
-            class="filters__accordion-item"
-          >
-            <div
-              v-if="isFacetPrice(facet)"
-            >
-              <SfRange
-                :disabled="false"
-                :config="priceRangeConfig"
-                class="filters__smartphone-slider"
-                @change="(value) => onPriceChanged(facet,value)"
-              />
-            </div>
-            <div v-else>
-              <SfFilter
-                v-for="option in facet.options"
-                :key="`${facet.id}-${option.value}`"
-                :label="option.value + `${option.count ? ` (${option.count})` : ''}`"
-                :selected="isFilterSelected(facet, option)"
-                class="filters__item"
-                @change="() => selectFilter(facet, option)"
-              />
-            </div>
-          </SfAccordionItem>
-        </div>
-      </SfAccordion>
+      
       <template #content-bottom>
         <div class="filters__buttons">
           <SfButton
@@ -101,7 +72,41 @@
         </div>
       </template>
     </SfSidebar>
-  </div>
+  </div> -->
+
+  <!-- <div class="box-sidebar" v-for="(facet, i) in facets" :key="i">
+                <button  @click="toggleFilterSidebar" class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
+                    data-target="#collapseExamplebrand" aria-expanded="false" aria-controls="collapseExamplebrand">
+                    <i class="fa fa-chevron-down arrow" ></i>{{facet.id}}
+                </button>
+                <div class="collapse" id="collapseExamplebrand">
+                    <div class="catalog">
+                        
+                        
+                        <form action="#">
+                            
+                            <input type="text" class="input-sidebar"
+                                placeholder="نام محصول یا برند مورد نظر را بنویسید…">
+                            <button class="btn-search-sidebar"><img
+                                        src="assets/images/search.png" alt="search"></button>
+                        </form>
+                        <ul v-for="option in facet.options">
+                            <li>
+                                <a href="/c/lights" class="filter-label">
+                                    <div class="form-auth-row">
+                                        <label for="remembersumsung" class="ui-checkbox">
+                                            <input type="checkbox" value="1" name="login" id="remembersumsung">
+                                            <span class="ui-checkbox-check"></span>
+                                        </label>
+                                        <label for="rememberBurux" class="remember-me">{{option.value}}</label>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
 </template>
 
 <script>
@@ -213,7 +218,7 @@ export default {
       }
       toggleFilterSidebar();
       changeFilters(selectedFilters.value);
- 
+    
     };
 
     onMounted(() => {

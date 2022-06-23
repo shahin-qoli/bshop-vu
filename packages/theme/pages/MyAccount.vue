@@ -181,7 +181,7 @@ export default {
     const handleLogout = async (title) => {
       if (title === 'Log Out') {
         await logout();
-        console.log(isAuthenticated)
+       
         router.push(context.root.localePath({ name: 'home' }));
         return;
       }
@@ -196,7 +196,7 @@ export default {
     const displayOrderHistory = () => {
       const localeTransformedPath = context.root.localePath('/my-account/order-history');
       router.push(localeTransformedPath);
-      console.log("path is:",localeTransformedPath);
+     
     };
     return {
       userGetters,
