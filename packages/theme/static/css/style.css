@@ -6206,12 +6206,22 @@ a.add-address:hover {
 .profile-stats .profile-stats-row .profile-stats-col p {
     font: 18px iranyekan;
     color: #505050;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: block; 
 }
 
 .profile-stats .profile-stats-row .profile-stats-col p span {
     display: block;
     font: 16px iranyekan;
     color: #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: block;   
 }
 
 .profile-stats-action {

@@ -8,12 +8,12 @@
                 <div class="profile-stats-row" v-if="isAuthenticated && user">
                     <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
                         <div class="profile-stats-col">
-                            <p><span> نام و نام خانوادگی :</span>{{ mainAddress ? `${userShippingGetters.getFirstName(mainAddress)} ${userShippingGetters.getLastName(mainAddress)}` : 'Shipping' }}</p>
+                            <p><span> نام و نام خانوادگی :</span>{{ mainAddress ? `${userShippingGetters.getFirstName(mainAddress) || '-'} ${userShippingGetters.getLastName(mainAddress) || '-'}` : 'Shipping' }}</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
                         <div class="profile-stats-col">
-                            <p><span>پست الکترونیک :</span>{{ userGetters.getEmailAddress(user) }}</p>
+                            <p ><span>پست الکترونیک :</span>{{ userGetters.getEmailAddress(user) }}</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
@@ -131,7 +131,7 @@ export default {
 
     const { shipping, load: loadUserShipping } = useUserShipping();
     const addresses = computed(() => userShippingGetters.getAddresses(shipping.value));
-    const mainAddress = computed(() => addresses.value ? addresses.value[0] : {});
+    const mainAddress = computed(() => addresses.value ? (addresses.value[0] || {}) : {});
 
     const formHandler = async (fn, onComplete, onError) => {
       try {
