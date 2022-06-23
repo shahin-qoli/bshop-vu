@@ -84,6 +84,11 @@ extend('required', {
 });
 
 export default {
+  head(prop){      
+    return{
+      title : 'ثبت نام در بروکس'
+    }
+  },
   name: 'LoginModal',
   components: {
     SfModal,

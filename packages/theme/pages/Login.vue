@@ -64,7 +64,7 @@
   </div>
 </template>
 <script>
-import { ref, watch, reactive, computed,useRouter } from '@nuxtjs/composition-api';
+import { ref, watch, reactive, computed,useRouter, useRoute } from '@nuxtjs/composition-api';
 import { SfModal, SfInput, SfButton, SfCheckbox, SfLoader, SfAlert, SfBar } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
@@ -82,6 +82,11 @@ extend('required', {
 });
 
 export default {
+  head(prop){      
+    return{
+      title : 'ورود به حساب کاربری'
+    }
+  },
   name: 'LoginModal',
   components: {
     SfModal,
@@ -101,6 +106,7 @@ export default {
     const SCREEN_THANK_YOU = 'thankYouAfterForgotten';
     const SCREEN_FORGOTTEN = 'forgottenPassword';
     const router = useRouter();
+    const route = useRoute()
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const form = ref({});
     const userEmail = ref('');
@@ -158,7 +164,8 @@ export default {
         flag.value=false;
         return;
       }
-      router.replace('/')
+      const returnUrl = route.value.query.returnUrl || '/'
+      location.href = returnUrl
       
     };
 

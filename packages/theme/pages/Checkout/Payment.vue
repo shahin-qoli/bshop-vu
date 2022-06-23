@@ -411,6 +411,11 @@ import axios from 'axios';
 import CartItem from '~/components/Shopping/CartItem.vue'
 
 export default {
+  head(prop){      
+    return{
+      title : 'صفحه پرداخت'
+    }
+  },
   name: 'Payment',
   components: {
     SfHeading,

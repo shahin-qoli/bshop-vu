@@ -244,6 +244,11 @@ extend('digits', {
 });
 
 export default {
+  head(prop){      
+    return{
+      title : 'اطلاعات ارسال'
+    }
+  },
   name: 'Shipping',
   layout: 'shopping',
   components: {

@@ -1,9 +1,10 @@
 <template>
-  <ul class="nav-categories ul-base">
+  <ul class="nav-categories ul-base" >
     <cat-item
       v-for="cat in categoryTree.items"
       :key="cat.id"
       :cat="cat"
+      Style="border-bottom: 1px solid #a1cfe3"
     >
     </cat-item>
   </ul>

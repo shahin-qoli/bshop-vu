@@ -12,7 +12,7 @@
     },
     "SPREE_VERSION": {
       "description": "Spree version of the backend. Either \"spree42\" or \"spree43\".",
-      "value": "spree42"
+      "value": "spree44"
     }
   },
   "buildpacks": [
