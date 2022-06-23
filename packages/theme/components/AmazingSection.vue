@@ -3,22 +3,20 @@
   class="section-slider amazing-section mb-3 mt-4"
   style="background: rgb(0, 148, 212)"
 >
-  <div class="container-amazing" style="position: relative;">
+  <div class="container-amazing">
   <div class="container-main">
-    
-        <div class="amazing-product">
-          <a href="#" style="width: 200px;
-    height: 200px;
-    position: absolute;
-    bottom: -61px;
-    right: -24px;">
-            <img src="images/home/DiscountBlue.png" alt="amazing"  style="height:200px;width:200px"/>
+    <div>
+      <div class="col-lg-3 display-md-none pull-right">
+        <div class="amazing-product text-center mt-5">
+          <a href="#">
+            <img src="images/home/amazing.png" alt="amazing" />
           </a>
           <a :href="`/c/${taxon.attributes.permalink}`" class="view-all-amazing-btn">
             {{ taxon.attributes.name }}
             <i class="uil uil-angle-left"></i>
           </a>
         </div>
+      </div>
       <div class="col-lg-9 col-md-12 pull-left">
         <div class="section-slider-content">
           <div class="section-slider-product slider-amazing mt-3">
@@ -32,7 +30,6 @@
                   product-carousel
                   owl-carousel owl-theme owl-rtl owl-loaded owl-drag
                 "
-                
               >
                 <div class="owl-stage-outer">
                   <div
@@ -40,16 +37,14 @@
                     style="
                       transform: translate3d(0px, 0px, 0px);
                       transition: all 0s ease 0s;
-                      overflow-x: auto;
-                      overflow-y: hidden;
-                          display: flex;
+                      width: 2234px;
                     "
                   >
                     <div
                       v-for="product in products"
                       :key="productGetters.getId(product)"
                       class="owl-item active"
-                      style="width: 309.083px; margin-left: 10px;flex-shrink: 0"
+                      style="width: 309.083px; margin-left: 10px"
                     >   
                       <div class="item">
                         <a :href="localePath(getProductLink(product))">
@@ -88,7 +83,7 @@
         </div>
       </div>
     </div>
-  
+  </div>
   </div>
 </section>
 
