@@ -8,28 +8,20 @@
       </a>
     </div>
     <section
-      class="burux-banner"
-      
+      class="burux-banner row"
       >
-      <!-- <li class="Right" 
-        style="position: absolute ;height: 34.14px;color: white;font-size:50px; padding: 30px 0; "
-        dir="rtl"
-        >
-        بروکس
-      </li> -->
       <img src="../static/images/home/BuruxFaText.svg" 
       />
       <ul>   
-        <li>فروشگاه</li>
-        <li>آنلاین</li>
+        <li style="font-family: iranyekan;">فروشگاه</li>
+        <li style="font-family: iranyekan;">آنلاین</li>
       </ul>
       <div style="width: 48px;">
-
       </div>
       <div class="phone-number">
         <div class="fa fa-phone"></div>
         <div style="width:6px"></div>
-        <div>021-75116</div>
+        <div style="font-family: iranyekan;">021-75116</div>
       </div>
       
     </section>
@@ -79,7 +71,7 @@
     <div class="col-12 col-xl-9 col-lg-9 col-md-9">
       <P style="font-weight: 900;align-items: center;font-size:25px;font-style: normal;font-weight: 500;font-size: 18px;">
        درباره فروشگاه بروکس</P>
-      <p>
+      <p class="text-justify">
         بروکس به عنوان یکی از معتبرترین فروشگاه های اینترنتی با بیش
         از یک دهه تجربه، با پایبندی به سه اصل، پرداخت در محل، 7 روز ضمانت
         بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با فروشگاه‌های
