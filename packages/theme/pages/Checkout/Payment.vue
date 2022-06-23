@@ -50,35 +50,6 @@
                 <li class="wallet-container">
                   <div class="checkout-paymethod-item">
                     <span class="mdi mdi-card-text-outline"></span>
-                    <label class="radio-primary">
-                      <input type="radio" name="payment-radio" value="wallet" />
-                      <span class="ui-radio-check"></span>
-                    </label>
-                    <div class="checkout-paymethod-title">
-                      <div class="paymethod-wallet-amount">
-                        <p class="checkout-paymethod-title-label">
-                          افزایش اعتبار و پرداخت از کیف پول
-                        </p>
-                        <span>موجودی:</span>
-                        <span class="wallet-amount">0</span>
-                        <span class="checkout-paymethod-currency">تومان</span>
-                      </div>
-                    </div>
-                    <div class="wallet-extra-info">
-                      نیازمند
-                      <span class="wallet-needed-money"
-                        >{{ $n(totals.subtotal) }}
-                      </span>
-                      ریال افزایش اعتبار
-                    </div>
-                    <div class="checkout-paymethod-by-digipay">
-                      <img src="/images/af737e9d.png" alt="digipay" />
-                    </div>
-                  </div>
-                </li>
-                <li class="wallet-container">
-                  <div class="checkout-paymethod-item">
-                    <span class="mdi mdi-card-text-outline"></span>
                     <label class="radio-primary" style="display: block">
                       <input
                         type="radio"
@@ -236,8 +207,8 @@
           </div>
 
           <div class="checkout-actions">
-            <a href="#" class="btn-link-spoiler"> « بازگشت به سبد خرید </a>
-            <a href="#" class="save-shipping-data">
+            <a href="/checkout/shipping" class="btn-link-spoiler"> « بازگشت به اطلاعات ارسال </a>
+            <a @click="processOrder" class="save-shipping-data">
               تایید و ادامه ثبت سفارش »
             </a>
           </div>
