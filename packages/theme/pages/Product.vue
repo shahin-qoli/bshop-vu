@@ -352,8 +352,6 @@
               </div>
 
         
-        <Product-Slider title="محصولات مرتبط" slug="lights/bulb" class="p-0" />
-        <Product-Slider title="خانواده پرژکتور" slug="lights/projector" class="p-0" />
         <div class="p-tabs">
           <div class="col-lg-9 col-md-12 col-xs-12 pull-right p-0 res-w">
             <div class="box-tabs-main">
