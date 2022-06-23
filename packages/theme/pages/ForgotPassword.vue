@@ -27,6 +27,11 @@
 </template>
 <script>
 export default {
+  head(prop){      
+    return{
+      title : 'بازیابی رمز عبور'
+    }
+  },
   layout: 'auth'
 }
 </script>

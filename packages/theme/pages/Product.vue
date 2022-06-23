@@ -437,6 +437,11 @@ import LazyHydrate from 'vue-lazy-hydration';
 import cacheControl from './../helpers/cacheControl';
 
 export default {
+  head(prop){      
+    return{
+      title : prop.product.name,
+    }
+  },
   name: 'Product',
   transition: 'fade',
   middleware: cacheControl({

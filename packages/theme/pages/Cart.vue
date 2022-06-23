@@ -173,6 +173,11 @@ import { useUiState } from '~/composables';
 import debounce from 'lodash.debounce';
 import {wishlistGetters} from '@vue-storefront/spree';
 export default {
+  head(prop){      
+    return{
+      title : 'سبد خرید'
+    }
+  },
     name: 'Cart',
     components: {
     SfSidebar,

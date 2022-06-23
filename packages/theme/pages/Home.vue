@@ -1508,6 +1508,11 @@ import AmazingSection from '../components/AmazingSection.vue';
 import ShowTaxons from '~/components/Home/showTaxons.vue';
 import campaign from '~/components/Home/campaign.vue';
 export default {
+  head(prop){      
+    return{
+      title : 'صفحه اصلی'
+    }
+  },
   components: {
     AppHeader,
     AppFooter,
