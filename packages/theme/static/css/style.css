@@ -12184,3 +12184,18 @@ ul.faq-list li .footer em {
         padding: 0;
     }
 }
+
+.main-slider-sdfa > div {
+    margin-top: 3rem;
+}
+@media (max-width: 767px) {
+    .product-feature-body {
+        display: none;
+    }
+    .main-slider-sdfa > div {
+        margin-top: 0;
+    }
+    .widget-product .owl-carousel .owl-nav {
+        display: block;
+    }
+}

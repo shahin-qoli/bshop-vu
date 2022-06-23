@@ -1,6 +1,6 @@
 <template>
-  <div class="d-block">
-    <div class="col-lg-8 col-md-8 col-xs-12 pull-right mt-5">
+  <div class="d-block main-slider-sdfa">
+    <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
       <div class="main-slider">
         <div class="main-slider-container">
           <div
@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-md-4 col-xs-12 pull-left mt-5">
+    <div class="col-lg-4 col-md-4 col-xs-12 pull-left">
     <aside class="adplacement-container-column">
         <a :href="sidePhoto2.attributes.link" class="adplacement-item adplacement-item-column">
             <div class="adplacement-sponsored-box">
