@@ -9,35 +9,28 @@
        class="list-category-menu-2"
         >{{cat_lev1.name}}</a
       >
-        <div   
-        class="row">
-        <div
-         v-for="(cat_lev2) in cat_lev1.items" 
-         :key="cat_lev2.id"  
-          class="col-4"
-        >
-
-        </div>
-        <div class="col-4"></div>
-        <li 
-
-         class="list-category row" 
-         style="padding:25px">
-          <a :href="cat_lev2.link" class="list-category-megamenu row"
-            >{{cat_lev2.name}}</a
+      <div class="megamenu-level-3">
+        <div class="row">
+          <div
+            v-for="(cat_lev2) in cat_lev1.items" 
+            :key="cat_lev2.id"  
+            class="col-4 px-4"
           >
-          <ul>
-            <li  
+            <a :href="cat_lev2.link" class="text-primary"
+              >{{cat_lev2.name}}</a
+            >
+            <ul  
               v-for="(cat_lev3) in cat_lev2.items"
               :key="cat_lev3.id"
-              class="item-megamenu-item"> 
-              <a :href="cat_lev3.link" class="list-category-megamenu-3"
+              >
+              <a :href="cat_lev3.link" class=""
                 ><span style="color:grey">{{cat_lev3.name}}</span>
               </a>
-            </li>  
-          </ul>
-      
-        </li>
+            </ul>        
+
+          </div>
+
+        </div>
       </div>
     </li>
   </ul>

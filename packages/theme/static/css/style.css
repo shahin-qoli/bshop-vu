@@ -899,7 +899,7 @@ nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
-    background: #f7f7f7;
+/*     background: #f7f7f7; */
 }
 
 nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2 i {
@@ -12184,4 +12184,7 @@ ul.faq-list li .footer em {
     .product-comment .comments-add-row .comments-add-col-form {
         padding: 0;
     }
+}
+nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2 .megamenu-level-3 {
+    min-height: 300px;
 }
