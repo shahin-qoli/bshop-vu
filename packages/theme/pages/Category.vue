@@ -572,11 +572,17 @@ import Vue from 'vue';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
+  head(prop){
+    return{
+      title : 'محصولات '+prop.result.data.categories.current.name,
+    }
+  },
   transition: 'fade',
   middleware: cacheControl({
     'max-age': 60,
     'stale-when-revalidate': 5
   }),
+
   setup() {
     const th = useUiHelpers();
     const { changeFilters, isFacetColor, isFacetPrice, getSearchPriceFromUrl, getFiltersFromURL } = useUiHelpers();
