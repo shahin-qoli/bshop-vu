@@ -899,7 +899,7 @@ nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
-    background: #f7f7f7;
+/*     background: #f7f7f7; */
 }
 
 nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2 i {
@@ -1518,6 +1518,7 @@ nav.main-menu ul.new-list-menu li.item-list-menu ul.list-menu-discounts-offers .
     display: none;
     background: #ececec;
     width: 100%;
+    padding-right: 1rem;
 }
 
 .main {
@@ -1776,12 +1777,12 @@ nav.main-menu ul.new-list-menu li.item-list-menu ul.list-menu-discounts-offers .
 }
 
 .amazing-product a.view-all-amazing-btn {
+    font-family: 'iranyekan';
     display: inline-block;
-    font-size: 14px;
+    font-size: 40px;
     font-weight: 700;
     color: #fff;
     padding: 9px 16px;
-    border: 1px solid #fff;
     border-radius: 5px;
 }
 
@@ -8703,8 +8704,8 @@ input[type=radio]:checked+.ui-variant-check {
     margin-top: 0;
     margin-left: 0;
     vertical-align: top;
-    filter: invert(0%) sepia(0%) saturate(0%) brightness(100%) contrast(100%) opacity(35%);
-    -webkit-filter: invert(0%) sepia(0%) saturate(0%) brightness(100%) contrast(100%) opacity(35%);
+    /* filter: invert(0%) sepia(0%) saturate(0%) brightness(100%) contrast(100%) opacity(35%);
+    -webkit-filter: invert(0%) sepia(0%) saturate(0%) brightness(100%) contrast(100%) opacity(35%); */
     -moz-filter: invert(0%) sepia(0%) saturate(0%) brightness(100%) contrast(100%) opacity(35%);
     -o-filter: invert(0%) sepia(0%) saturate(0%) brightness(100%) contrast(100%) opacity(35%);
     -ms-filter: invert(0%) sepia(0%) saturate(0%) brightness(100%) contrast(100%) opacity(35%);
@@ -12198,4 +12199,7 @@ ul.faq-list li .footer em {
     .widget-product .owl-carousel .owl-nav {
         display: block;
     }
+}
+nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2 .megamenu-level-3 {
+    min-height: 300px;
 }

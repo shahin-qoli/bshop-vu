@@ -36,6 +36,11 @@ import { useContent } from '@vue-storefront/spree';
 import { onSSR } from '@vue-storefront/core';
 
 export default {
+  head(prop){      
+    return{
+      title : 'صفحه اصلی'
+    }
+  },
   components: {
     AppHeader,
     AppFooter,

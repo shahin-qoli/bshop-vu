@@ -82,6 +82,11 @@ extend('required', {
 });
 
 export default {
+  head(prop){      
+    return{
+      title : 'ورود به حساب کاربری'
+    }
+  },
   name: 'LoginModal',
   components: {
     SfModal,

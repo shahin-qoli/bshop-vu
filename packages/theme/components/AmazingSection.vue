@@ -23,7 +23,7 @@
             <div class="widget widget-product card" style="margin: 0">
               <header class="card-header card-header-amazing">
                 <span class="title-one">پیشنهاد شگفت انگیز</span>
-                <a class="card-title">مشاهده نشود</a>
+                <a class="card-title"></a>
               </header>
               <div
                 class="

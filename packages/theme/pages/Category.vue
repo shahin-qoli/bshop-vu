@@ -494,38 +494,41 @@
                 <!-- </ul> -->
                 <div class="pager">
                     <ul class="page-item">
-                        <!-- <li 
-                        class="pagination-item"><a :href="'?page='" class="pager-item-active">1</a></li>
-                        <li 
-                        v-for="(num,i) in Math.floor(products.length/10)"
-                        :key="i"
-                        :number="i+2"
-                        class="pagination-item"><a :href="'?page='+(i+2) " @click="document.getElementByClassName('pager-item-active')">{{i+2}}</a></li> -->
-                        
+                        <li class="pagination-item">
+                            <a :href="'?page=1'">
+                                <i class="fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                        <li class="pagination-item">
+                            <div class="pager-items-partition"></div>
+                        </li>
+                        <a 
+                         v-if="pagination.currentPage > 1 && pagination.currentPage < pagination.totalPages+1" 
+                         :href="'?page='+(pagination.currentPage-1)" 
+                         class="previous"
+                         style="font-family: iranyekan">قبلی</a>
                         <li 
                             v-for="(num,i) in pagination.totalPages"
                             :key="i"
-
                             class="pagination-item"
                         >
                             <a :href="'?page='+(i+1)"  :class=" pagination.currentPage===i+1 ? 'pager-item-active' : '' ">
                                 {{i+1}}
                             </a>
                         </li>
-
-                        <!-- <li 
-                        v-for="(num,i) in Math.floor(products.length/10)+1"
-                        :key="i"
-                        class="pagination-item"><a :href="'?page='+(i+2)" @click="document.getElementByClassName('pager-item-active')">{{i+1}}</a></li>
- -->
-
-                        <!-- <li class="pagination-item"><a href="#">3</a></li>
-                        <li class="pagination-item"><a href="#">4</a></li>
-                        <li class="pagination-item"><a href="#">5</a></li> -->
+                        <a  
+                         v-if="pagination.currentPage < pagination.totalPages" 
+                         :href="'?page='+(pagination.currentPage+1)" 
+                         class="Next" 
+                         style="font-family: iranyekan">بعدی</a>
                         <li class="pagination-item">
                             <div class="pager-items-partition"></div>
                         </li>
-                        <li class="pagination-item"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li class="pagination-item">
+                            <a :href="'?page='+(pagination.totalPages)">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -569,11 +572,17 @@ import Vue from 'vue';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
+  head(prop){
+    return{
+      title : 'محصولات '+prop.result.data.categories.current.name,
+    }
+  },
   transition: 'fade',
   middleware: cacheControl({
     'max-age': 60,
     'stale-when-revalidate': 5
   }),
+
   setup() {
     const th = useUiHelpers();
     const { changeFilters, isFacetColor, isFacetPrice, getSearchPriceFromUrl, getFiltersFromURL } = useUiHelpers();
@@ -701,6 +710,7 @@ export default {
       ...uiState,
       toggleFilterSidebar,
       route,
+      result,
       th,
       products,
       categoryTree,

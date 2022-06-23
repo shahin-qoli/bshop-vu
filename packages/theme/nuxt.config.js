@@ -7,8 +7,8 @@ export default {
     port: process.env.PORT || 3000,
     host: process.env.HOST || '0.0.0.0'
   },
-  head: {
-    title: 'Vue Storefront',
+  head: {   
+    titleTemplate:'%s | فروشگاه اینترنتی بروکس',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
