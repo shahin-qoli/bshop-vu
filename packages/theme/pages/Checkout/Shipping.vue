@@ -140,7 +140,7 @@
             <a href="/cart" class="btn-link-spoiler">
               « بازگشت به سبد خرید
             </a>
-            <a @click.prevent="handleFormSubmit" href="javascript:void(0)" class="save-shipping-data">
+            <a href="javascript:void(0)" @click.prevent="handleFormSubmit" class="save-shipping-data">
               تایید و ادامه ثبت سفارش »
             </a>
           </div>
@@ -213,6 +213,7 @@ import Modal from '~/components/Modal.vue'
 import CartItem from '~/components/Shopping/CartItem.vue'
 import AddressForm from '~/components/Shopping/AddressForm.vue'
 import SelectAddressForm from '~/components/Shopping/SelectAddressForm.vue'
+import useLoader from '~/composables/useLoader'
 import {
   SfHeading,
   SfInput,
@@ -275,6 +276,7 @@ export default {
     const isFormSubmitted = ref(false);
     const isSaveAddressSelected = ref(true);
     const isCopyToBillingSelected = ref(true);
+    const { isLoaderOpen } = useLoader();
     const { countries, states, load: loadCountries, loadStates } = useCountry();
     const { shipping: checkoutShippingAddress, load, save, loading: shippingLoading } = useShipping();
     const { state: shipments, save: saveShipments, load: loadShipments } = useShippingProvider();
@@ -336,6 +338,7 @@ export default {
       selectedShippingRates.value = { ...selectedShippingRates.value, [shipmentId]: shippingRateId };
     };
     const handleFormSubmit = async () => {
+      isLoaderOpen.value=true
       form.value.country = 'IR'
       const shippingAddress = isAuthenticated.value && selectedSavedAddress.value
         ? selectedSavedAddress.value
@@ -358,8 +361,10 @@ export default {
       })
       loading.value = false
       router.push('/checkout/payment')
+      isLoaderOpen.value=false
 
       isFormSubmitted.value = true;
+      
     };
 
     const isEqualAddress = (a, b) => {

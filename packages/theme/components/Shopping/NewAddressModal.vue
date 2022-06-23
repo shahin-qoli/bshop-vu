@@ -25,6 +25,7 @@
             انصراف
           </button>
         </div>
+        <div v-if="error.addAddress" class="text-center pt-3" style="color: #fc0303  ;"> {{errormessage}}</div>
 
       </Address-Form>
     </div>
@@ -48,7 +49,8 @@ export default {
   },
   setup(_, { emit }) {
     const { states, loadStates } = useCountry();
-    const { addAddress, shipping: savedAddressesObj } = useUserShipping();
+    const { addAddress, shipping: savedAddressesObj ,error } = useUserShipping();
+    const errormessage=ref(" افزودن آدرس موفقیت آمیز نبود!");
     const savedAddresses = computed(() => savedAddressesObj.value.addresses || [])
     const model = {
       country: 'IR'
@@ -61,14 +63,24 @@ export default {
       loading.value = true
       await addAddress({ address: model })
       loading.value = false
+      if(!error.value.addAddress){
       const newAddr = savedAddresses.value[savedAddresses.value.length - 1]
       emit('input', newAddr._id)
+      }
+      else{
+        if(error.value.addAddress.response&&error.value.addAddress.response.data){
+          errormessage.value=error.value.addAddress.response.data.summary.replace("is invalid","نامعتبر است");
+      }
+      }
     }
+
     return {
       states,
       model,
       loading,
-      onSubmit
+      onSubmit,
+      errormessage,
+      error 
     }
   }
 }
