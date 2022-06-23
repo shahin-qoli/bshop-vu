@@ -3,33 +3,36 @@
   class="section-slider amazing-section mb-3 mt-4"
   style="background: rgb(0, 148, 212)"
 >
-  <div class="container-amazing">
+  <div class="container-amazing" style="position: relative;">
   <div class="container-main">
-    <div>
-      <div class="col-lg-3 display-md-none pull-right">
-        <div class="amazing-product text-center mt-5">
-          <a href="#">
-            <img src="images/home/amazing.png" alt="amazing" />
+    
+        <div class="amazing-product">
+          <a href="#" style="width: 200px;
+    height: 200px;
+    position: absolute;
+    bottom: -61px;
+    right: -24px;">
+            <img src="images/home/DiscountBlue.png" alt="amazing"  style="height:200px;width:200px"/>
           </a>
           <a :href="`/c/${taxon.attributes.permalink}`" class="view-all-amazing-btn">
             {{ taxon.attributes.name }}
             <i class="uil uil-angle-left"></i>
           </a>
         </div>
-      </div>
       <div class="col-lg-9 col-md-12 pull-left">
         <div class="section-slider-content">
           <div class="section-slider-product slider-amazing mt-3">
             <div class="widget widget-product card" style="margin: 0">
               <header class="card-header card-header-amazing">
                 <span class="title-one">پیشنهاد شگفت انگیز</span>
-                <a class="card-title">مشاهده نشود</a>
+                <a class="card-title"></a>
               </header>
               <div
                 class="
                   product-carousel
                   owl-carousel owl-theme owl-rtl owl-loaded owl-drag
                 "
+                
               >
                 <div class="owl-stage-outer">
                   <div
@@ -37,14 +40,16 @@
                     style="
                       transform: translate3d(0px, 0px, 0px);
                       transition: all 0s ease 0s;
-                      width: 2234px;
+                      overflow-x: auto;
+                      overflow-y: hidden;
+                          display: flex;
                     "
                   >
                     <div
                       v-for="product in products"
                       :key="productGetters.getId(product)"
                       class="owl-item active"
-                      style="width: 309.083px; margin-left: 10px"
+                      style="width: 309.083px; margin-left: 10px;flex-shrink: 0"
                     >   
                       <div class="item">
                         <a :href="localePath(getProductLink(product))">
@@ -83,7 +88,7 @@
         </div>
       </div>
     </div>
-  </div>
+  
   </div>
 </section>
 
