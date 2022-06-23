@@ -42,8 +42,8 @@
                                 class="mdi mdi-account-outline"></span>پروفایل</a></li>
                     <li><a href="profile-order.html" class="profile-menu-url active-profile"><span
                                 class="mdi mdi-basket"></span>همه سفارش ها</a></li>
-                    <li><a href="profile-order-return.html" class="profile-menu-url"><span
-                                class="mdi mdi-autorenew"></span>در خواست مرجوعی</a></li>
+                    <!-- <li><a href="profile-order-return.html" class="profile-menu-url"><span
+                                class="mdi mdi-autorenew"></span>در خواست مرجوعی</a></li> -->
                     <li><a href="profile-favorites.html" class="profile-menu-url"><span class="mdi mdi-heart-outline"></span>لیست
                             علاقه مندی ها</a></li>
                     <li><a href="profile-comments.html" class="profile-menu-url"><span

@@ -2,6 +2,7 @@
   <div id="product">
     <div class="col-12">
       <div class="product-page">
+      <div>
         <article class="js-product">
           <div class="product-nav-container">
             <nav aria-label="breadcrumb" >
@@ -14,7 +15,40 @@
           </div>
 
           <div class="col-lg-4 col-md-12 col-xs-12 pull-right">
-            <Product-Gallery :images="productGallery" />
+            <Product-Gallery v-if="haveimage" :images="productGallery" />
+            <div v-else class="product-gallery">
+              <img
+                class="zoom-img"
+                id="img-product-zoom"
+                src="/images/product/Panel-18w-min-1.png"
+                width="350"
+                alt="img-slider"             
+              />
+              <div id="gallery_01f" style="width: 420px; float: right">
+                <ul
+                  class="gallery-items owl-carousel owl-theme"
+                  id="gallery-slider"
+                >
+                  <li v-for="j in 4"
+                  :key="j"              
+                  class="item"
+                  >
+                    <a
+                      href="#"
+                      class="elevatezoom-gallery active"
+                      data-update=""                  
+                    >
+                      <img
+                        src="/images/product/Panel-18w-min-1.png" 
+                        width="100"
+                        alt="img-slider"
+                    /></a>
+                  </li>
+                </ul> 
+              </div>        
+              <div class="gallery-item">                        
+              </div>
+            </div>
           </div>
 
           <!-- Modal social-->
@@ -260,19 +294,23 @@
                                     <i class="fa fa-trash"></i></div>
                             </div>
                           </div>
+                                <label v-if="hasCartErrors" for="Wrong" style="color: #fc0303 ;"> افزودن به سبد خرید ناموفق بود :(</label>
                         </template>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="product-feature-body">
+              </div>             
+            </section>                   
+          </div>
+        </article>
+        <div class="product-feature-body">
                 <div class="product-feature">
                   <div class="row">
                     <div class="product-feature-col">
                       <a href="#" class="product-feature-item">
                         <img src="../static/images/home/SavePayment.svg" alt="delivery" />
-                        <span>خرید و پردخت
+                        <span>خرید و پرداخت
                           <br />
                           مطمئن
                         </span>
@@ -311,11 +349,9 @@
                   </div>
                 </div>
               </div>
-            </section>
-            
-          </div>
- 
-        </article>
+              </div>
+
+        
         <Product-Slider title="محصولات مرتبط" slug="lights/bulb" class="p-0" />
         <Product-Slider title="خانواده پرژکتور" slug="lights/projector" class="p-0" />
         <div class="p-tabs">
@@ -462,8 +498,10 @@ export default {
       search: searchRelatedProducts,
       loading: relatedLoading,
     } = useProduct('relatedProducts');
-    const { addItem, loading, cart, updateItemQty, removeItem } = useCart();
+    const { addItem, loading, cart, updateItemQty, removeItem, error: cartError } = useCart();
     const { slug } = route.value.params;
+    const hasCartErrors=ref(false);
+    
 
     const product = computed(() =>
       productGetters.getFiltered(products.value, {
@@ -504,7 +542,6 @@ export default {
     productGetters.getProperties(product.value).slice(0,3)
     );
 
-
     const cartproducts = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
@@ -515,11 +552,18 @@ export default {
         .map((e) => ({ ...e, link: context.localePath(e.link) }))
     );
     const addToCart = async () => {
+      hasCartErrors.value=false
       flag.value = true
       await addItem({ product: product.value, quantity: 1 })
+      const CartError = cartError.value.addItem;
+      if(CartError){
+        hasCartErrors.value=true
+      }
+      else{
+        hasCartErrors.value=false
+      }
       flag.value = false
-      isClicked.value = true
-      
+      isClicked.value = true     
     }
 
     const isInStock = computed(() => productGetters.getInStock(product.value));
@@ -538,14 +582,22 @@ export default {
       })
 
     }
-
-
     );
+
+    const haveimage = computed(() => {
+      if (productGallery.value.length<1) {
+        return false
+      }
+      else {
+        return true
+      }
+    });
 
     const variant = product.inStock;
 
     //debugger
 
+ 
 
     onSSR(async () => {
       await search({ slug });
@@ -557,6 +609,7 @@ export default {
 
     const updateFilter = (filter) => {
       const keys = Object.keys(filter)
+      hasCartErrors.value=false
       const conf = {}
       if (keys.length) {
         const key = keys[0]
@@ -592,6 +645,8 @@ export default {
 
     return {
       updateFilter,
+      haveimage,
+      hasCartErrors,
       slicedproperties,
       removeItem,
       flag,

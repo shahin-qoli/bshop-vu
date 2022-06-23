@@ -13,24 +13,24 @@
                         <span class="profile-box-phone">شماره موبایل</span>
                     </div>
 
-                    <a href="#" class="profile-box-row-arrow">
+                    <a  class="profile-box-row-arrow">
                         <div class="profile-box-title">کیف پول</div>
                         <div class="profile-box-price">
                             <div class="wallet-amount">{{ $n(userGetters.getStoreCredits(user)) }}</div>
                             <div class="profile-box-currency">ریال</div>
-                            <i class="fa fa-angle-left"></i>
+                            
                         </div>
-                        <p class="profile-box-wallet-link">افزایش موجودی</p>
+                        <!-- <p class="profile-box-wallet-link">افزایش موجودی</p> -->
                     </a>
 
-                    <a href="#" class="profile-box-row-arrow">
+                    <!-- <a href="#" class="profile-box-row-arrow">
                         <div class="profile-box-title">باشگاه مشتریان</div>
                         <div class="profile-box-price">
                             <div class="wallet-amount">0</div>
                             <div class="profile-box-currency">امتیاز</div>
                             <i class="fa fa-angle-left"></i>
                         </div>
-                    </a>
+                    </a> -->
                 </div>
                 <ul class="profile-menu-items">
                   <li v-for="(page, i) in pages" :key="i">
@@ -162,12 +162,12 @@ export default {
         link: '/my-account/order-history',
         icon: 'mdi-basket'
       },
-      {
-        title: 'درخواست مرجوعی',
-        name: 'Return',
-        link: 'return',
-        icon: 'mdi mdi-autorenew'
-      },
+      // {
+      //   title: 'درخواست مرجوعی',
+      //   name: 'Return',
+      //   link: 'return',
+      //   icon: 'mdi mdi-autorenew'
+      // },
       {
         title: 'آدرس ها',
         name: 'SavedAdresses',

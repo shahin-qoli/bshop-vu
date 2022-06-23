@@ -4,8 +4,8 @@
       <div class="col-12">
         <div class="widget widget-product card">
           <header class="card-header">
-            <a :href="showcat">
-            <span class="title-one">{{ title }}</span>
+            <a :href="`/c/${taxon.attributes.permalink}`">
+            <span class="title-one">{{ taxon.attributes.name }}</span>
             </a>
           </header>
           <div
@@ -32,7 +32,7 @@
                   <div class="item">
                     <a :href="localePath(getProductLink(product))">
                       <img
-                        :src="productGetters.getCoverImage(product)"
+                        :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                         class="img-fluid"
                         alt="img-slider"
                       />
@@ -58,19 +58,14 @@
   </div>
 </template>
 <script>
-import { useFacet, facetGetters, productGetters } from '@vue-storefront/spree';
-import { computed } from '@nuxtjs/composition-api';
+import { useProduct, productGetters } from '@vue-storefront/spree';
 import { onSSR } from '@vue-storefront/core';
 
 
 export default {
   props: {
-    title: {
-      type: String,
-      required: true
-    },
-    slug: { 
-      type: String,
+    section: { 
+      type: Object,
       required: true
     }
   },
@@ -78,31 +73,28 @@ export default {
     return {}
   },
   setup(props) {
-    const { result, search } = useFacet(props.slug);
-    const products = computed(() => { return facetGetters.getProducts(result.value) })
+    const { products, search } = useProduct(props.section.id);
+    // const products = computed(() => { return facetGetters.getProducts(result.value) })
     const getProductLink = (product) => {
       return `/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`
     }
-    const showcat="c/"+props.slug
-    
+    const linked_resource = props.section.relationships.linked_resource.data || { id: 1 }
+    const taxon = props.section.taxon || {
+      attributes: {}
+    }
+    const taxonId = linked_resource.id
     onSSR(async () => {
       await search({
-        categorySlug: props.slug,
+        categoryId: taxonId,
         page: 1,
-        itemsPerPage: 10,
-        selectedOptionTypeFilters: [],
-        selectedProductPropertyFilters: [],
-        priceFilter: [],
-        sort: 'updated_at',
-        term: ''
+        itemsPerPage: 10
       })
     })
     return {
-      result,
       products,
+      taxon,
       productGetters,
-      getProductLink,
-      showcat
+      getProductLink
     }
   },
 }

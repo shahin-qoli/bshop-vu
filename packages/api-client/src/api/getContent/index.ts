@@ -1,4 +1,5 @@
 import { ApiContext } from '../../types';
+import { deserializeContents } from '../serializers/content'
 import axios from 'axios'
 
 export default async function getContent({ config }: ApiContext): Promise<any[]> {
@@ -8,5 +9,5 @@ export default async function getContent({ config }: ApiContext): Promise<any[]>
       include: 'cms_sections.linked_resource'
     }
   })
-  return resp.data
+  return deserializeContents(resp.data, config)
 }

@@ -81,7 +81,7 @@
         </p>
       </div>
       <div>
-        <NuxtLink to="/checkout/shipping" class="header-cart-info-submit btn btn-danger">
+        <NuxtLink to="/checkout/shipping" class="header-cart-info-submit btn btn-primary">
           ثبت سفارش
         </NuxtLink>
       </div>
