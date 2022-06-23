@@ -479,7 +479,7 @@ export default {
       const orderId = orderGetters.getId(cart.value);
       try {
         const cartId = cart.value._id;
-        const cartamount = cart.value.totalAmount + cart.value.shipTotalAmount;
+        const cartamount = cart.value.totalAmount;
 
         const res2 = await axios.get(
           'http://bshop.burux.com/paymenturl/' + cartId + '/' + cartamount + ''
