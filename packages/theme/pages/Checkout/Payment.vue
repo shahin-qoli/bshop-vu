@@ -208,7 +208,7 @@
 
           <div class="checkout-actions">
             <a href="/checkout/shipping" class="btn-link-spoiler"> « بازگشت به اطلاعات ارسال </a>
-            <a @click="processOrder" class="save-shipping-data">
+            <a href="javascript:void(0)" @click="processOrder" class="save-shipping-data">
               تایید و ادامه ثبت سفارش »
             </a>
           </div>
