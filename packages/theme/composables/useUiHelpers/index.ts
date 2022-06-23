@@ -51,6 +51,7 @@ const useUiHelpers = () => {
   
   
   const getFacetsFromURL = (): SearchParams => {
+    const { query, path } = instance.$router.history.current;
     const categorySlug = path.split('/c/')[1];
 
     return {
@@ -60,7 +61,7 @@ const useUiHelpers = () => {
       priceFilter: Array.isArray(query.price) ? query.price[0] : query.price,
       term: query.term || '',
       page: parseInt(query.page, 10) || 1,
-      itemsPerPage: parseInt(query.itemsPerPage, 10) || 10,
+      itemsPerPage: parseInt(query.itemsPerPage, 12) || 12,
       sort: query.sort || 'updated_at'
     };
   };
@@ -79,9 +80,6 @@ const useUiHelpers = () => {
     );
 
     instance.$router.push({ query: { ...queryWithoutFilters, ...filters }});
-    setTimeout(() => {   
-      location.reload(); 
-    });
     
   };
 
