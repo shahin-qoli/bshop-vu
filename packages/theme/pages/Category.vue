@@ -57,7 +57,7 @@
                                             <li class="has-sub">
                                                 <a href="#">{{facet.label}}</a>
                                                 <ul>
-                                                        <li v-for="option in facet.options">
+                                                        <li v-for="(option,e) in facet.options" :key="e">
                                                             <a href="/c/lights" class="filter-label" >
                                                                 <div class="form-auth-row" >
                                                                     <label for="remember" class="ui-checkbox">
@@ -125,7 +125,7 @@
                     <div class="catalog" >
                     <template>                        
                                 <div style=" font-size:15px; font-family: iranyekan;">{{facet.label}}</div>
-                                <label href="#" class="filter-label" v-for="option in facet.options">
+                                <label href="#" class="filter-label" v-for="(option,j) in facet.options" :key="j">
                                     <div class="form-auth-row" >
                                         <label for="rememberseller1" class="ui-checkbox">
                                             <input
@@ -155,10 +155,10 @@
                     <ul class="catalog-list" v-e2e="'categories-accordion'"
                         :open="activeCategory"
                         :show-chevron="true">
-                        <li v-for="(cat, i) in ((menu && menu.items) || (categoryTree && categoryTree.items))"
+                        <li v-for="cat in ((menu && menu.items) || (categoryTree && categoryTree.items))"
                             :key="cat.id"
                             :header="cat.name || cat.label"><a :href="localePath(getRoute(cat))" class="catalog-link"><i class="fa fa-angle-left"></i>{{cat.name || cat.label}}</a>
-                            <div class="show-more" v-for="(subCat, j) in cat.items"
+                            <div class="show-more" v-for="subCat in cat.items"
                             :key="subCat.id" :href="localePath(getRoute(subCat))" >
                             <a :href="localePath(getRoute(subCat))">
                                 <span class="catalog-cat-item" :count="subCat.count || ''"
@@ -224,8 +224,7 @@
               </ol>
             </nav>
                     
-                </ol>
-            </nav>
+               
 
             <div class="listing-listing w-100">
                 <div class="listing-counter">{{$n(products.length)}} کالا</div>
@@ -260,7 +259,7 @@
                                             :style="{ '--index': i }"
                                             :title="productGetters.getName(product)"
                                             
-                                            :image="productGetters.getCoverImage(product)"
+                                            :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                             :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                             :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                             :is-in-wishlist="isInWishlist({ product })"
@@ -273,7 +272,7 @@
                                             </div>
     
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
@@ -298,7 +297,7 @@
                                             :style="{ '--index': i }"
                                             :title="productGetters.getName(product)"
                                             
-                                            :image="productGetters.getCoverImage(product)"
+                                            :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                             :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                             :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                             :is-in-wishlist="isInWishlist({ product })"
@@ -310,7 +309,7 @@
                                             </div>
     
                                            <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
@@ -334,7 +333,7 @@
                                             :style="{ '--index': i }"
                                             :title="productGetters.getName(product)"
                                             
-                                            :image="productGetters.getCoverImage(product)"
+                                            :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                             :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                             :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                             :is-in-wishlist="isInWishlist({ product })"
@@ -346,7 +345,7 @@
                                             </div>
     
                                              <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
@@ -373,7 +372,7 @@
                                             :style="{ '--index': i }"
                                             :title="productGetters.getName(product)"
                                             
-                                            :image="productGetters.getCoverImage(product)"
+                                            :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                             :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                             :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                             :is-in-wishlist="isInWishlist({ product })"
@@ -384,7 +383,7 @@
                                             </div>
     
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
@@ -412,7 +411,7 @@
                                             :style="{ '--index': i }"
                                             :title="productGetters.getName(product)"
                                             
-                                            :image="productGetters.getCoverImage(product)"
+                                            :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                             :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                             :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                             :is-in-wishlist="isInWishlist({ product })"
@@ -423,7 +422,7 @@
                                             </div>
     
                                            <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
@@ -452,7 +451,7 @@
                                                 :style="{ '--index': i }"
                                                 :title="productGetters.getName(product)"
                                                 
-                                                :image="productGetters.getCoverImage(product)"
+                                                :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                                 :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                                 :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                                 :is-in-wishlist="isInWishlist({ product })"
@@ -463,7 +462,7 @@
                                             </div>
     
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)" class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
     
                                             <div class="product-box-content">
@@ -701,6 +700,7 @@ export default {
       products,
       categoryTree,
       loading,
+      result,
       productGetters,
       pagination,
       activeCategory,

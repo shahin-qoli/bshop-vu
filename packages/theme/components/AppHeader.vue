@@ -47,24 +47,6 @@
               </a>
               <Categories v-if="categoryTree" :categoryTree="categoryTree" />
             </li>
-            <li class="item-list-menu megamenu-1">
-              <a href="#" class="list-category first after">
-                <i class="mdi mdi-plus-outline text-primary"></i>
-                ویزیتور هستید
-              </a>
-            </li>
-            <li class="item-list-menu megamenu-1 item-set">
-              <a href="#" class="list-category first after">فروشگاه الکتریکی دارید؟</a>
-            </li>
-            <li class="item-list-menu megamenu-1 item-set">
-              <a href="#" class="list-category first after">فروش سازمانی</a>
-            </li>
-            <!-- <li class="map-city-item">
-              <a href="#" class="map-city"
-                >لطفا شهر و استان خود را انتخاب کنید
-                <span class="mdi mdi-map-marker-outline"></span>
-              </a>
-            </li> -->
           </ul>
         </nav>
       </div>

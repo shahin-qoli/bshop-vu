@@ -44,7 +44,7 @@
                                                     <li class="has-sub">
                                                         <a href="#">{{ facet.label }}</a>
                                                         <ul>
-                                                            <li v-for="option in facet.options">
+                                                            <li v-for="(option,t) in facet.options" :key="t">
                                                                 <a href="/c/lights" class="filter-label">
                                                                     <div class="form-auth-row">
                                                                         <label for="remember" class="ui-checkbox">
@@ -102,41 +102,36 @@
         <!--        responsive-sidebar----------------------->
         <div class="col-lg-3 col-md-4 col-xs-12 float-right sticky-sidebar">
 
-            <div class="sidebar-wrapper search-sidebar">
-
-                <div class="box-sidebar">
-                    <button class="btn btn-light btn-box-sidebar" type="button" data-toggle="collapse"
-                        data-target="#collapseExampleSeller" aria-expanded="false"
-                        aria-controls="collapseExampleSeller">
-                        <i class="fa fa-chevron-down arrow"></i>فیلتر
-                    </button>
-                    <div class="collapse show" id="collapseExampleSeller">
-                        <div class="catalog" v-for="(facet, i) in facets" :key="i">
-                            <template v-if="facet.label != 'Price'">
-                                <ul>
-                                    <li>
-                                        <div style=" font-size:15px; font-family: iranyekan;">{{ facet.label }} : </div>
-                                        <label  class="filter-label" v-for="option in facet.options">
-                                            <div class="form-auth-row">
-                                                <label for="rememberseller1" class="ui-checkbox">
-                                                    <input @input="() => selectFilter(facet, option)"
-                                                        :checked="isFilterSelected(facet, option)" type="checkbox"
-                                                        :value="option.id" name="login" :id="option.value">
-                                                    <span class="ui-checkbox-check"></span>
-                                                </label>
-                                                <label :for="option.value" class="remember-me">{{ option.value }}</label>
-                                            </div>
-                                        </label>
-
-                                    </li>
-                                </ul>
-                                <hr />
-                            </template>
-
+            <div v-if="haveproduct" class="sidebar-wrapper search-sidebar">           
+                <div  v-for="(facet, i) in facets" :key="i">
+                    <div class="box-sidebar" v-if="facet.label!='Price'">      
+                        <div class="collapse show" id="collapseExampleSeller"  >
+                            <div class="catalog" >
+                                <template>                        
+                                            <div style=" font-size:15px; font-family: iranyekan;">{{facet.label}}</div>
+                                            <label href="#" class="filter-label" v-for="(option,j) in facet.options" :key="j">
+                                                <div class="form-auth-row" >
+                                                    <label for="rememberseller1" class="ui-checkbox">
+                                                        <input
+                                                            @change="() => selectFilter(facet, option)"
+                                                            :checked="isFilterSelected(facet, option)"
+                                                            type="checkbox"
+                                                            :value="i+1"
+                                                            name="login"
+                                                            :id="option.value"
+                                                        >
+                                                        <span  href="/" class="ui-checkbox-check"></span>
+                                                    </label>
+                                                    <label :for="option.value" class="remember-me">{{option.value}}</label>
+                                                </div>                                  
+                                            </label>   
+                                </template>
+                            </div>
+                                                
                         </div>
-                        
                     </div>
                 </div>
+                
 
                 <!-- <div class="box-sidebar">
                 <button class="btn btn-light btn-box-sidebar" type="button">دسته‌بندی </button>
@@ -205,10 +200,8 @@
 
             </div>
         </div>
-        <div class="col-lg-9 col-md-8 col-xs-12 pull-left">
+        <div v-if="haveproduct" class="col-lg-9 col-md-8 col-xs-12 pull-left">
             <div class="js-products">
-
-
                 <div class="listing-listing w-100">
                     <div class="listing-counter">{{ $n(products.length) }} کالا</div>
                     <div class="listing-header">
@@ -232,15 +225,15 @@
                     </div>
 
                     <!-- <ul class="listing-item"> -->
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="mostvisited" role="tabpanel"
-                            aria-labelledby="mostvisited-tab">
-                            <ul class="listing-item">
+                    <div  class="tab-content" id="myTabContent">
+                        <div  class="tab-pane fade show active" id="mostvisited" role="tabpanel"
+                            aria-labelledby="mostvisited-tab">                                               
+                            <ul  class="listing-item">
                                 <li>
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                         v-for="(product, i) in products" :key="product.id" :style="{ '--index': i }"
                                         :title="productGetters.getName(product)"
-                                        :image="productGetters.getCoverImage(product)"
+                                        :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" 
                                         :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                         :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                         :is-in-wishlist="isInWishlist({ product })"
@@ -252,7 +245,7 @@
 
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
                                                 class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
 
                                             <div class="product-box-content">
@@ -277,7 +270,7 @@
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                         v-for="(product, i) in products" :key="product.id" :style="{ '--index': i }"
                                         :title="productGetters.getName(product)"
-                                        :image="productGetters.getCoverImage(product)"
+                                        :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                         :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                         :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                         :is-in-wishlist="isInWishlist({ product })"
@@ -289,7 +282,7 @@
 
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
                                                 class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
 
                                             <div class="product-box-content">
@@ -313,7 +306,7 @@
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                         v-for="(product, i) in products" :key="product.id" :style="{ '--index': i }"
                                         :title="productGetters.getName(product)"
-                                        :image="productGetters.getCoverImage(product)"
+                                        :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                         :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                         :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                         :is-in-wishlist="isInWishlist({ product })"
@@ -325,7 +318,7 @@
 
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
                                                 class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
 
                                             <div class="product-box-content">
@@ -351,7 +344,7 @@
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                         v-for="(product, i) in products" :key="product.id" :style="{ '--index': i }"
                                         :title="productGetters.getName(product)"
-                                        :image="productGetters.getCoverImage(product)"
+                                        :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                         :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                         :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                         :is-in-wishlist="isInWishlist({ product })"
@@ -363,7 +356,7 @@
 
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
                                                 class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
 
                                             <div class="product-box-content">
@@ -389,7 +382,7 @@
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                         v-for="(product, i) in products" :key="product.id" :style="{ '--index': i }"
                                         :title="productGetters.getName(product)"
-                                        :image="productGetters.getCoverImage(product)"
+                                        :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                         :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                         :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                         :is-in-wishlist="isInWishlist({ product })"
@@ -401,7 +394,7 @@
 
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
                                                 class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
 
                                             <div class="product-box-content">
@@ -428,7 +421,7 @@
                                     <div class="col-lg-3 col-md-3 col-xs-12 pull-right px-0"
                                         v-for="(product, i) in products" :key="product.id" :style="{ '--index': i }"
                                         :title="productGetters.getName(product)"
-                                        :image="productGetters.getCoverImage(product)"
+                                        :image="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'"
                                         :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                                         :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
                                         :is-in-wishlist="isInWishlist({ product })"
@@ -440,7 +433,7 @@
 
                                             <a :href="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
                                                 class="promotion-box-image">
-                                                <img :src="productGetters.getCoverImage(product)" alt="product">
+                                                <img :src="productGetters.getCoverImage(product) || '/images/product/Panel-18w-min-2.png'" alt="product">
                                             </a>
 
                                             <div class="product-box-content">
@@ -478,6 +471,20 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-else class="col-lg-12 col-md-12 col-xs-12 pull-left">
+            <div class="js-products" style="text-align: center;">                                      
+                    <img
+                    src="/images/product/Frame-75.svg" 
+                    width="629"
+                    alt="img-slider"
+                />  
+            </div>
+            
+            
+               
+           
+            
         </div>
     </div>
 </template>
@@ -538,6 +545,15 @@ export default {
         const { locale } = context.app.i18n;
         const lengthProduct = products.length
         const sortBy = computed(() => facetGetters.getSortOptions(result.value));
+
+        const haveproduct = computed(() => {
+        if (products.value.length<1) {
+            return false
+        }
+        else {
+            return true
+        }
+        });
 
         const getRoute = (category) => {
             // if (menu.value.isDisabled) {
@@ -662,9 +678,7 @@ export default {
             isFilterSelected,
             selectFilter,
             selectedFilters,
-
-
-
+            haveproduct,
             addItemToCart,
             isInWishlist,
             isInCart,

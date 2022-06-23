@@ -839,7 +839,7 @@ nav.main-menu ul.new-list-menu li.item-list-menu a.list-category::before {
     left: 0;
     right: 0;
     margin: 0 auto;
-    background-color: #ff828b;
+    background-color: #0094D4;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
@@ -889,7 +889,7 @@ nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2
 }
 
 .main-menu ul.new-list-menu>li.item-list-menu>ul.list-menu-level-2>li.active>a {
-    color: #ef394e !important;
+    color: #0094D4 !important;
     background: #f9f9f9;
     border-top: 1px solid #f0f0f1;
     border-bottom: 1px solid #f0f0f1;
@@ -981,7 +981,7 @@ nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2
 }
 
 nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2 .megamenu-level-3 li .list-category-megamenu-3:hover {
-    color: #f74d59;
+    color: #0094D4;
 }
 
 nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2 .megamenu-level-3 li .list-category-megamenu-3 span {
@@ -1965,12 +1965,12 @@ nav.main-menu ul.new-list-menu li.item-list-menu ul.list-menu-discounts-offers .
 
 .adplacement .item-adplacement {
     display: block;
-    border-radius: 20px;
+    
     overflow: hidden;
-    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+    
     margin-bottom: 20px;
-    border: .8px solid rgba(0, 0, 0, .1);
-    background: linear-gradient( 270deg, #fff, #fff, #eef7fc);
+   
+
     margin-top: 10px;
 }
 
@@ -2169,6 +2169,9 @@ nav.main-menu ul.new-list-menu li.item-list-menu ul.list-menu-discounts-offers .
     max-height: 64px;
     line-height: 32px;
     height: 64px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .widget-product .product-carousel .item .price, .brand-slider .product-carousel .item .price {
@@ -2481,12 +2484,18 @@ nav.main-menu ul.new-list-menu li.item-list-menu ul.list-menu-discounts-offers .
     line-height: 25px;
     height: auto;
     padding-top: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .widget-product .product-carousel .item .post-title a {
     font: 13px iranyekan;
     color: #535353;
     text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .widget-product .product-carousel .item .price, .brand-slider .product-carousel .item .price {
@@ -3901,7 +3910,7 @@ input[type=number] {
     padding: 12px 70px;
     float: right;
     background-color: #0094D4;
-    border-radius: 5px;
+    border-radius: 8px;
     text-align: center;
     font-weight: 700;
     color: #FFFFFF;
@@ -5563,6 +5572,9 @@ ul.listing-sort li a.nav-link.active {
     font: 12px iranyekan;
     color: #535353;
     display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .js-products .listing-listing ul.listing-item li .promotion-box .product-box-rate {
@@ -8670,7 +8682,7 @@ input[type=radio]:checked+.ui-variant-check {
     background-color: #fff;
     border-top: 1px solid #e8e8e8;
     padding: 0 25px;
-    margin-top: 60px;
+    margin-top: 0.3px;
 }
 
 .product-feature-body .product-feature {
@@ -8939,7 +8951,7 @@ input[type=radio]:checked+.ui-variant-check {
 }
 
 .active-tabs {
-    border-bottom: 4px solid #ef394e;
+    border-bottom: 4px solid #0094D4;
     background: #fff !important;
     margin-bottom: -1px;
     border-radius: 2px 2px 0 0;
@@ -8984,6 +8996,7 @@ input[type=radio]:checked+.ui-variant-check {
     overflow: hidden;
     max-height: 250px;
     height: unset;
+    font-family: iranyekan;
 }
 
 .mask-handler {
@@ -11210,7 +11223,7 @@ ul.faq-list li .footer em {
     }
     .main-slider {
         border-radius: 18px;
-        margin-bottom: 70px;
+        
         box-shadow: 0 12px 14px 0 rgba(0, 0, 0, .12);
     }
     .responsive-header-left .question-faq {
