@@ -463,6 +463,18 @@
                     <!-- </ul> -->
                     <div class="pager">
                         <ul class="page-item">
+                            <li class="pagination-item">
+                                <a href="javascript:void(0)" @click="handlePageClick(1)"><i class="fa fa-angle-double-right"></i></a>
+                            </li>
+                            <li class="pagination-item">
+                                <div class="pager-items-partition"></div>
+                            </li>
+                            <a 
+                            v-if="pagination.currentPage > 1 && pagination.currentPage < pagination.totalPages+1" 
+                            href="javascript:void(0)" 
+                            @click="handlePageClick((pagination.currentPage)-1)" 
+                            class="previous" 
+                            style="font-family: iranyekan">قبلی</a>
 
                             <li v-for="(num, i) in pagination.totalPages" :key="i" class="pagination-item">
                                 <a href="javascript:void(0)" @click="handlePageClick(i + 1)"
@@ -470,10 +482,18 @@
                                     {{ i + 1 }}
                                 </a>
                             </li>
+                            <a
+                             v-if="pagination.currentPage < pagination.totalPages" 
+                             href="javascript:void(0)" 
+                             @click="handlePageClick((pagination.currentPage)+1)" 
+                             class="Next"
+                             style="font-family: iranyekan">بعدی</a>
                             <li class="pagination-item">
                                 <div class="pager-items-partition"></div>
                             </li>
-                            <li class="pagination-item"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                            <li class="pagination-item">
+                                <a href="javascript:void(0)" @click="handlePageClick(pagination.totalPages)"><i class="fa fa-angle-double-left"></i></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
