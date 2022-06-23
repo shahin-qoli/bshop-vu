@@ -13,17 +13,53 @@
                 data-target="#carouselExampleIndicators"
                 data-slide-to="0"
                 class="active"
-              ></li>           
+              ></li>
+              <li
+                data-target="#carouselExampleIndicators"
+                data-slide-to="1"
+              ></li>
+              <li
+                data-target="#carouselExampleIndicators"
+                data-slide-to="2"
+              ></li>
+              <!-- <li
+                data-target="#carouselExampleIndicators"
+                data-slide-to="3"
+              ></li>
+              <li
+                data-target="#carouselExampleIndicators"
+                data-slide-to="4"
+              ></li> -->
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active" >
-                <img
-                  class="d-block w-100"
-                  src="/images/home/Tile_Shop.jpg"
-                  alt="Second slide"
-                  
-                />
-              </div>          
+                <a :href="`/c/${content.link_one}`">
+                  <img
+                    class="d-block w-100"
+                    :src="attrs.img_one_lg"
+                    alt="Second slide"
+                    
+                  />
+                </a>
+              </div>
+              <div class="carousel-item">
+                <a :href="`/c/${content.link_two}`">
+                  <img
+                    class="d-block w-100"
+                    :src="attrs.img_two_lg"
+                    alt="First slide"
+                  />
+                </a>
+              </div>
+              <div class="carousel-item">
+                <a :href="`/c/${content.link_three}`">
+                  <img
+                    class="d-block w-100"
+                    :src="attrs.img_three_lg"
+                    alt="Third slide"
+                  />
+                </a>
+              </div>
             </div>
             <a
               class="carousel-control-prev"
@@ -49,17 +85,58 @@
     </div>
     <div class="col-lg-4 col-md-4 col-xs-12 pull-left mt-5">
     <aside class="adplacement-container-column">
-        <a href="#" class="adplacement-item adplacement-item-column">
+        <a :href="sidePhoto2.attributes.link" class="adplacement-item adplacement-item-column">
             <div class="adplacement-sponsored-box">
-                <img src="/images/home/burux-1.jpg" alt="adplacement">
+                <img :src="sidePhoto1.attributes.img_one_lg" alt="adplacement">
             </div>
         </a>
-        <a href="#" class="adplacement-item adplacement-item-column">
+        <a :href="sidePhoto2.attributes.link" class="adplacement-item adplacement-item-column">
             <div class="adplacement-sponsored-box">
-                <img height="100%" src="images/home/burux-1.jpg" alt="adplacement">
+                <img :src="sidePhoto2.attributes.img_one_lg" height="100%" alt="adplacement">
             </div>
         </a>
     </aside>
     </div>
   </div>
 </template>
+<script>
+/*
+  {
+    attributes: {
+      content: {
+        link_one: string
+      },
+      img_one_lg: string
+      img_one_md: string
+      img_one_sm: string
+      img_one_xl: string
+    }
+  }
+*/
+export default {
+  props: {
+    gallery: {},
+    sidePhotos: {}
+  },
+  computed: {
+    attrs () {
+      const gallery = this.gallery || {}
+      return gallery.attributes || { content: {} }
+    },
+    content () {
+      return this.attrs.content || {}
+    },
+    sidePhoto1 () {
+      return this.sidePhotos.length ? this.sidePhotos[0] : {}
+    },
+    sidePhoto2 () {
+      return this.sidePhotos.length ? this.sidePhotos[1] : {}
+    }
+  },
+  methods: {
+    getSidePhotoContent (section) {
+      return section.attributes.content || {}
+    }
+  }
+}
+</script>
