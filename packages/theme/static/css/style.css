@@ -11234,7 +11234,7 @@ ul.faq-list li .footer em {
         top: -60px !important;
     }
     .widget-product .owl-carousel .owl-nav, .owl-next {
-        display: none;
+        display: block;
     }
     .card {
         /*        background: #f5f5f5;*/
