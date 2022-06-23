@@ -15,7 +15,7 @@ export const getCategoryTree = (categories: any): AgnosticCategoryTree => {
 };
 
 export const getCategoryBreadcrumbs = (category: Category): AgnosticBreadcrumb[] => {
-  const breadcrumbs = [{ text: 'Home', link: '/' }];
+  const breadcrumbs = [{ text: 'فروشگاه اینترنتی بروکس', link: '/' }];
 
   const buildBreadcrumbs = (category) => {
     if (category.parent) buildBreadcrumbs(category.parent);

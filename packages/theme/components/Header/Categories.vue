@@ -22,8 +22,8 @@
           <ul  
             v-for="(cat_lev3) in cat_lev2.items"
             :key="cat_lev3.id"
-            class="item-megamenu-item"> 
-            <a :href="cat_lev3.link" class="list-category-megamenu-3"
+            class="item-megamenu-item">
+            <a :href="'/c/'+cat_lev1.slug" class="list-category-megamenu-3"
               ><span style="color:grey">{{cat_lev3.name}}</span>
             </a>
           </ul>        

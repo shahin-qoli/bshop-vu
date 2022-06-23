@@ -314,6 +314,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+
 .all-orders {
   --button-padding: var(--spacer-base) 0;
 }

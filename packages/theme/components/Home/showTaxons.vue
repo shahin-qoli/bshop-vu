@@ -1,6 +1,6 @@
 <template>
 <div class="adplacement">
-    <div class="col-6 col-lg-3 pull-right" style="padding-left: 0">
+    <div class="col-6 col-lg-3 pull-right">
     
     <a :href="showSlug1" class="item-adplacement">
         <img
@@ -22,7 +22,7 @@
     </a>
     </div>
 
-    <div class="col-6 col-lg-3 pull-right" style="padding-left: 0">
+    <div class="col-6 col-lg-3 pull-right">
 
     <a :href="showSlug3" class="item-adplacement">
         <img

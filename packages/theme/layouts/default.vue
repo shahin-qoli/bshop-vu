@@ -4,6 +4,8 @@
     <div class="nav-categories-overlay"></div>
     <div class="overlay-search-box"></div>
     <Nuxt />
+    <Notification />
+    <Loader />
     <!--   slider-product-------------------->
     <App-Footer />
     <!--   Footer---------------------------->
@@ -28,6 +30,7 @@ import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import Notification from '~/components/Notification';
+import Loader from '~/components/Loader';
 import { onSSR } from '@vue-storefront/core';
 import { useRoute } from '@nuxtjs/composition-api';
 import { useCart, useStore, useUser, useWishlist } from '@vue-storefront/spree';
@@ -44,7 +47,8 @@ export default {
     CartSidebar,
     WishlistSidebar,
     LoginModal,
-    Notification
+    Notification,
+    Loader
   },
 
   setup() {
