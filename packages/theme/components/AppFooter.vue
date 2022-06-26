@@ -36,10 +36,13 @@
           <div class="footer-links">
             <div class="links-col">
               <a href="#" class="head-line">دسته بندی ها</a>
-              <ul class="links-ul">
-                <li><a href="#">نحوه ثبت سفارش</a></li>
-                <li><a href="#">رویه ارسال سفارش</a></li>
-                <li><a href="#">شیوه‌های پرداخت</a></li>
+              <ul class="links-ul" :style="{columns: menu.items.length>3 ? 2:1}" >
+                <li 
+                 v-for="(item,i) in menu.items"
+                 :key="i"
+                >
+                  <a :href="item.link">{{item.name}}</a>
+                </li>
               </ul>
             </div>
 
@@ -169,6 +172,7 @@ import { onMounted, ref} from '@nuxtjs/composition-api';
 import { useMenus } from '@vue-storefront/spree';
 import { onSSR } from '@vue-storefront/core';
 
+
 export default {
   components: {
     SfFooter,
@@ -195,7 +199,7 @@ export default {
     onMounted(() => menuSize.value = menu.value?.items?.length || 0);
 
     onSSR(async () => {
-      await loadMenu({menuType: 'footer', menuName: 'Footer menu', locale: locale});
+      await loadMenu({menuType: 'footer', menuName: 'Footer', locale: locale});
     });
 
     return {
