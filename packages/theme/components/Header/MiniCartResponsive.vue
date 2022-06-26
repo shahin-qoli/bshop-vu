@@ -1,7 +1,7 @@
 <template>
     <div class="mini-cart-header-responsive">
       <a href="/cart" style="color: #4a5f73">
-      <span class="mdi mdi-basket"></span>
+      <img class="header-basket" src="../../static/images/Header/Cart.png" alt="" />
       <CartDropdown />
       <span v-if="totalItems!==0" class="cart-count">{{$n(totalItems)}}</span>
       </a>

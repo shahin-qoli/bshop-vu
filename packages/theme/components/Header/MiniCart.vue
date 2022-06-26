@@ -1,7 +1,7 @@
 <template>
   <div class="mini-cart-header">
     <a href="/cart" style="color: #4a5f73">
-      <span class="mdi mdi-basket"></span>
+      <img class="header-basket-desktop" src="../../static/images/Header/Cart.png" alt="" />
       <span v-if="totalItems!==0" class="cart-count">{{$n(totalItems)}}</span>
     </a>
     <Cart-Dropdown />
@@ -17,11 +17,13 @@ export default {
     CartDropdown,
   },
 
-  setup() {
+  setup(prop) {
     const { cart, removeItem, updateItemQty, loading, load } = useCart();
     const products = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
+    console.log("cart")
+    console.log(cart)
     
     return {
       loading,
@@ -33,3 +35,9 @@ export default {
   }
 };
 </script>
+<style lang="css">
+.header-basket-desktop{
+  border: 1px solid #d7d7d9;
+  border-radius: 5px;
+}
+</style>

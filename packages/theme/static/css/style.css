@@ -11567,7 +11567,7 @@ ul.faq-list li .footer em {
         color: #fff;
         height: 20px;
         width: 20px;
-        background-color: #ef394e;
+        background-color: #0094D4;
         text-align: center;
         vertical-align: middle;
         border-radius: 6px;
@@ -12212,4 +12212,7 @@ ul.faq-list li .footer em {
 }
 nav.main-menu ul.new-list-menu li.item-list-menu .list-menu-level-2 .item-menu-2 .megamenu-level-3 {
     min-height: 300px;
+}
+span{
+    font-family: iranyekan;
 }
