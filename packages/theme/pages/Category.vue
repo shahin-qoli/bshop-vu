@@ -148,7 +148,7 @@
             </div>
             </div>
         
-            <div class="box-sidebar">
+<!--             <div class="box-sidebar">
                 <button class="btn btn-light btn-box-sidebar" type="button">دسته‌بندی </button>
                 <div class="catalog" :class="{ 'loading--categories': loading }"
                     :loading="loading">
@@ -169,7 +169,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
 
             <div class="box-sidebar">
                 <button class="btn btn-light btn-box-sidebar" type="button">
@@ -598,9 +598,8 @@ export default {
     const products = computed(() => facetGetters.getProducts(result.value));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value).map(e => ({...e, link: context.localePath(e.link)})));
     const pagination = computed(() => facetGetters.getPagination(result.value));
-    const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
+    // const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
     const sortBy = ref(facetGetters.getSortOptions(result.value))
-    console.log({ sortBy })
     const { locale } = context.app.i18n;
     const lengthProduct = products.length
 
@@ -623,7 +622,7 @@ export default {
         // await search(th.getFacetsFromURL());
         setTimeout(loadProducts)
     };
-    const activeCategory = computed(() => {
+/*     const activeCategory = computed(() => {
       const items = categoryTree.value.items;
 
       if (!items || !items.length) {
@@ -632,7 +631,7 @@ export default {
 
       const category = items.find(({ isCurrent, items }) => isCurrent || items.find(({ isCurrent }) => isCurrent));
       return category?.label || items[0]?.label;
-    });
+    }); */
 
     const isWishlistDisabled = computed(() => wishlistGetters.isWishlistDisabled(wishlist.value));
 
@@ -713,12 +712,12 @@ export default {
       result,
       th,
       products,
-      categoryTree,
+      // categoryTree,
       loading,
       result,
       productGetters,
       pagination,
-      activeCategory,
+      // activeCategory,
       breadcrumbs,
       addItemToCart,
       isInWishlist,

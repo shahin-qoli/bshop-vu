@@ -6,7 +6,15 @@ import { buildPriceFacet } from './price';
 const factoryParams = {
   search: async (context: Context, params: FacetSearchResult<SearchData>): Promise<SearchData> => {
     const searchParams = params.input as SearchParams;
-    const categories = await context.$spree.api.getCategory({ categorySlug: searchParams.categorySlug });
+    var categories = {
+      current: {
+        id: undefined
+      },
+      root: {}
+    }
+    if (searchParams.categorySlug) {
+      categories = await context.$spree.api.getCategory({ categorySlug: searchParams.categorySlug });
+    }
 
     const getProductsParams: GetProductsParams = {
       categoryId: categories.current?.id,

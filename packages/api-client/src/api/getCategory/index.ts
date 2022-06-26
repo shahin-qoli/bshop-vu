@@ -15,7 +15,7 @@ export default async function getCategory({ client }: ApiContext, { categorySlug
       const categories = deserializeCategories([data]);
 
       return {
-        root: findCategory(categories, categorySlug),
+        root: findCategory(categories, categorySlug || ''),
         current: findCategory(categories, categorySlug)
       };
     } catch (e) {
