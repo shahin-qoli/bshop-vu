@@ -1,48 +1,63 @@
 <template>
-<div class="adplacement">
-    <div class="col-6 col-lg-3 pull-right">
-    
-    <a :href="showSlug1" class="item-adplacement">
-        <img
-        src="images/home/bulbs.svg"
+<div class="home-category-items">
+  
+  
+    <a :href="showSlug1" class="home-category-item">
+    <div class="home-category-item-image">
+    <img 
+        src="images/home/BulbsTaxon.png"
         title="لامپ های حبابی"
-        alt="adplacement"
+        alt="BulbTaxons"
+        width="100%"
         />
-    </a>
     </div>
+        <span>لامپ های حبابی</span>
+    </a>
 
-    <div class="col-6 col-lg-3 pull-right">
 
-    <a :href="showSlug2" class="item-adplacement" >
-        <img
-        src="images/home/panel.svg"
+
+    <a :href="showSlug2" class="home-category-item" >
+    <div class="home-category-item-image">
+    <img
+        src="images/home/CeilingPanelTaxon.png"
         title="پنل های سقفی"
-        alt="adplacement"
+        alt="CeilingPanel"
+        width="100%"
         />
-    </a>
     </div>
+        <span>پنل های سقفی</span>
+    </a>
 
-    <div class="col-6 col-lg-3 pull-right">
 
-    <a :href="showSlug3" class="item-adplacement">
-        <img
-        src="images/home/candle.svg"
+
+
+    <a :href="showSlug3" class="home-category-item">
+    <div class="home-category-item-image">
+      <img
+        src="images/home/CandleTaxon.png"
         title="لامپ های شمعی"
-        alt="adplacement"
+        alt="CandleTaxon"
+        width="100%"
         />
-    </a>
     </div>
+        <span>لامپ های شمعی</span>
+    </a>
 
-    <div class="col-6 col-lg-3 pull-right">
 
-    <a :href="showSlug4" class="item-adplacement">
-        <img
-        src="images/home/abzar.svg"
+
+
+    <a :href="showSlug4" class="home-category-item">
+    <div class="home-category-item-image">
+      <img
+        src="images/home/ToolsTaxon.png"
         title="ابزار ها"
-        alt="adplacement"
+        alt="ToolsTaxon"
+        width="100%"
         />
-    </a>
     </div>
+        <span>ابزارها</span>
+    </a>
+
 
     <div class="product-feature-body">
     <div class="product-feature">
@@ -178,3 +193,41 @@ export default {
   },
 }
 </script>
+<style lang="css">
+.home-category-items{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+    top: 30px;
+}
+.home-category-item{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 160px;
+    min-height: 160px;
+
+}
+.home-category-item span{
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    font-size: 15px;
+}
+.home-category-item-image{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.home-category-item-image img{
+  width: 180px;
+    height: 180px;
+}
+</style>
