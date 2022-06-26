@@ -20,7 +20,7 @@
             </li>
             <li class="is-completed">
               <a
-                href="/checkout/payment"
+                href="javascript:void(0)"
                 class="checkout-steps-item active-link"
               >
                 <span>پرداخت</span>
@@ -28,7 +28,7 @@
             </li>
             <li class="is-active">
               <a
-                href="/checkout/complete"
+                href="javascript:void(0)"
                 class="checkout-steps-item active-link"
               >
                 <span>اتمام خرید و ارسال</span>

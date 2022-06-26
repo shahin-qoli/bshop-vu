@@ -3,7 +3,7 @@
     <header class="shopping-page">
       <div class="container">
         <div class="header-shopping-logo">
-          <a href="#"><img src="/images/home/BURUX.svg" alt="logo" /></a>
+          <a href="/"><img src="/images/home/BURUX.svg" alt="logo" /></a>
         </div>
       </div>
 
@@ -12,7 +12,7 @@
           <ul class="checkout-steps">
             <li class="is-completed is-completed-active">
               <a
-                href="/checkout/shipping"
+                href="javascript:void(0)"
                 class="checkout-steps-item-link active-link-shopping"
               >
                 <span>اطلاعات ارسال</span>
@@ -28,7 +28,7 @@
             </li>
             <li class="is-active">
               <a
-                href="/checkout/thank-you"
+                href="javascript:void(0)"
                 class="checkout-steps-item active-link"
               >
                 <span>اتمام خرید و ارسال</span>
@@ -207,7 +207,7 @@
           </div>
 
           <div class="checkout-actions">
-            <a href="/checkout/shipping" class="btn-link-spoiler"> « بازگشت به اطلاعات ارسال </a>
+<!--             <a href="/checkout/shipping" class="btn-link-spoiler"> « بازگشت به اطلاعات ارسال </a> -->
             <a href="javascript:void(0)" @click="processOrder" class="save-shipping-data">
               تایید و ادامه ثبت سفارش »
             </a>
