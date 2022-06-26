@@ -6,6 +6,7 @@
           <header class="card-header">
             <a :href="`/c/${taxon.attributes.permalink}`">
             <span class="title-one">{{ taxon.attributes.name }}</span>
+            <span class="home-product-slider-boxed">مشاهده بیشتر</span>
             </a>
           </header>
           <div
@@ -99,3 +100,11 @@ export default {
   },
 }
 </script>
+<style lang="css">
+.home-product-slider-boxed {
+  float: left;
+  border: 1px solid #0094D4 ;
+  border-radius: 8px;
+  width: 110px;
+}
+</style>
