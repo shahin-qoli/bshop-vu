@@ -11,17 +11,17 @@
             <div class="row">
                 <ul class="checkout-steps">
                     <li class="is-completed is-completed-active">
-                        <a href="shopping.html" class="checkout-steps-item-link active-link-shopping">
+                        <a href="javascript:void(0)" class="checkout-steps-item-link active-link-shopping">
                             <span>اطلاعات ارسال</span>
                         </a>
                     </li>
                     <li class="is-completed is-completed-active">
-                        <a href="shopping-payment.html" class="checkout-steps-item-link active-link-shopping">
+                        <a href="javascript:void(0)" class="checkout-steps-item-link active-link-shopping">
                             <span>پرداخت</span>
                         </a>
                     </li>
                     <li class="is-active">
-                        <a href="/shopping-complate-buy.html" class="checkout-steps-item-link active-link-shopping">
+                        <a href="javascript:void(0)" class="checkout-steps-item-link active-link-shopping">
                             <span>اتمام خرید و ارسال</span>
                         </a>
                     </li>
