@@ -92,7 +92,7 @@
                     <div class="checkout-order-summary-row">
                       <div class="checkout-order-summary-col-post-time">
                         مرسوله 1 از 1
-                        <span>({{cart.itemCount}} کالا)</span>
+                        <span v-if="cart">({{cart.itemCount}} کالا)</span>
                       </div>
                       <div class="checkout-order-summary-col-post-time">
                         زمان ارسال
@@ -100,7 +100,7 @@
                       </div>
                       <div class="checkout-order-summary-col-shipping-cost">
                         مبلغ مرسوله
-                        <span>{{ $n(300000) }} ریال</span>
+                        <span>{{ $n(cart.shipTotalAmount) }} ریال</span>
                       </div>
                     </div>
                   </header>
@@ -219,7 +219,7 @@
             <div class="checkout-summary">
               <ul class="checkout-summary-summary">
                 <li>
-                  <span>مبلغ کل ({{ $n(totalItems) }} کالا)</span>
+                  <span v-if="cart">مبلغ کل ({{ $n(cart.itemCount) }} کالا)</span>
                   <span>{{ $n(totals.subtotal) }} ریال</span>
                 </li>
                 <li>
@@ -400,7 +400,7 @@ import {
   SfLink,
 } from '@storefront-ui/vue';
 import { onSSR, Logger } from '@vue-storefront/core';
-import { ref, computed, useRouter } from '@nuxtjs/composition-api';
+import { ref, computed, useRouter, onMounted } from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
   useCart,
@@ -442,6 +442,9 @@ export default {
     const savePayment = ref(null);
     const terms = ref(false);
 
+    onMounted(async () => {
+      await load();
+    })
     onSSR(async () => {
       await load();
     });
