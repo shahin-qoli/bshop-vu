@@ -7,6 +7,9 @@ const findParent = (taxon, apiTaxons) => {
   const parentRelationship = taxon.relationships.parent;
   const parentId = parentRelationship.data.id;
   const parent = apiTaxons.find(taxon => taxon.id === parentId);
+  if (!parent) {
+    return undefined
+  }
 
   return {
     id: parent.id,

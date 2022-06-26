@@ -5,15 +5,17 @@ import { deserializeCategories } from '../serializers/category';
 const findCategory = (categories: Category[], slug: string) => categories.find(e => e.slug === slug);
 
 export default async function getCategory({ client }: ApiContext, { categorySlug }: GetCategoryParams): Promise<CategorySearchResult> {
-  const result = await client.taxons.list({ fields: { taxon: 'name,permalink,children,parent,is_root' }, per_page: 500 });
+  const result = await client.taxons.show(categorySlug, {
+    fields: { taxon: 'name,permalink,children,parent,is_root', }
+  })
 
   if (result.isSuccess()) {
     try {
       const data = result.success().data;
-      const categories = deserializeCategories(data);
+      const categories = deserializeCategories([data]);
 
       return {
-        root: findCategory(categories, 'mhswlt-rwshnyy'),
+        root: findCategory(categories, categorySlug),
         current: findCategory(categories, categorySlug)
       };
     } catch (e) {
