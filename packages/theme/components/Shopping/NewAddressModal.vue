@@ -50,7 +50,7 @@ export default {
   setup(_, { emit }) {
     const { states, loadStates } = useCountry();
     const { addAddress, shipping: savedAddressesObj ,error } = useUserShipping();
-    const errormessage=ref(" افزودن آدرس موفقیت آمیز نبود!");
+    const errormessage = ref(" افزودن آدرس موفقیت آمیز نبود!");
     const savedAddresses = computed(() => savedAddressesObj.value.addresses || [])
     const model = {
       country: 'IR'

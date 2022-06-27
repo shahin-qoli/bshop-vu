@@ -20,7 +20,7 @@
             </li>
             <li class="is-completed">
               <a
-                href="/checkout/payment"
+                href="javascript:void(0)"
                 class="checkout-steps-item active-link"
               >
                 <span>پرداخت</span>
@@ -28,7 +28,7 @@
             </li>
             <li class="is-active">
               <a
-                href="/checkout/complete"
+                href="javascript:void(0)"
                 class="checkout-steps-item active-link"
               >
                 <span>اتمام خرید و ارسال</span>
@@ -51,11 +51,18 @@
             <div class="headline-checkout-shopping">
               <span>آدرس تحویل سفارش</span>
             </div>
-            <Address-Form
+            <div
               v-if="!savedAddresses.length && !dataLoading"
-              v-model="form"
-              :states="states"
-            />
+            >
+              <Address-Form
+                v-model="form"
+                :states="states"
+              >
+                <div v-if="error.addAddress" class="text-center" style="color: #fc0303; font-family: iranyekan">
+                  {{ errormessage }}
+                </div>
+              </Address-Form>
+            </div>
             <Select-Address-Form
               v-else
               v-model="selectedSavedAddressId"
@@ -105,9 +112,6 @@
                           </div>
                           <ul class="action-description">
                             <li>پست پیشتاز با ظرفیت اختصاصی برای بروکس</li>
-                            <li class="package-shipping-cost">
-                              هزینه ارسال : {{$n(300000)}} ریال
-                            </li>
                           </ul>
                         </div>
                       </div>
@@ -150,18 +154,18 @@
           <div class="page-aside" style="margin-top: 95px">
             <div class="checkout-summary">
               <ul class="checkout-summary-summary">
-                <li>
+                <li class="border-bottom-0">
                   <span>مبلغ کل (۱ کالا)</span>
                   <span>
                     <span>
-                      {{$n(cartGetters.getTotals(cart).total) }}
+                      {{ $n(totals.subtotal) }}
                     </span>
                     <span>
                       ریال
                     </span>
                   </span>
                 </li>
-                <li>
+<!--                 <li>
                   <span>جمع</span>
                   <span>{{$n(cartGetters.getTotals(cart).total) }} ریال</span>
                 </li>
@@ -178,7 +182,7 @@
                 <li>
                   <span>مبلغ قابل پرداخت</span>
                   <span>{{$n(cartGetters.getTotals(cart).total+300000) }} ریال</span>
-                </li>
+                </li> -->
               </ul>
               <div class="checkout-to-shipping-sticky">
             <a
@@ -280,7 +284,7 @@ export default {
     const { countries, states, load: loadCountries, loadStates } = useCountry();
     const { shipping: checkoutShippingAddress, load, save, loading: shippingLoading } = useShipping();
     const { state: shipments, save: saveShipments, load: loadShipments } = useShippingProvider();
-    const { shipping: savedAddressesObj, load: loadSavedAddresses, addAddress, loading: userShippingLoading } = useUserShipping();
+    const { shipping: savedAddressesObj, load: loadSavedAddresses, addAddress, loading: userShippingLoading, error } = useUserShipping();
     const { isAuthenticated } = useUser();
     const { cart } = useCart();
     const billing = useBilling();
@@ -288,6 +292,7 @@ export default {
     const selectedSavedAddressId = ref('');
     const loading = ref(false)
     const dataLoading = ref(false)
+    const errormessage = ref(" افزودن آدرس موفقیت آمیز نبود!");
     const form = ref({
       email: '',
       firstName: '',
@@ -344,18 +349,27 @@ export default {
         ? selectedSavedAddress.value
         : form.value;
       loading.value = true
+      if (isSaveAddressSelected.value) {
+        await addAddress({ address: shippingAddress });
+        const newAddr = savedAddresses.value[savedAddresses.value.length - 1]
+        selectedSavedAddressId.value = newAddr._id
+      }
+      if (error.value.addAddress) {
+        if (error.value.addAddress.response && error.value.addAddress.response.data) {
+          errormessage.value = error.value.addAddress.response.data.summary.replace("is invalid","نامعتبر است");
+        }
+        loading.value = false
+        return
+      }
       await save({ shippingDetails: shippingAddress });
       if (isCopyToBillingSelected.value || true) {
         await billing.save({ billingDetails: shippingAddress });
       }
 
-      if (isSaveAddressSelected.value) {
-        await addAddress({ address: shippingAddress });
-      }
       await loadShipments()
       selectedShippingRates.value = shipments.value.reduce((prev, curr) => ({...prev, [curr.id]: null }), {});
       const defaultShipment = shipments.value[0]
-      selectShippingRate(defaultShipment.id, defaultShipment.availableShippingRates[1].id)
+      selectShippingRate(defaultShipment.id, defaultShipment.availableShippingRates[0].id)
       await saveShipments({
         shippingMethod: selectedShippingRates.value
       })
@@ -391,6 +405,7 @@ export default {
       // }
 
       // populateSelectedAddressId();
+      loadShipments()
     });
     onBeforeMount(async () => {
       dataLoading.value = true
@@ -440,6 +455,10 @@ export default {
       isAuthenticated,
       isStateRequired,
       form,
+      shipments,
+      totals: computed(() => cartGetters.getTotals(cart.value)),
+      errormessage,
+      error,
       countries,
       states,
       savedAddresses,

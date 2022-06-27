@@ -1,7 +1,7 @@
 <template>
   <a v-if="!isAuthenticated" href="/login" class="login-link">
-    <div class="btn-login">
-      <span class="mdi mdi-account"></span>
+    <div class="btn-login" dir="ltr">
+      <img src="../../static/images/Header/Person.png" />
       ورود به حساب کاربری
     </div>
   </a>

@@ -122,8 +122,8 @@
                 </div>
                 <div class="checkout-summary">
                   <ul class="checkout-summary-summary">
-                    <li><i class="fa fa-truck"></i>ارسال رایگان</li>
-                    <li>برای سفارش بالای {{$n(800000)}} تومان</li></ul>
+                    <li><i class="fa fa-truck"></i></li>
+                    <li></li></ul>
                 </div>
             </div>
         </div>

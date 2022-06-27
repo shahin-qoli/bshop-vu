@@ -2,7 +2,7 @@
 
     <a v-if="!isAuthenticated" href="/login" class="login-link">
     <div class="btn-login-responsive">
-      <span class="mdi mdi-account"></span>
+      <img src="../../static/images/Header/Person.png" />
     </div>
   </a>
   <a v-else href="#" class="login-link">
