@@ -1,6 +1,6 @@
 <template>
 
-    <a v-if="!isAuthenticated" href="login" class="login-link">
+    <a v-if="!isAuthenticated" href="/login" class="login-link">
     <div class="btn-login-responsive">
       <span class="mdi mdi-account"></span>
     </div>
